@@ -566,7 +566,7 @@ def adatta(html, profondita):
     """Wurzelbezogene Pfade in relative umschreiben.
     profondita 0 = Startseite, 1 = Unterseite, 2 = Unterseite einer Sprache."""
     p = "../" * profondita
-    html = re.sub(r'(href|src|data-vai)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
+    html = re.sub(r'(href|src|poster|data-vai)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
     # srcset und data-srcset tragen mehrere Adressen in einer Zeichenkette —
     # die fasst der Ausdruck oben nicht. Hier jede einzeln.
     html = re.sub(r'(srcset)="([^"]*)"',
@@ -664,7 +664,7 @@ def main():
               if "sorgenti" not in f.parts]
     for f in pagine:
         testo = f.read_text(encoding="utf-8")
-        for m in re.finditer(r'(?:href|src|srcset|data-src|data-srcset|data-vai)="[^"]*?"', testo):
+        for m in re.finditer(r'(?:href|src|srcset|poster|data-src|data-srcset|data-vai)="[^"]*?"', testo):
             if re.search(r'="/(?!/)|,\s*/assets/|"/assets/', m.group(0)):
                 resti.append(f"{f.relative_to(W)}: {m.group(0)[:70]}")
     if resti:
