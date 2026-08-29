@@ -1,0 +1,13 @@
+{
+  "name": "Cavaleri Srl",
+  "short_name": "Cavaleri",
+  "description": "Trasporti nazionali e internazionali, logistica e ingrosso materiale edile.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#0b1b45",
+  "icons": [
+    { "src": "/assets/marke/icona-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/marke/icona-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

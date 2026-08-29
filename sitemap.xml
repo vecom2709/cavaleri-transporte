@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.cavaleri.it/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.cavaleri.it/azienda/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/trasporti/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/edilizia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/rotta/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/gallery/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/contatti/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/preventivo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/note-legali/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

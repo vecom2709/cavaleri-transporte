@@ -1,0 +1,494 @@
+{
+ "aeroporto": {
+  "w": 944,
+  "h": 1680,
+  "fonti": {
+   "avif": [
+    [
+     "aeroporto-640.avif",
+     640
+    ],
+    [
+     "aeroporto-944.avif",
+     944
+    ]
+   ],
+   "webp": [
+    [
+     "aeroporto-640.webp",
+     640
+    ],
+    [
+     "aeroporto-944.webp",
+     944
+    ]
+   ],
+   "jpg": [
+    [
+     "aeroporto-640.jpg",
+     640
+    ],
+    [
+     "aeroporto-944.jpg",
+     944
+    ]
+   ]
+  }
+ },
+ "daf-piazzale": {
+  "w": 1152,
+  "h": 2048,
+  "fonti": {
+   "avif": [
+    [
+     "daf-piazzale-640.avif",
+     640
+    ],
+    [
+     "daf-piazzale-1000.avif",
+     1000
+    ],
+    [
+     "daf-piazzale-1152.avif",
+     1152
+    ]
+   ],
+   "webp": [
+    [
+     "daf-piazzale-640.webp",
+     640
+    ],
+    [
+     "daf-piazzale-1000.webp",
+     1000
+    ],
+    [
+     "daf-piazzale-1152.webp",
+     1152
+    ]
+   ],
+   "jpg": [
+    [
+     "daf-piazzale-640.jpg",
+     640
+    ],
+    [
+     "daf-piazzale-1000.jpg",
+     1000
+    ],
+    [
+     "daf-piazzale-1152.jpg",
+     1152
+    ]
+   ]
+  }
+ },
+ "flotta-schierata": {
+  "w": 1152,
+  "h": 2048,
+  "fonti": {
+   "avif": [
+    [
+     "flotta-schierata-640.avif",
+     640
+    ],
+    [
+     "flotta-schierata-1000.avif",
+     1000
+    ],
+    [
+     "flotta-schierata-1152.avif",
+     1152
+    ]
+   ],
+   "webp": [
+    [
+     "flotta-schierata-640.webp",
+     640
+    ],
+    [
+     "flotta-schierata-1000.webp",
+     1000
+    ],
+    [
+     "flotta-schierata-1152.webp",
+     1152
+    ]
+   ],
+   "jpg": [
+    [
+     "flotta-schierata-640.jpg",
+     640
+    ],
+    [
+     "flotta-schierata-1000.jpg",
+     1000
+    ],
+    [
+     "flotta-schierata-1152.jpg",
+     1152
+    ]
+   ]
+  }
+ },
+ "hero": {
+  "w": 2040,
+  "h": 1536,
+  "fonti": {
+   "avif": [
+    [
+     "hero-1000.avif",
+     1000
+    ],
+    [
+     "hero-1600.avif",
+     1600
+    ],
+    [
+     "hero-2040.avif",
+     2040
+    ]
+   ],
+   "webp": [
+    [
+     "hero-1000.webp",
+     1000
+    ],
+    [
+     "hero-1600.webp",
+     1600
+    ],
+    [
+     "hero-2040.webp",
+     2040
+    ]
+   ],
+   "jpg": [
+    [
+     "hero-1000.jpg",
+     1000
+    ],
+    [
+     "hero-1600.jpg",
+     1600
+    ],
+    [
+     "hero-2040.jpg",
+     2040
+    ]
+   ]
+  }
+ },
+ "imbarco": {
+  "w": 1500,
+  "h": 843,
+  "fonti": {
+   "avif": [
+    [
+     "imbarco-640.avif",
+     640
+    ],
+    [
+     "imbarco-1000.avif",
+     1000
+    ],
+    [
+     "imbarco-1500.avif",
+     1500
+    ]
+   ],
+   "webp": [
+    [
+     "imbarco-640.webp",
+     640
+    ],
+    [
+     "imbarco-1000.webp",
+     1000
+    ],
+    [
+     "imbarco-1500.webp",
+     1500
+    ]
+   ],
+   "jpg": [
+    [
+     "imbarco-640.jpg",
+     640
+    ],
+    [
+     "imbarco-1000.jpg",
+     1000
+    ],
+    [
+     "imbarco-1500.jpg",
+     1500
+    ]
+   ]
+  }
+ },
+ "nave-grimaldi": {
+  "w": 1500,
+  "h": 842,
+  "fonti": {
+   "avif": [
+    [
+     "nave-grimaldi-640.avif",
+     640
+    ],
+    [
+     "nave-grimaldi-1000.avif",
+     1000
+    ],
+    [
+     "nave-grimaldi-1500.avif",
+     1500
+    ]
+   ],
+   "webp": [
+    [
+     "nave-grimaldi-640.webp",
+     640
+    ],
+    [
+     "nave-grimaldi-1000.webp",
+     1000
+    ],
+    [
+     "nave-grimaldi-1500.webp",
+     1500
+    ]
+   ],
+   "jpg": [
+    [
+     "nave-grimaldi-640.jpg",
+     640
+    ],
+    [
+     "nave-grimaldi-1000.jpg",
+     1000
+    ],
+    [
+     "nave-grimaldi-1500.jpg",
+     1500
+    ]
+   ]
+  }
+ },
+ "og-cavaleri": {
+  "w": 1200,
+  "h": 630,
+  "fonti": {
+   "avif": [
+    [
+     "og-cavaleri-1200.avif",
+     1200
+    ]
+   ],
+   "webp": [
+    [
+     "og-cavaleri-1200.webp",
+     1200
+    ]
+   ],
+   "jpg": [
+    [
+     "og-cavaleri-1200.jpg",
+     1200
+    ]
+   ]
+  }
+ },
+ "ribaltabile": {
+  "w": 1500,
+  "h": 2000,
+  "fonti": {
+   "avif": [
+    [
+     "ribaltabile-640.avif",
+     640
+    ],
+    [
+     "ribaltabile-1000.avif",
+     1000
+    ],
+    [
+     "ribaltabile-1500.avif",
+     1500
+    ]
+   ],
+   "webp": [
+    [
+     "ribaltabile-640.webp",
+     640
+    ],
+    [
+     "ribaltabile-1000.webp",
+     1000
+    ],
+    [
+     "ribaltabile-1500.webp",
+     1500
+    ]
+   ],
+   "jpg": [
+    [
+     "ribaltabile-640.jpg",
+     640
+    ],
+    [
+     "ribaltabile-1000.jpg",
+     1000
+    ],
+    [
+     "ribaltabile-1500.jpg",
+     1500
+    ]
+   ]
+  }
+ },
+ "ribaltabili-toscana": {
+  "w": 1500,
+  "h": 758,
+  "fonti": {
+   "avif": [
+    [
+     "ribaltabili-toscana-640.avif",
+     640
+    ],
+    [
+     "ribaltabili-toscana-1000.avif",
+     1000
+    ],
+    [
+     "ribaltabili-toscana-1500.avif",
+     1500
+    ]
+   ],
+   "webp": [
+    [
+     "ribaltabili-toscana-640.webp",
+     640
+    ],
+    [
+     "ribaltabili-toscana-1000.webp",
+     1000
+    ],
+    [
+     "ribaltabili-toscana-1500.webp",
+     1500
+    ]
+   ],
+   "jpg": [
+    [
+     "ribaltabili-toscana-640.jpg",
+     640
+    ],
+    [
+     "ribaltabili-toscana-1000.jpg",
+     1000
+    ],
+    [
+     "ribaltabili-toscana-1500.jpg",
+     1500
+    ]
+   ]
+  }
+ },
+ "rimorchio-kogel": {
+  "w": 1152,
+  "h": 2048,
+  "fonti": {
+   "avif": [
+    [
+     "rimorchio-kogel-640.avif",
+     640
+    ],
+    [
+     "rimorchio-kogel-1000.avif",
+     1000
+    ],
+    [
+     "rimorchio-kogel-1152.avif",
+     1152
+    ]
+   ],
+   "webp": [
+    [
+     "rimorchio-kogel-640.webp",
+     640
+    ],
+    [
+     "rimorchio-kogel-1000.webp",
+     1000
+    ],
+    [
+     "rimorchio-kogel-1152.webp",
+     1152
+    ]
+   ],
+   "jpg": [
+    [
+     "rimorchio-kogel-640.jpg",
+     640
+    ],
+    [
+     "rimorchio-kogel-1000.jpg",
+     1000
+    ],
+    [
+     "rimorchio-kogel-1152.jpg",
+     1152
+    ]
+   ]
+  }
+ },
+ "rimorchio-krone": {
+  "w": 1152,
+  "h": 2048,
+  "fonti": {
+   "avif": [
+    [
+     "rimorchio-krone-640.avif",
+     640
+    ],
+    [
+     "rimorchio-krone-1000.avif",
+     1000
+    ],
+    [
+     "rimorchio-krone-1152.avif",
+     1152
+    ]
+   ],
+   "webp": [
+    [
+     "rimorchio-krone-640.webp",
+     640
+    ],
+    [
+     "rimorchio-krone-1000.webp",
+     1000
+    ],
+    [
+     "rimorchio-krone-1152.webp",
+     1152
+    ]
+   ],
+   "jpg": [
+    [
+     "rimorchio-krone-640.jpg",
+     640
+    ],
+    [
+     "rimorchio-krone-1000.jpg",
+     1000
+    ],
+    [
+     "rimorchio-krone-1152.jpg",
+     1152
+    ]
+   ]
+  }
+ }
+}

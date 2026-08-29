@@ -1,0 +1,5 @@
+# Zwischenstände und Systemdateien
+.DS_Store
+Thumbs.db
+*.log
+__pycache__/
