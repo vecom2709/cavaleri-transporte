@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 18: das echte Logo)
+# Cavaleri Srl — Übergabe (Stand 19: geografisch richtige Karte)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -78,6 +78,37 @@ kleinste passende Datei, und beim Laden springt nichts.
 AVIF spart gegenüber JPEG rund ein Drittel (Kopfbild 235 statt 371 KB).
 Neue Fotos: nach `assets/foto/originali/` legen, `python3 immagini.py`, dann
 `python3 build.py`.
+
+## Die Karte
+Vorher stand ein abstraktes Streckendiagramm vor einem erzeugten Kartenbild —
+die Punkte lagen dadurch an falschen Orten: „Caltanissetta" westlich von Sizilien,
+„Sizilien" über Sardinien, „Europa" über Kroatien.
+
+Jetzt ist die Karte echt. `mappa.py` zeichnet sie aus **Natural Earth 1:50 Mio.**
+(gemeinfreie Kartendaten), Mercator-Projektion, Ausschnitt 7,0°–19,2° Ost und
+35,4°–47,9° Nord. Die Stationen stehen an ihren tatsächlichen Koordinaten:
+
+| Station | Koordinaten | Ort |
+|---|---|---|
+| Caltanissetta · Hub | 37,490 N / 14,062 O | Sitz |
+| Sicilia | 38,115 N / 13,361 O | Palermo, Verladehafen |
+| Centro-Nord | 44,494 N / 11,343 O | Bologna |
+| Europa | 47,270 N / 9,600 O | Alpenrand |
+
+Der Streckenverlauf führt über echte Zwischenpunkte (Tyrrhenisches Meer, Livorno,
+Bologna, Mailand). Die Herkunftszeile unter der Karte sagt das auch: Küstenlinien
+aus Natural Earth, Stationen an realen Koordinaten, Verlauf vereinfacht und keine
+Seeroute.
+
+Die mitlaufende Karte auf `/rotta/` benutzt denselben Verlauf in derselben
+Projektion — beide Karten zeigen dieselbe Wirklichkeit.
+
+Karte neu erzeugen (etwa nach geänderten Stationen): `python3 mappa.py`, dann
+`python3 build.py`. Die Datei `ne50.json` mit den Kartendaten wird einmalig
+geladen von `raw.githubusercontent.com/nvkelso/natural-earth-vector`.
+
+Das erzeugte Kartenbild `mappa-mediterraneo-*` ist entfallen — es war der Grund
+für die falschen Positionen.
 
 ## Scrollytelling: was wo passiert
 - **Startseite** — Kopfbild als Folge; ganzflächige Aussage über der nächtlichen

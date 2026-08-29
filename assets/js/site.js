@@ -142,7 +142,7 @@
   }
 
   /* ---------- 6. Kartenlinie: Länge messen, damit sie sauber zeichnet --- */
-  document.querySelectorAll(".percorso").forEach(p => {
+  document.querySelectorAll(".percorso, .tratto-rotta").forEach(p => {
     const l = p.getTotalLength();
     p.style.setProperty("--len", l);
   });

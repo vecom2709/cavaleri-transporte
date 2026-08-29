@@ -39,7 +39,7 @@
         const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         c.setAttribute("cx", p.x);
         c.setAttribute("cy", p.y);
-        c.setAttribute("r", 4);
+        c.setAttribute("r", 22);
         c.setAttribute("class", "punto");
         gruppo.appendChild(c);
         return { q, el: c };

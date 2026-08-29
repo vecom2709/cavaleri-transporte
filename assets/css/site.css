@@ -247,22 +247,18 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .rotta{ display:grid; gap:clamp(40px,5vw,var(--s7)); align-items:center; }
 @media(min-width:960px){ .rotta{ grid-template-columns:.85fr 1.15fr; } }
 .mappa{ position:relative; }
-.mappa svg{ width:100%; height:auto; }
-.griglia line{ stroke:var(--linea-scura); stroke-width:1; }
-.percorso{
-  fill:none; stroke:#8fb6ff; stroke-width:2.5; stroke-linecap:round;
-  stroke-dasharray:var(--len); stroke-dashoffset:var(--len);
-}
-.visibile .percorso{ animation:traccia 2.6s var(--ease) forwards; }
+
+
+
 @keyframes traccia{ to{ stroke-dashoffset:0; } }
-.nodo circle{ fill:var(--blu-scuro); stroke:#8fb6ff; stroke-width:2; }
-.nodo text{ font-family:var(--testo); font-size:12px; fill:#e6ecf8; letter-spacing:.06em; }
-.nodo--hub circle{ fill:#8fb6ff; }
-.visibile .nodo{ opacity:0; animation:entra .7s var(--ease) forwards; }
-.visibile .nodo:nth-of-type(1){ animation-delay:.3s; }
-.visibile .nodo:nth-of-type(2){ animation-delay:.9s; }
-.visibile .nodo:nth-of-type(3){ animation-delay:1.5s; }
-.visibile .nodo:nth-of-type(4){ animation-delay:2.1s; }
+
+
+
+
+
+
+
+
 .pulsa{ transform-origin:center; animation:pulsa 2.6s ease-in-out infinite; }
 @keyframes pulsa{ 0%,100%{ opacity:.5; r:9; } 50%{ opacity:0; r:22; } }
 
@@ -357,8 +353,8 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   .hero h1 .riga > span{ transform:none; }
   .hero .entra{ opacity:1; }
   .rivela{ opacity:1; transform:none; }
-  .percorso{ stroke-dashoffset:0; }
-  .visibile .nodo{ opacity:1; }
+  
+  
 }
 
 /* =========================================================================
@@ -590,18 +586,8 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 /* Kartenbild hinter dem Streckendiagramm: nur Atmosphäre. Die Aussage der
    Sektion trägt das SVG davor, nicht die gezeichnete Küstenlinie. */
 .mappa{ isolation:isolate; }
-.mappa .carta{
-  position:absolute; inset:-6% -4%; z-index:0; border-radius:4px;
-  opacity:.42; pointer-events:none;
-  -webkit-mask-image:radial-gradient(72% 72% at 50% 50%, #000 55%, transparent 100%);
-          mask-image:radial-gradient(72% 72% at 50% 50%, #000 55%, transparent 100%);
-  background-repeat:no-repeat; background-position:center; background-size:cover;
-  background-image:url("../grafica/mappa-mediterraneo-1600.jpg");
-  background-image:image-set(
-    url("../grafica/mappa-mediterraneo-1600.avif") type("image/avif"),
-    url("../grafica/mappa-mediterraneo-1600.webp") type("image/webp"));
-}
-.mappa svg{ position:relative; z-index:1; }
+
+
 
 /* Linienraster auf dunklen Flächen: sehr leise, nur Materialität. */
 .intro::before, .invito::before, .sfondo-blu.riga-sopra::before{
@@ -753,7 +739,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
    ========================================================================= */
 .mappa-viva{
   position:absolute; z-index:3; right:clamp(16px,3vw,48px); bottom:clamp(16px,4vh,56px);
-  width:clamp(120px,15vw,200px);
+  width:clamp(104px,11vw,150px);
   padding:14px 14px 10px; border-radius:6px;
   background:rgba(6,14,36,.52); backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.14);
@@ -761,19 +747,19 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 }
 .mappa-viva svg{ width:100%; height:auto; display:block; overflow:visible; }
 .mappa-viva .scia{
-  fill:none; stroke:rgba(255,255,255,.22); stroke-width:2; stroke-linecap:round;
+  fill:none; stroke:rgba(255,255,255,.22); stroke-width:14; stroke-linecap:round;
 }
 .mappa-viva .tracciato{
-  fill:none; stroke:#8fb6ff; stroke-width:2.5; stroke-linecap:round;
+  fill:none; stroke:#8fb6ff; stroke-width:16; stroke-linecap:round;
   stroke-dasharray:var(--len,1000); stroke-dashoffset:var(--len,1000);
   filter:drop-shadow(0 0 5px rgba(143,182,255,.7));
 }
 .mappa-viva .punto{
-  fill:#0b1b45; stroke:rgba(255,255,255,.35); stroke-width:1.5;
+  fill:#0b1b45; stroke:rgba(255,255,255,.45); stroke-width:9;
   transition:fill .5s var(--ease), stroke .5s var(--ease), r .5s var(--ease);
 }
 .mappa-viva .punto.raggiunto{ fill:#8fb6ff; stroke:#8fb6ff; }
-.mappa-viva .punto.qui{ r:6; stroke:#fff; }
+.mappa-viva .punto.qui{ r:32; stroke:#fff; }
 .mappa-viva .viaggiatore{
   fill:#fff; filter:drop-shadow(0 0 8px rgba(143,182,255,.95));
 }
@@ -1204,3 +1190,47 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 @media(max-width:560px){ .logo-piede{ height:52px; width:calc(52px * 3.445); } }
 .piede .riga{ align-items:flex-end; }
 .piede .colonna-marchio{ display:flex; flex-direction:column; }
+
+/* =========================================================================
+   Karte der Route: echte Küstenlinien (Natural Earth 1:50 Mio.),
+   Stationen an ihren tatsächlichen Koordinaten. Erzeugt von mappa.py.
+   ========================================================================= */
+.mappa svg{
+  width:100%; height:auto; display:block; overflow:hidden;
+  max-height:min(84vh, 940px);      /* sonst ragt die Karte aus dem Abschnitt */
+}
+@media(max-width:900px){ .mappa svg{ max-height:min(70vh, 620px); } }
+.carta-rotta .coste path{
+  fill:rgba(24,52,120,.55); stroke:#8fb6ff; stroke-width:1.4;
+  stroke-linejoin:round; opacity:.5;
+}
+.carta-rotta .scia-rotta{ fill:none; stroke:#fff; stroke-width:11; opacity:.12; }
+.carta-rotta .tratto-rotta{
+  fill:none; stroke:#8fb6ff; stroke-width:5.5; stroke-linecap:round;
+  stroke-dasharray:var(--len,4000); stroke-dashoffset:var(--len,4000);
+  filter:drop-shadow(0 0 8px rgba(143,182,255,.55));
+}
+.visibile .carta-rotta .tratto-rotta{ animation:traccia 3s var(--ease) forwards; }
+.carta-rotta .nodo-rotta circle{ fill:var(--blu-scuro); stroke:#fff; stroke-width:4; }
+.carta-rotta .nodo-rotta.hub circle{ fill:#8fb6ff; stroke:#fff; }
+.carta-rotta .nodo-rotta .alone{
+  fill:#8fb6ff; stroke:none; opacity:.28;
+  animation:pulsa-carta 3s ease-in-out infinite; transform-origin:center;
+}
+@keyframes pulsa-carta{ 0%,100%{ opacity:.28; } 50%{ opacity:.05; } }
+.carta-rotta .nodi-rotta{ overflow:visible; }
+.carta-rotta text{
+  font-family:var(--testo); font-size:26px; font-weight:500;
+  fill:#eaf1ff; letter-spacing:.02em; paint-order:stroke;
+  stroke:rgba(9,21,58,.75); stroke-width:5px; stroke-linejoin:round;
+}
+.visibile .carta-rotta .nodo-rotta{ opacity:0; animation:entra .8s var(--ease) forwards; }
+.visibile .carta-rotta .nodo-rotta:nth-of-type(1){ animation-delay:.4s; }
+.visibile .carta-rotta .nodo-rotta:nth-of-type(2){ animation-delay:1s; }
+.visibile .carta-rotta .nodo-rotta:nth-of-type(3){ animation-delay:1.9s; }
+.visibile .carta-rotta .nodo-rotta:nth-of-type(4){ animation-delay:2.6s; }
+@media(prefers-reduced-motion:reduce){
+  .carta-rotta .tratto-rotta{ stroke-dashoffset:0 !important; animation:none; }
+  .visibile .carta-rotta .nodo-rotta{ opacity:1; animation:none; }
+  .carta-rotta .nodo-rotta .alone{ animation:none; }
+}

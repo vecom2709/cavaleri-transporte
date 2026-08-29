@@ -25,6 +25,9 @@ CONTROLLO = """() => {
   const out = { overflow: [], tocchi: [], piccoli: [], larghezza: document.documentElement.scrollWidth };
   const vw = document.documentElement.clientWidth;
   document.querySelectorAll('body *').forEach(el => {
+    // Innereien von SVG werden übersprungen: sie werden vom svg beschnitten,
+    // melden aber trotzdem ihre volle Ausdehnung.
+    if (el.ownerSVGElement) return;
     const r = el.getBoundingClientRect();
     if (r.width === 0 || r.height === 0) return;
     const st = getComputedStyle(el);
