@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 10: Route als Scrollytelling)
+# Cavaleri Srl — Übergabe (Stand 11: Kopfbild als Folge)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -127,6 +127,21 @@ weggeschnitten.
 `assets/marke/cavaleri-marchio.svg` ist jetzt ein Nachbau nach den Fahrzeugfotos
 (Raute mit Verlauf, blaues C). Liegt die Vektordatei des Originals vor, ersetzt sie
 diese Datei unter demselben Namen.
+
+## Kopfbild als Folge
+Drei Aufnahmen lösen sich im Kopf der Startseite ab — Hof, Verladung, Festland,
+dieselbe Reihenfolge wie die Route. Sieben Sekunden je Bild, zwei Sekunden
+Überblendung, dazu eine langsame Vergrößerung.
+
+Damit das nichts kostet: nur die erste Aufnahme steht im Markup mit `src`, die
+beiden anderen tragen `data-src` und werden erst 700 ms nach dem `load`-Ereignis
+nachgezogen. `loading="lazy"` hätte hier nichts gebracht — die Bilder liegen im
+sichtbaren Bereich, und die holt der Browser trotzdem sofort. Ohne JavaScript
+bleibt die erste Aufnahme stehen, ohne Fehlerbild.
+
+Andere Aufnahmen einsetzen: in `sorgenti/index.html` im Block `.hero-scena`.
+Bei mehr als drei Bildern müssen in `site.css` die Werte in `@keyframes sequenza`
+und die `animation-delay`-Stufen angepasst werden.
 
 ## Tiefe beim Scrollen
 `assets/js/parallasse.js` bewegt Bildebenen langsamer als die Seite. Ein einziger

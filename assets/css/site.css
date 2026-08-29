@@ -841,3 +841,48 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 }
 @media(max-width:380px){ .mappa-viva{ width:72px; bottom:12px; } }
 .mappa-viva .etichetta{ font-size:.72rem; letter-spacing:.1em; }
+
+/* =========================================================================
+   Kopfbild als Folge: drei Aufnahmen, langsam ineinander
+   Hof — Verladung — Festland. Dieselbe Reihenfolge wie die Route.
+   ========================================================================= */
+.hero-scena{ position:absolute; inset:0; z-index:-1; }
+.hero-foto{ position:absolute; inset:0; display:block; }
+.hero-foto img{
+  width:100%; height:100%; object-fit:cover;
+  opacity:.5; filter:grayscale(.2) contrast(1.05) brightness(.85);
+  animation:none;                      /* der alte Einzel-Zoom entfällt */
+}
+/* Bis die Folge startet, liegt nur die erste Aufnahme sichtbar oben. */
+.hero-foto:not(:first-child){ opacity:0; }
+
+.hero-scena.in-corso .hero-foto{
+  animation:sequenza 21s var(--ease) infinite;
+}
+.hero-scena.in-corso .hero-foto:nth-child(2){ animation-delay:7s; }
+.hero-scena.in-corso .hero-foto:nth-child(3){ animation-delay:14s; }
+.hero-scena.in-corso .hero-foto img{
+  animation:derivare 21s linear infinite;
+}
+.hero-scena.in-corso .hero-foto:nth-child(2) img{ animation-delay:7s; }
+.hero-scena.in-corso .hero-foto:nth-child(3) img{ animation-delay:14s; }
+
+/* 7 s sichtbar, 2 s Überblendung, dann wartet die Ebene im Hintergrund. */
+@keyframes sequenza{
+  0%    { opacity:0; }
+  4%    { opacity:1; }
+  33%   { opacity:1; }
+  38%   { opacity:0; }
+  100%  { opacity:0; }
+}
+@keyframes derivare{
+  0%   { transform:scale(1.04); }
+  40%  { transform:scale(1.11); }
+  100% { transform:scale(1.11); }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-scena.in-corso .hero-foto,
+  .hero-scena.in-corso .hero-foto img{ animation:none; }
+  .hero-foto:not(:first-child){ opacity:0; }
+}

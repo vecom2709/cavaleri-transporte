@@ -148,7 +148,35 @@
     etichetta();
   }
 
-  /* ---------- 8. Foto-Fallback ------------------------------------------
+  /* ---------- 8. Kopfbild als Folge -------------------------------------
+     Die Folge startet erst, wenn die zweite Aufnahme geladen ist. Vorher
+     bleibt die erste stehen — so verzögert nichts den ersten Bildaufbau. */
+  const scena = document.querySelector(".hero-scena");
+  if (scena && !ridotto) {
+    const altre = [...scena.querySelectorAll(".hero-foto img")].slice(1);
+    const pronte = altre.map(i => new Promise(r => {
+      if (i.complete && i.naturalWidth) return r();
+      i.addEventListener("load", r, { once: true });
+      i.addEventListener("error", r, { once: true });
+    }));
+    const parti = () => scena.classList.add("in-corso");
+    if (altre.length) {
+      // Erst nachladen, wenn die Seite steht — die erste Aufnahme soll den
+      // Bildaufbau nicht mit zwei weiteren teilen.
+      const carica = () => {
+        scena.querySelectorAll("source[data-srcset]").forEach(s => {
+          s.type = s.dataset.tipo; s.srcset = s.dataset.srcset;
+        });
+        altre.forEach(i => { if (i.dataset.src) i.src = i.dataset.src; });
+        Promise.all(pronte).then(parti);
+        setTimeout(parti, 6000);        // Notbremse bei zäher Verbindung
+      };
+      if (document.readyState === "complete") setTimeout(carica, 700);
+      else addEventListener("load", () => setTimeout(carica, 700), { once: true });
+    }
+  }
+
+  /* ---------- 9. Foto-Fallback ------------------------------------------
      Fehlt ein Bild, bleibt die prozedurale Nachtszene stehen — kein
      kaputtes Bildsymbol, kein Sprung im Layout.                          */
   document.querySelectorAll("img[data-facoltativa]").forEach(img => {

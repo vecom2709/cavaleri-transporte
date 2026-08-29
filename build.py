@@ -505,7 +505,7 @@ def incorpora_media(html):
     def img(m):
         tag = m.group(0)
         nome = re.search(r"assets/foto/([\w-]+?)(?:-\d+)?\.jpg", tag).group(1)
-        larga = 1100 if nome == "hero" else 620
+        larga = 1100 if nome in ("hero", "imbarco", "ribaltabili-toscana") else 620
         usati[nome] = dato(nome, larga)
         tag = re.sub(r'src="[^"]*"', 'src="%s" data-foto="%s"' % (vuoto, nome), tag)
         return tag
