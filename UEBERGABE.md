@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 13: Vorschau in voller Qualität)
+# Cavaleri Srl — Übergabe (Stand 14: Pfadfehler behoben und abgesichert)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -127,6 +127,23 @@ weggeschnitten.
 `assets/marke/cavaleri-marchio.svg` ist jetzt ein Nachbau nach den Fahrzeugfotos
 (Raute mit Verlauf, blaues C). Liegt die Vektordatei des Originals vor, ersetzt sie
 diese Datei unter demselben Namen.
+
+## Pfade: zwei Fallen, beide jetzt abgesichert
+Die Seite läuft mit relativen Pfaden, damit sie in jedem Verzeichnis funktioniert.
+Beim Umstellen sind zwei Attribute durchgerutscht:
+
+1. **`srcset`** — die Ersetzung fasste nur `href`, `src` und `data-vai`. In
+   `srcset` stehen mehrere Adressen in einer Zeichenkette, die blieben
+   wurzelbezogen. Folge: unter GitHub Pages lieferten **alle AVIF- und
+   WebP-Bilder 404**, weil sie unter der Domainwurzel gesucht wurden statt im
+   Projektverzeichnis. Sichtbar war nur noch das JPEG — und wo der Browser die
+   AVIF-Quelle bereits gewählt hatte, gar kein Bild.
+2. **`poster`** des Videos — stand in der Quelle ohne führenden Schrägstrich und
+   entzog sich damit der Umschreibung. In `/de/` und `/en/` fehlte das Standbild.
+
+`build.py` prüft das jetzt nach jedem Bau in zwei Richtungen und **bricht ab**,
+wenn etwas übrig bleibt: kein wurzelbezogener Pfad in den erzeugten Seiten, und
+in Unterverzeichnissen kein `assets/…` ohne `../`.
 
 ## Die Vorschaudatei
 `build.py` schreibt neben der Website eine Einzeldatei zum Ansehen ohne Server.
