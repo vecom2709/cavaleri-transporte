@@ -20,10 +20,21 @@ LARGHEZZE = {"hero": [1000, 1600, 2200], "galleria": [640, 1000, 1500], "og": [1
 QUALITA = {"avif": 52, "webp": 74, "jpg": 80}
 
 
+def anteprima(im):
+    """Winziges Vorschaubild (24 px breit) als Datenstrom. Es steht sofort in der
+    Bildfläche, hochskaliert und damit weich — kein grauer Kasten mehr, bis das
+    richtige Bild da ist. Kostet rund 400 Byte je Bild."""
+    import base64, io
+    piccola = im.resize((24, max(1, round(im.height * 24 / im.width))), Image.LANCZOS)
+    b = io.BytesIO()
+    piccola.save(b, "JPEG", quality=42, optimize=True)
+    return "data:image/jpeg;base64," + base64.b64encode(b.getvalue()).decode()
+
+
 def varianti(nome, uso):
     src = ORIG / f"{nome}.jpg"
     im = Image.open(src).convert("RGB")
-    voce = {"w": im.width, "h": im.height, "fonti": {}}
+    voce = {"w": im.width, "h": im.height, "anteprima": anteprima(im), "fonti": {}}
     for formato in ("avif", "webp", "jpg"):
         insieme = []
         for larghezza in LARGHEZZE[uso]:

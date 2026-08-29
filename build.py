@@ -33,11 +33,13 @@ def figura(nome, alt="", sizes="100vw", classe="", eager=False, didascalia=None)
     ultimo = v["fonti"]["jpg"][-1][0]
     carico = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
     cap = f'<figcaption data-t="{didascalia}"></figcaption>' if didascalia else ""
-    cl = f' class="{classe}"' if classe else ""
-    return (f'<figure{cl}><picture>'
+    cl = (classe + " ").strip()
+    ante = v.get("anteprima", "")
+    stile = f' style="background-image:url({ante})"' if ante else ""
+    return (f'<figure class="{(cl + " con-anteprima").strip()}"><picture>'
             f'<source type="image/avif" srcset="{set_("avif")}" sizes="{sizes}">'
             f'<source type="image/webp" srcset="{set_("webp")}" sizes="{sizes}">'
-            f'<img src="/assets/foto/{ultimo}" alt="{alt}" width="{v["w"]}" height="{v["h"]}" {carico}>'
+            f'<img src="/assets/foto/{ultimo}" alt="{alt}" width="{v["w"]}" height="{v["h"]}" {carico}{stile}>'
             f'</picture>{cap}</figure>')
 
 
@@ -381,7 +383,7 @@ def mezzi():
           <a class="bottone" href="/preventivo/?mezzo=%s"><span data-t="mz.cta"></span><span class="freccia">→</span></a>
         </div>
       </div>''' % (n, n, "" if n == 0 else " hidden",
-                    figura(foto, sizes="(min-width:900px) 55vw, 100vw"),
+                    figura(foto, sizes="(min-width:900px) 55vw, 100vw", eager=(n == 0)),
                     n + 1, n + 1, n + 1, slug)
         for n, (slug, foto) in enumerate(tipi))
     return f'''  <section class="mezzi riga-sopra" id="mezzi">

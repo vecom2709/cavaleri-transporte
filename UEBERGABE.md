@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 16: sieben Bildschirmbreiten, Ladebudget)
+# Cavaleri Srl — Übergabe (Stand 17: keine leeren Bildflächen, Feinschliff)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -249,6 +249,26 @@ Unter der Karte steht eine Herkunftszeile, und `/note-legali/` benennt es ebenfa
 gezeichnet ist nur der Hintergrund, alle Fotografien und der Film zeigen das
 Unternehmen selbst. Das ist derselbe Umgang wie bei Trendonix, wo im Fuß steht,
 dass kein Motiv eine historische Fotografie ist.
+
+## Leere Bildflächen: zwei Ursachen, beide behoben
+1. **Kein Platzhalter.** Bis ein Bild geladen war, stand eine leere Fläche.
+   `immagini.py` erzeugt jetzt zu jedem Foto ein Vorschaubild von 24 Pixeln
+   Breite (rund 400 Byte) und legt es als Datenstrom direkt ins Markup — es steht
+   sofort da, hochskaliert und dadurch weich, und wird vom richtigen Bild zugedeckt.
+   Kostet nichts an Anfragen und nichts an Wartezeit.
+2. **Die Scroll-Effekte hielten die Kacheln versteckt, solange das Skript lud.**
+   `.rivela` und die Stationen starten mit `opacity: 0` — das galt auch, wenn
+   `site.js` noch unterwegs war. Auf langsamer Verbindung sah man deshalb Weiß,
+   wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
+   die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
+   Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Feinschliff
+Anker rutschen nicht mehr unter die Kopfzeile; Textauswahl in Markenfarbe;
+`text-wrap: pretty` gegen Schusterjungen; Ziffern mit gleicher Breite bei Zählern,
+Jahreszahlen und Telefonnummern; Bildunterschriften kommen beim Zeigen heran
+(auf Touch-Geräten stehen sie fest); Karten heben sich leicht an; über die
+Schaltflächen läuft beim Zeigen einmal ein Lichtstreif.
 
 ## Ladeverhalten: gemessen, mit Budget
 `misura.py` ruft jede Seite auf einem gedrosselten Mobilfunknetz (4 Mbit/s,

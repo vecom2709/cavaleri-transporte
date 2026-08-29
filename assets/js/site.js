@@ -1,5 +1,10 @@
 /* Cavaleri Srl — Verhalten. Kein Framework, keine externen Aufrufe. */
 (() => {
+  /* Erst hier, nicht im Kopf der Seite: Die Anfangszustände der Scroll-Effekte
+     dürfen nicht gelten, solange dieses Skript noch lädt — sonst stehen auf
+     langsamen Verbindungen leere Flächen, wo Bilder sein sollten. */
+  document.documentElement.classList.add("js");
+
   const ridotto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- 1. Sprache ------------------------------------------------ */

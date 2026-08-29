@@ -1081,3 +1081,99 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   .hero-testo{ max-width:min(100%,1400px); }
   .hero .guida{ max-width:52ch; }
 }
+
+/* =========================================================================
+   Kein grauer Kasten mehr: in jeder Bildfläche liegt ein winziges
+   Vorschaubild (24 px breit, rund 400 Byte), hochskaliert und damit weich.
+   Sobald das richtige Bild dekodiert ist, deckt es die Vorschau zu.
+   ========================================================================= */
+.con-anteprima img, .hero-foto img, .scena img, .pannello img, .fascia img{
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+}
+/* Die alte graue Füllung entfällt — sie war genau der Kasten, den man sah. */
+.griglia-foto figure{ background:none; }
+.telaio{ background-size:cover; background-position:center; }
+
+/* =========================================================================
+   Feinschliff
+   ========================================================================= */
+
+/* Anker nicht unter der Kopfzeile verstecken */
+:target, [id]{ scroll-margin-top:96px; }
+
+::selection{ background:var(--blu); color:#fff; }
+.sfondo-blu ::selection, .hero ::selection, .dichiarazione ::selection{
+  background:#8fb6ff; color:var(--blu-scuro);
+}
+
+/* Weniger Schusterjungen im Fließtext */
+p, .guida, li, figcaption{ text-wrap:pretty; }
+
+/* Zahlen laufen nicht mehr in der Breite (Zähler, Jahre, Telefonnummern) */
+.cifra, .conta-flotta b, .tappa .anno, .persona a[href^="tel"]{ font-variant-numeric:tabular-nums; }
+
+/* Bildunterschriften kommen erst beim Hinsehen ganz heran */
+.griglia-foto figcaption{
+  opacity:0; transform:translateY(6px);
+  transition:opacity .45s var(--ease), transform .45s var(--ease);
+}
+.griglia-foto figure:hover figcaption,
+.griglia-foto figure:focus-within figcaption{ opacity:1; transform:none; }
+@media(hover:none){ .griglia-foto figcaption{ opacity:1; transform:none; } }
+
+/* Karten heben sich beim Zeigen leicht an — einmal, nicht bei jedem Element */
+.servizio, .persona, .blocchi article{ transition:background .4s ease, transform .5s var(--ease); }
+@media(hover:hover){
+  .persona:hover, .blocchi article:hover{ transform:translateY(-3px); }
+}
+
+/* Schaltflächen: der Lichtstreif läuft einmal durch */
+.bottone::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(105deg, transparent 38%, rgba(255,255,255,.22) 50%, transparent 62%);
+  transform:translateX(-120%); transition:transform .7s var(--ease);
+}
+@media(hover:hover){ .bottone:hover::after{ transform:translateX(120%); } }
+.bottone{ overflow:hidden; }
+
+/* Trennlinien der Abschnitte enden nicht hart am Rand */
+.riga-sopra{ position:relative; }
+
+/* Der Faden oben bekommt einen leichten Schimmer */
+.filo{ box-shadow:0 0 10px rgba(59,123,224,.6); }
+
+/* Ruhigere Schrift in Versalien */
+h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
+
+/* Fußzeile: mehr Luft, klarere Trennung */
+.piede{ padding-block:var(--s6); }
+.piede .riga{ gap:var(--s4); }
+
+/* =========================================================================
+   Ohne JavaScript ist alles sichtbar.
+   Die Anfangszustände der Scroll-Effekte gelten nur, wenn das Skript läuft —
+   sonst bleiben Kacheln, Stationen und Szenen leer, bis es geladen ist.
+   Ein einziger Befehl im Kopf der Seite setzt die Klasse, noch vor dem CSS.
+   ========================================================================= */
+.rivela{ opacity:1; transform:none; }
+.js .rivela{ opacity:0; transform:translateY(24px); }
+.js .rivela.visibile{ opacity:1; transform:none; }
+.js .griglia-foto .rivela{ transform:translateY(18px); }
+.js .griglia-foto .rivela.visibile{ transform:none; }
+
+.stazione{ opacity:1; }
+.js .stazione{ opacity:.25; transform:translateY(10px); }
+.js .stazione.viva{ opacity:1; transform:none; }
+
+.scena{ opacity:0; }
+.scena:first-child{ opacity:1; }
+.js .scena:first-child{ opacity:0; }
+.js .scena.viva{ opacity:1; }
+
+.parola{ opacity:1; filter:none; transform:none; }
+.js .parola{ opacity:.14; filter:blur(2px); transform:translateY(.18em); }
+.js .parola.vista{ opacity:1; filter:none; transform:none; }
+/* Im Menü hat auch die Angebots-Schaltfläche volle Höhe. */
+@media(max-width:1180px){
+  .navi .bottone{ min-height:52px; padding-block:16px; }
+}
