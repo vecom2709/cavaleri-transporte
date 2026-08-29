@@ -1006,3 +1006,78 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 }
 /* Bilder der Gallery kommen gestaffelt herein. */
 .griglia-foto .rivela{ transform:translateY(18px); }
+
+/* =========================================================================
+   Große Monitore, sehr kleine Telefone, Querformat
+   ========================================================================= */
+
+/* Ab 1600 px wächst der Satzspiegel mit, statt mittig zu versinken. */
+@media(min-width:1600px){
+  :root{ --breite:clamp(1280px, 84vw, 1760px); --rand:clamp(48px,4vw,96px); }
+  body{ font-size:19px; }
+  h1{ font-size:clamp(4.4rem,5.2vw,7rem); }
+  h2{ font-size:clamp(2.8rem,3.2vw,4.2rem); }
+  .testa .wrap{ height:88px; }
+  .marchio .nome{ font-size:1.15rem; }
+  .navi a{ font-size:.92rem; }
+  .bottone{ font-size:.88rem; padding:17px 30px; }
+  .frase-lunga{ font-size:clamp(3rem,4.4vw,5.6rem); }
+  .cifra{ font-size:clamp(3.4rem,3.6vw,4.6rem); }
+  .navi{ gap:clamp(24px,2vw,44px); }
+  .mappa-viva{ width:240px; }
+}
+@media(min-width:2200px){
+  body{ font-size:20px; }
+  .hero .guida, .guida{ font-size:1.24rem; }
+}
+
+/* Sehr kleine Telefone: die Kopfzeile muss noch hineinpassen. */
+@media(max-width:400px){
+  .testa .wrap{ gap:6px; padding-inline:12px; }
+  .marchio .nome{ font-size:.84rem; letter-spacing:.12em; }
+  .marchio .segno{ width:28px; height:28px; }
+  .lingue button{ min-width:32px; padding-inline:2px; font-size:.72rem; }
+  .menu-tasto{ min-width:40px; margin-right:-6px; }
+  h1{ font-size:clamp(2.1rem,10vw,2.6rem); }
+}
+
+/* Telefon im Querformat: bildschirmhohe Abschnitte sind dort eine Zumutung. */
+@media(max-height:520px) and (orientation:landscape){
+  .hero{ min-height:auto; padding-block:120px 56px; }
+  .hero h1{ font-size:clamp(2rem,6vw,3rem); }
+  .hero .guida{ margin-top:var(--s3); }
+  .hero .azioni{ margin-top:var(--s4); }
+  .scene{ height:100svh; }
+  .stazione{ min-height:100svh; padding-block:var(--s5); justify-content:center; }
+  .intro{ padding-block:104px 48px; }
+  .dichiarazione{ padding-block:96px; }
+  .telaio{ max-height:none; height:70svh; width:auto; aspect-ratio:9/16; }
+  .mappa-viva{ width:76px; bottom:10px; right:10px; }
+  section{ padding-block:clamp(48px,9vh,80px); }
+}
+
+/* Die Sprachwahl steht auf kleinen Geräten im Menü, nicht in der Leiste. */
+@media(max-width:900px){
+  .navi .lingue{
+    display:flex; gap:6px; margin-top:var(--s4);
+    padding-top:var(--s3); border-top:1px solid var(--linea);
+  }
+  .navi .lingue button{
+    flex:1; min-height:52px; font-size:.92rem; color:var(--blu);
+    border:1px solid var(--linea); border-radius:3px; opacity:1;
+  }
+  .navi .lingue button[aria-current="true"]{
+    background:var(--blu-chiaro); border-color:var(--blu); color:var(--blu);
+  }
+  .navi .lingue .sep{ display:none; }
+}
+@media(max-width:400px){
+  .marchio .nome{ font-size:.9rem; letter-spacing:.16em; }
+  .marchio .segno{ width:32px; height:32px; }
+}
+/* Auf breiten Bildschirmen darf auch der Kopftext breiter werden,
+   sonst bricht die dritte Zeile der Überschrift um. */
+@media(min-width:1600px){
+  .hero-testo{ max-width:min(100%,1400px); }
+  .hero .guida{ max-width:52ch; }
+}

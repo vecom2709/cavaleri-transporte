@@ -73,6 +73,24 @@
     })
   );
 
+  /* ---------- 2b. Sprachwahl auf kleinen Geräten ins Menü -----------------
+     In der Leiste bleiben dort sonst nur Knöpfe von 32 Pixeln übrig. Im Menü
+     haben sie volle Größe — und die Leiste bekommt Luft. */
+  const lingue = document.querySelector(".lingue");
+  if (lingue && navi) {
+    const stretto = matchMedia("(max-width:900px)");
+    const barra = lingue.parentElement;
+    const colloca = () => {
+      if (stretto.matches) {
+        if (lingue.parentElement !== navi) navi.appendChild(lingue);
+      } else if (lingue.parentElement !== barra) {
+        barra.insertBefore(lingue, document.querySelector(".menu-tasto"));
+      }
+    };
+    stretto.addEventListener("change", colloca);
+    colloca();
+  }
+
   /* ---------- 3. Leitmotiv: Fortschrittslinie + Zeitleiste -------------- */
   const filo = document.querySelector(".filo");
   const storia = document.querySelector(".storia");

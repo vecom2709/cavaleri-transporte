@@ -11,8 +11,16 @@ python3 immagini.py   # Fotos in AVIF/WebP/JPEG und mehrere Breiten rechnen
 python3 build.py      # Seiten, sitemap.xml, robots.txt, 404 und Vorschau erzeugen
 ```
 
-`build.py` prüft vorher alle Skripte mit `node --check` und bricht bei
-Syntaxfehlern ab.
+`build.py` prüft vorher alle Skripte mit `node --check`, danach alle erzeugten
+Seiten auf wurzelbezogene Pfade — und bricht bei Fehlern ab.
+
+## Prüfen
+
+```bash
+python3 -m http.server 8099   # in einem zweiten Fenster
+python3 prova.py              # Darstellung in sieben Breiten, mit Bildschirmfotos
+python3 misura.py             # Ladeverhalten gegen ein festes Budget
+```
 
 ## Aufbau
 

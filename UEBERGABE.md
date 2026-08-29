@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 15: mehr Scrollytelling)
+# Cavaleri Srl — Übergabe (Stand 16: sieben Bildschirmbreiten, Ladebudget)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -250,9 +250,33 @@ gezeichnet ist nur der Hintergrund, alle Fotografien und der Film zeigen das
 Unternehmen selbst. Das ist derselbe Umgang wie bei Trendonix, wo im Fuß steht,
 dass kein Motiv eine historische Fotografie ist.
 
+## Ladeverhalten: gemessen, mit Budget
+`misura.py` ruft jede Seite auf einem gedrosselten Mobilfunknetz (4 Mbit/s,
+120 ms Latenz) in Telefongröße auf und misst, was der Besucher merkt. Reißt eine
+Seite das Budget, endet das Skript mit Fehler.
+
+Budget: LCP unter 2500 ms, CLS unter 0,05, höchstens 2200 KB und 40 Anfragen.
+
+Gemessen am 29.08.:
+
+| Seite | LCP | CLS | Gewicht | Anfragen |
+|---|---|---|---|---|
+| `/` | 988 ms | 0 | 449 KB | 19 |
+| `/azienda/` | 1028 ms | 0 | 332 KB | 14 |
+| `/trasporti/` | 1048 ms | 0 | 405 KB | 17 |
+| `/rotta/` | 1708 ms | 0 | 530 KB | 19 |
+| `/gallery/` | 1068 ms | 0 | 960 KB | 20 |
+| `/preventivo/` | — | 0 | 208 KB | 14 |
+
+CLS von null auf allen Seiten heißt: nichts springt beim Laden. Das kommt daher,
+dass jedes Bild seine Maße im Markup trägt. Auf `/preventivo/` meldet der Browser
+keinen LCP-Wert, weil dort kein Bild und kein großer Textblock im ersten Bild
+liegt — das ist kein Fehler.
+
 ## Darstellung: geprüft, nicht geschätzt
-`prova.py` ruft jede Seite in drei Breiten (380, 768, 1440) in einem echten
-Browser auf, macht Bildschirmfotos und meldet Überläufe, Tippflächen unter
+`prova.py` ruft jede Seite in sieben Breiten in einem echten Browser auf —
+320 (kleines Telefon), 380, 844 × 390 (Telefon im Querformat), 768, 1440,
+1920 und 2560, macht Bildschirmfotos und meldet Überläufe, Tippflächen unter
 44 Pixeln und Schrift unter 12 Pixeln.
 
 ```bash
@@ -279,6 +303,16 @@ Dabei gefunden und behoben:
 - **Enge Geräte**: Zahlenband zweispaltig statt fünf untereinander, Schaltflächen
   über die volle Breite, Formularfelder einspaltig, Auswahlkacheln untereinander,
   Filmrahmen begrenzt, Kopfzeile ab 560 px zusätzlich entlastet.
+
+## Breite Bildschirme, kleine Telefone, Querformat
+- Ab 1600 px wächst der Satzspiegel bis 1760 px mit, Grundschrift auf 19 px,
+  Überschriften und Schaltflächen entsprechend größer. Vorher versank die Seite
+  auf einem 2560er Monitor in der Mitte.
+- Unter 400 px ist die Kopfzeile weiter entlastet; die Sprachwahl wandert auf
+  allen Geräten unter 900 px **ins Menü**, wo die Knöpfe volle Größe haben. In der
+  Leiste wären sie 32 px breit gewesen.
+- Telefon im Querformat: bildschirmhohe Abschnitte sind dort eine Zumutung —
+  Kopfbereich, Seitenköpfe und Aussagen haben eigene, flachere Maße.
 
 ## Auf den Server legen
 Der gesamte Ordnerinhalt gehört in das Wurzelverzeichnis der Domain, `.htaccess`

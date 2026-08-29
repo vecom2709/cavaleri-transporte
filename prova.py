@@ -13,7 +13,13 @@ from playwright.async_api import async_playwright
 BASE = "http://127.0.0.1:8099"
 PAGINE = ["/", "/azienda/", "/trasporti/", "/edilizia/", "/rotta/", "/gallery/",
           "/contatti/", "/preventivo/", "/note-legali/"]
-SCHERMI = [("telefono", 380, 780), ("tablet", 768, 1024), ("desktop", 1440, 900)]
+SCHERMI = [("piccolo", 320, 568),        # iPhone SE und ähnliche
+           ("telefono", 380, 780),
+           ("coricato", 844, 390),        # Telefon im Querformat
+           ("tablet", 768, 1024),
+           ("desktop", 1440, 900),
+           ("largo", 1920, 1080),
+           ("grande", 2560, 1440)]
 
 CONTROLLO = """() => {
   const out = { overflow: [], tocchi: [], piccoli: [], larghezza: document.documentElement.scrollWidth };
@@ -51,7 +57,7 @@ async def main():
         b = await p.chromium.launch()
         for nome, w, h in SCHERMI:
             ctx = await b.new_context(viewport={"width": w, "height": h},
-                                      device_scale_factor=1, is_mobile=(w < 500))
+                                      device_scale_factor=1, is_mobile=(w < 500 or (w == 844 and h == 390)))
             pg = await ctx.new_page()
             for via in solo:
                 await pg.goto(BASE + via, wait_until="networkidle")
