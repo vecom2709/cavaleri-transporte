@@ -517,40 +517,32 @@ def per_lingua(html, lingua):
 
 
 def incorpora_media(html):
-    """Für die Einzeldatei-Vorschau: <picture> auf ein kleines eingebettetes
-    JPEG eindampfen und den Film als Datenstrom einbetten. Die ausgelieferte
-    Fassung behält AVIF, WebP und srcset."""
-    import io, subprocess, tempfile
-    from PIL import Image
+    """Für die Einzeldatei-Vorschau: alles einbetten, in voller Auflösung.
 
-    memoria = {}
-
-    def dato(nome, larghezza, q=60):
-        chiave = (nome, larghezza)
-        if chiave not in memoria:
-            im = Image.open(W / "assets/foto/originali" / f"{nome}.jpg").convert("RGB")
-            if im.width > larghezza:
-                im = im.resize((larghezza, round(im.height * larghezza / im.width)), Image.LANCZOS)
-            buf = io.BytesIO(); im.save(buf, "JPEG", quality=q, optimize=True)
-            memoria[chiave] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
-        return memoria[chiave]
-
-    html = re.sub(r"<source[^>]*>", "", html)
-
-    # Dasselbe Foto kommt mehrfach vor (Band, Gallery, Szene). In der Vorschau
-    # wird es einmal eingebettet und beim Laden zugewiesen — sonst wächst die
-    # Datei mit jeder Wiederholung.
+    Eingebettet wird AVIF in der größten vorhandenen Breite — dasselbe Bild, das
+    die Live-Seite ausliefert. AVIF hält die Datei dabei klein genug: elf
+    Aufnahmen wiegen zusammen rund 1,7 MB, als JPEG wären es über vier.
+    Jedes Bild steht genau einmal in der Datei und wird beim Laden zugewiesen.
+    """
     usati = {}
     vuoto = ("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///"
              "yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")
 
+    def dato(nome):
+        if nome not in usati:
+            f = IMMAGINI[nome]["fonti"]["avif"][-1][0]
+            usati[nome] = ("data:image/avif;base64,"
+                           + base64.b64encode((W / "assets/foto" / f).read_bytes()).decode())
+        return usati[nome]
+
+    html = re.sub(r"<source[^>]*>", "", html)
+
     def img(m):
         tag = m.group(0)
         nome = re.search(r"assets/foto/([\w-]+?)(?:-\d+)?\.jpg", tag).group(1)
-        larga = 1100 if nome in ("hero", "imbarco", "ribaltabili-toscana") else 620
-        usati[nome] = dato(nome, larga)
+        dato(nome)
         tag = re.sub(r'src="[^"]*"', 'src="%s" data-foto="%s"' % (vuoto, nome), tag)
-        return tag
+        return re.sub(r'data-src="[^"]*"', "", tag)
 
     html = re.sub(r"<img[^>]*?assets/foto/[^>]*>", img, html)
     elenco = ",".join('"%s":"%s"' % (n, u) for n, u in usati.items())
@@ -561,15 +553,8 @@ def incorpora_media(html):
 
     video = W / "assets/video/piazzale.mp4"
     if video.exists():
-        leggero = pathlib.Path(tempfile.gettempdir()) / "piazzale-lite.mp4"
-        if not leggero.exists():
-            subprocess.run(["ffmpeg", "-v", "error", "-ss", "8", "-t", "14", "-i", str(video),
-                            "-an", "-r", "20", "-vf", "scale=320:-2", "-c:v", "libx264",
-                            "-crf", "34", "-preset", "slow", "-pix_fmt", "yuv420p",
-                            "-movflags", "+faststart", str(leggero), "-y"], check=False)
-        if leggero.exists():
-            html = re.sub(r'(\.\./)*assets/video/piazzale\.mp4',
-                          "data:video/mp4;base64," + base64.b64encode(leggero.read_bytes()).decode(), html)
+        html = re.sub(r'(\.\./)*assets/video/piazzale\.mp4',
+                      "data:video/mp4;base64," + base64.b64encode(video.read_bytes()).decode(), html)
     poster = W / "assets/video/piazzale-poster.jpg"
     if poster.exists():
         html = re.sub(r'(\.\./)*assets/video/piazzale-poster\.jpg',
@@ -579,11 +564,10 @@ def incorpora_media(html):
 
 def adatta(html, profondita):
     """Wurzelbezogene Pfade in relative umschreiben.
-    profondita 0 = Startseite, 1 = Unterseite in einem Verzeichnis."""
+    profondita 0 = Startseite, 1 = Unterseite, 2 = Unterseite einer Sprache."""
     p = "../" * profondita
     html = re.sub(r'(href|src|data-vai)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
     html = html.replace(f'data-vai="{p}"', f'data-vai="{p}index.html"' if p else 'data-vai="index.html"')
-    html = html.replace(f'href="{p}"', f'href="{p}index.html"')
     return html
 
 
@@ -673,15 +657,18 @@ def main():
     # ---- Einzeldatei-Vorschau: alle Seiten, Umschaltung über den Anker ----
     css = (W / "assets/css/site.css").read_text(encoding="utf-8").replace('@import url("../font/schriften.css");\n', "")
     b64 = lambda f: "data:font/woff2;base64," + base64.b64encode((W / "assets/font" / f).read_bytes()).decode()
-    fonts = (f"@font-face{{font-family:'Archivo';font-weight:100 900;font-display:swap;src:url({b64('archivo-latin.woff2')}) format('woff2');}}\n"
-             f"@font-face{{font-family:'Inter';font-weight:100 900;font-display:swap;src:url({b64('inter-latin.woff2')}) format('woff2');}}\n")
+    fonts = ""
+    for famiglia in ("archivo", "inter"):
+        for sotto in ("latin", "latin-ext"):
+            fonts += (f"@font-face{{font-family:'{famiglia.capitalize()}';font-weight:100 900;"
+                      f"font-display:swap;src:url({b64(f'{famiglia}-{sotto}.woff2')}) format('woff2');}}\n")
     marchio = "data:image/svg+xml;base64," + base64.b64encode((W / MARCHIO.lstrip("/")).read_bytes()).decode()
 
     # Die gezeichneten Motive stehen im CSS mit relativen Pfaden — für die
     # Einzeldatei werden sie eingebettet, die AVIF/WebP-Varianten entfallen.
     for nome in ("mappa-mediterraneo-1600", "trama-linee-1400"):
-        dati = base64.b64encode((W / "assets/grafica" / f"{nome}.jpg").read_bytes()).decode()
-        css = css.replace(f'url("../grafica/{nome}.jpg")', f'url("data:image/jpeg;base64,{dati}")')
+        dati = base64.b64encode((W / "assets/grafica" / f"{nome}.avif").read_bytes()).decode()
+        css = css.replace(f'url("../grafica/{nome}.jpg")', f'url("data:image/avif;base64,{dati}")')
     css = re.sub(r"background-image:image-set\([^;]*?\);", "", css)
 
     def corpo_di(f):
@@ -729,7 +716,10 @@ def main():
 <script>{router}</script>
 <script>{moduli}</script>
 </body></html>'''
-    out = re.sub(r'src="(\.\./)*assets/marke/cavaleri-marchio\.svg"', f'src="{marchio}"', out)
+    for nome in ("cavaleri-marchio", "cavaleri-marchio-bianco"):
+        dati = ("data:image/svg+xml;base64,"
+                + base64.b64encode((W / "assets/marke" / f"{nome}.svg").read_bytes()).decode())
+        out = re.sub(r'src="(\.\./)*assets/marke/%s\.svg"' % nome, f'src="{dati}"', out)
     out = re.sub(r' data-vai="[^"]*"', '', out)
     out = incorpora_media(out)
     fuori = pathlib.Path("/mnt/user-data/outputs/cavaleri-vorschau.html")

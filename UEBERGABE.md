@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 12: Fahrzeugwähler)
+# Cavaleri Srl — Übergabe (Stand 13: Vorschau in voller Qualität)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -127,6 +127,21 @@ weggeschnitten.
 `assets/marke/cavaleri-marchio.svg` ist jetzt ein Nachbau nach den Fahrzeugfotos
 (Raute mit Verlauf, blaues C). Liegt die Vektordatei des Originals vor, ersetzt sie
 diese Datei unter demselben Namen.
+
+## Die Vorschaudatei
+`build.py` schreibt neben der Website eine Einzeldatei zum Ansehen ohne Server.
+Sie enthält jetzt dieselben Bilder wie die Live-Seite: AVIF in der größten Breite,
+den vollständigen Film, beide Schriftschnitte, die Zeichnungen als AVIF. Rund 5,3 MB.
+
+Zwei Unterschiede bleiben systembedingt:
+
+- Alle Seiten stecken in einer Datei, umgeschaltet über den Anker (`#/azienda/`)
+  statt über echte Adressen.
+- Die Sprachumschaltung wechselt den Text an Ort und Stelle statt nach `/de/`
+  zu springen — in einer Datei gibt es die drei Adressen nicht.
+
+Die Vorschau setzt AVIF voraus; jeder Browser ab etwa 2022 kann das. Maßgeblich
+ist ohnehin die veröffentlichte Seite.
 
 ## Fahrzeugwähler
 Auf `/trasporti/` steht ein Wähler mit drei Typen — Planenauflieger, Kipper,
