@@ -45,6 +45,7 @@
       b.setAttribute("aria-current", String(b.dataset.lingua === lingua));
     });
     localStorage.setItem("cavaleri.lingua", lingua);
+    dispatchEvent(new Event("lingua-cambiata"));
   }
 
   applica(scegli());

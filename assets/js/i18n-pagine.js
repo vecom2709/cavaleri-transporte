@@ -3,6 +3,7 @@
 const A = {
 
 it:{
+  "ro.mappa":"Avanzamento del percorso",
   "rotta.fonte":"La carta sullo sfondo è un disegno, non una mappa nautica. Le fotografie del sito ritraggono invece mezzi e sedi dell’azienda.",
   "fa.1":"Ottanta mezzi. <span>Un solo interlocutore.</span>", "fa.2":"Dal 1974 <span>sulle stesse strade.</span>", "fa.3":"Dalla rampa <span>al cantiere.</span>",
   "salta":"Vai al contenuto",
@@ -93,6 +94,7 @@ it:{
 },
 
 de:{
+  "ro.mappa":"Fortschritt der Strecke",
   "rotta.fonte":"Die Karte im Hintergrund ist eine Zeichnung, keine Seekarte. Die Fotografien der Seite zeigen dagegen Fahrzeuge und Standorte des Unternehmens.",
   "fa.1":"Achtzig Fahrzeuge. <span>Ein Ansprechpartner.</span>", "fa.2":"Seit 1974 <span>auf denselben Straßen.</span>", "fa.3":"Von der Rampe <span>auf die Baustelle.</span>",
   "salta":"Zum Inhalt springen",
@@ -183,6 +185,7 @@ de:{
 },
 
 en:{
+  "ro.mappa":"Progress along the route",
   "rotta.fonte":"The map in the background is a drawing, not a nautical chart. The photographs on this site, by contrast, show the company's own vehicles and premises.",
   "fa.1":"Eighty vehicles. <span>One point of contact.</span>", "fa.2":"Since 1974 <span>on the same roads.</span>", "fa.3":"From the loading bay <span>to the site.</span>",
   "salta":"Skip to content",

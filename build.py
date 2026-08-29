@@ -348,9 +348,21 @@ def mondo():
         <p class="guida" data-t="%s"></p>
       </article>''' % (n, k, tt, x)
         for n, (k, tt, x, _) in enumerate(tappe))
-    return f'''  <section class="mondo">
+    # Die Karte zeichnet sich mit dem Scrollen. Die Punkte setzt das Skript
+    # über getPointAtLength auf den Pfad — keine von Hand gesetzten Koordinaten.
+    return f'''  <section class="mondo" data-tappe="{len(tappe)}">
     <div class="scene" aria-hidden="true">
 {sfondi}
+      <aside class="mappa-viva">
+        <svg viewBox="0 0 200 260" role="img" aria-labelledby="mv-tit">
+          <title id="mv-tit" data-t="ro.mappa"></title>
+          <path class="scia" d="M35 232 C 48 214 58 204 66 194 S 92 166 106 146 S 142 100 156 72 S 176 42 180 26"/>
+          <path class="tracciato" d="M35 232 C 48 214 58 204 66 194 S 92 166 106 146 S 142 100 156 72 S 176 42 180 26"/>
+          <g class="punti"></g>
+          <circle class="viaggiatore" r="5.5"/>
+        </svg>
+        <p class="etichetta"></p>
+      </aside>
     </div>
     <div class="wrap stazioni">
 {blocchi}

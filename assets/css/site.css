@@ -759,3 +759,84 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 @media(max-width:1180px){ .menu-tasto{ display:grid; place-items:center; } }
 /* Die Unterzeile darf ausgeschrieben werden, solange Platz ist. */
 .marchio .sotto{ max-width:none; }
+
+/* =========================================================================
+   "La rotta": mitlaufende Karte
+   ========================================================================= */
+.mappa-viva{
+  position:absolute; z-index:3; right:clamp(16px,3vw,48px); bottom:clamp(16px,4vh,56px);
+  width:clamp(120px,15vw,200px);
+  padding:14px 14px 10px; border-radius:6px;
+  background:rgba(6,14,36,.52); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 20px 50px -24px rgba(0,0,0,.8);
+}
+.mappa-viva svg{ width:100%; height:auto; display:block; overflow:visible; }
+.mappa-viva .scia{
+  fill:none; stroke:rgba(255,255,255,.22); stroke-width:2; stroke-linecap:round;
+}
+.mappa-viva .tracciato{
+  fill:none; stroke:#8fb6ff; stroke-width:2.5; stroke-linecap:round;
+  stroke-dasharray:var(--len,1000); stroke-dashoffset:var(--len,1000);
+  filter:drop-shadow(0 0 5px rgba(143,182,255,.7));
+}
+.mappa-viva .punto{
+  fill:#0b1b45; stroke:rgba(255,255,255,.35); stroke-width:1.5;
+  transition:fill .5s var(--ease), stroke .5s var(--ease), r .5s var(--ease);
+}
+.mappa-viva .punto.raggiunto{ fill:#8fb6ff; stroke:#8fb6ff; }
+.mappa-viva .punto.qui{ r:6; stroke:#fff; }
+.mappa-viva .viaggiatore{
+  fill:#fff; filter:drop-shadow(0 0 8px rgba(143,182,255,.95));
+}
+.mappa-viva .etichetta{
+  margin:10px 0 0; font-family:var(--display); font-weight:600;
+  font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  color:#c9d8f5; text-align:center; min-height:1.2em;
+}
+
+/* Fortschrittsbalken der Route unter der Karte */
+.mappa-viva::after{
+  content:""; position:absolute; left:14px; right:14px; bottom:6px; height:2px;
+  background:linear-gradient(90deg,#8fb6ff calc(var(--avanzamento,0) * 100%),
+                             rgba(255,255,255,.16) 0);
+  border-radius:2px;
+}
+
+@media(max-width:900px){
+  .mappa-viva{
+    right:12px; top:calc(72px + 12px); bottom:auto;
+    width:96px; padding:9px 9px 8px;
+  }
+  .mappa-viva .etichetta{ display:none; }
+  .mappa-viva::after{ left:9px; right:9px; bottom:4px; }
+}
+@media(max-width:380px){ .mappa-viva{ width:78px; } }
+
+@media(prefers-reduced-motion:reduce){
+  .mappa-viva .tracciato{ stroke-dashoffset:0 !important; }
+}
+
+/* Die Fotos der Route dürfen sichtbar sein — der Verlauf hält nur den Text
+   lesbar, er versteckt das Bild nicht. */
+.scene::after{
+  background:linear-gradient(90deg, rgba(9,21,58,.93) 0%, rgba(9,21,58,.66) 36%,
+                             rgba(9,21,58,.22) 72%, rgba(9,21,58,.08) 100%);
+}
+@media(max-width:900px){
+  .scene::after{
+    background:linear-gradient(180deg, rgba(9,21,58,.58) 0%, rgba(9,21,58,.80) 48%,
+                               rgba(9,21,58,.92) 100%);
+  }
+}
+/* Die Szene wandert über die ganze Strecke ein Stück mit. */
+.scena figure{ transform:translate3d(0, calc(var(--avanzamento,0) * -2.5%), 0); }
+
+/* Auf dem Telefon gehört die Karte nach unten — oben steht die Überschrift. */
+@media(max-width:900px){
+  .mappa-viva{
+    top:auto; bottom:14px; right:12px; width:84px; padding:8px 8px 7px;
+    background:rgba(6,14,36,.62);
+  }
+}
+@media(max-width:380px){ .mappa-viva{ width:72px; bottom:12px; } }

@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 9: eigene Adressen je Sprache)
+# Cavaleri Srl — Übergabe (Stand 10: Route als Scrollytelling)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -79,11 +79,28 @@ AVIF spart gegenüber JPEG rund ein Drittel (Kopfbild 235 statt 371 KB).
 Neue Fotos: nach `assets/foto/originali/` legen, `python3 immagini.py`, dann
 `python3 build.py`.
 
-## „La rotta" — die begehbare Seite
-Das Gegenstück zu den begehbaren Welten von Trendonix: fünf Stationen von
-Caltanissetta bis auf das Festland. Die Bilder stehen fest im Hintergrund und
-wechseln mit dem Text, der Faden am Rand füllt sich Station für Station.
-Gesteuert über einen IntersectionObserver — keine Bibliothek, kein Scroll-Listener.
+## „La rotta" — Scrollytelling
+Fünf Stationen von Caltanissetta bis auf das Festland. Die Bilder stehen fest im
+Hintergrund und wechseln mit dem Text; rechts unten läuft eine Karte mit:
+
+- die Linie zeichnet sich mit dem Scrollfortschritt (`stroke-dashoffset`),
+- ein Punkt wandert die Strecke ab,
+- die fünf Stationsmarken leuchten auf, sobald sie erreicht sind,
+- darunter stehen Stationsname und ein Fortschrittsbalken.
+
+Die Marken setzt das Skript über `getPointAtLength` auf den Pfad — keine von Hand
+gepflegten Koordinaten. Wird der Pfad geändert, wandern die Punkte mit.
+
+Der Fortschritt ist eine einzige Custom Property (`--avanzamento`), einmal je
+Bild gesetzt; daran hängen Linie, Punkt, Balken und die leichte Bewegung der Szene.
+Auf `animation-timeline` (CSS scroll-driven animations) habe ich bewusst verzichtet:
+in Firefox liegt es noch hinter einem Schalter, und der Fortschritt müsste über
+`timeline-scope` quer durch den Baum gereicht werden. Der Weg über eine Variable
+ist hier robuster und kostet nicht mehr.
+
+Bei „reduzierter Bewegung" ist die Karte fertig gezeichnet und der wandernde Punkt
+entfällt. Auf dem Telefon sitzt die Karte unten rechts, damit sie die Überschrift
+nicht verdeckt.
 
 ## Auffindbarkeit
 Je Seite eigener Titel, eigene Beschreibung, `canonical`, OG- und Twitter-Angaben
