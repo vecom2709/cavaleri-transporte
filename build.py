@@ -259,8 +259,9 @@ def gallery():
             ("imbarco", "ga.c7"), ("nave-grimaldi", "ga.c8"),
             ("aeroporto", "ga.c9")]
     figs = "\n".join(
-        "        " + figura(n, sizes="(min-width:900px) 33vw, 100vw", didascalia=k)
-        for n, k in foto)
+        "        " + figura(n, sizes="(min-width:900px) 33vw, 100vw", didascalia=k,
+                            classe="rivela").replace("<figure", f'<figure data-ritardo="{i % 3}"', 1)
+        for i, (n, k) in enumerate(foto))
     return f'''  <section>
     <div class="wrap">
       <p class="nota-vuoto" style="margin:0 0 var(--s4)" data-t="ga.vuoto"></p>
@@ -330,6 +331,34 @@ def fascia(nome, chiave, forza="0.22"):
     return f'''  <section class="fascia">
     <div class="sfondo" data-parallasse="{forza}" data-asse="scala">{figura(nome, sizes="100vw")}</div>
     <p class="frase" data-t="{chiave}"></p>
+  </section>'''
+
+
+def dichiarazione(sfondo, chiave, chiaro=False):
+    """Ganzflächige Aussage: die Wörter erscheinen einzeln mit dem Scrollen."""
+    return f'''  <section class="dichiarazione{ " chiara" if chiaro else "" }" data-sfondo="{sfondo}">
+    <div class="wrap">
+      <p class="frase-lunga" data-t="{chiave}" data-parole></p>
+    </div>
+  </section>'''
+
+
+def flotta():
+    """Achtzig Fahrzeuge als Raster. Die Silhouetten füllen sich beim Scrollen —
+    eine Zahl, die man sieht, statt einer, die behauptet wird."""
+    return '''  <section class="flotta riga-sopra" id="flotta">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="fl.occhiello"></p>
+          <h2 data-t="fl.titolo"></h2>
+        </div>
+        <p class="guida" data-t="fl.txt"></p>
+      </div>
+      <p class="conta-flotta"><b>0</b> <span data-t="fl.conta"></span></p>
+      <div class="raster" data-mezzi="80" aria-hidden="true"></div>
+      <p class="guida nota-flotta" data-t="fl.persone"></p>
+    </div>
   </section>'''
 
 
@@ -428,8 +457,8 @@ NOTE = '''  <section>
 
 
 PAGINE = {
- "azienda":    ("az.title", "az.lead", intro("storia.occhiello", "az.h1", "az.lead") + "\n" + fatti() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + PERSONE + "\n" + FIDUCIA + "\n" + INVITO, ""),
- "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead") + "\n" + servizi([1, 2, 3]) + "\n" + mezzi() + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
+ "azienda":    ("az.title", "az.lead", intro("storia.occhiello", "az.h1", "az.lead") + "\n" + fatti() + "\n" + flotta() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + PERSONE + "\n" + FIDUCIA + "\n" + INVITO, ""),
+ "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead") + "\n" + servizi([1, 2, 3]) + "\n" + dichiarazione("porto-schema", "dc.2", True) + "\n" + mezzi() + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
  "edilizia":   ("ed.title", "ed.lead", intro("servizi.occhiello", "ed.h1", "ed.lead") + "\n" + servizi([4]) + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.lead", intro("rotta.occhiello", "ro.h1", "ro.lead") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.lead", intro("nav.gallery", "ga.h1", "ga.lead") + "\n" + gallery() + "\n" + INVITO, ""),
@@ -499,7 +528,8 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
 <script src="/assets/js/i18n.js"></script>
 <script src="/assets/js/i18n-pagine.js"></script>
 <script src="/assets/js/site.js" defer></script>
-<script src="/assets/js/parallasse.js" defer></script>{js}
+<script src="/assets/js/parallasse.js" defer></script>
+<script src="/assets/js/racconto.js" defer></script>{js}
 </body>
 </html>
 '''

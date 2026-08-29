@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 14: Pfadfehler behoben und abgesichert)
+# Cavaleri Srl — Übergabe (Stand 15: mehr Scrollytelling)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -78,6 +78,21 @@ kleinste passende Datei, und beim Laden springt nichts.
 AVIF spart gegenüber JPEG rund ein Drittel (Kopfbild 235 statt 371 KB).
 Neue Fotos: nach `assets/foto/originali/` legen, `python3 immagini.py`, dann
 `python3 build.py`.
+
+## Scrollytelling: was wo passiert
+- **Startseite** — Kopfbild als Folge; ganzflächige Aussage über der nächtlichen
+  Straße, deren Wörter beim Scrollen einzeln erscheinen; drei Parallaxbänder;
+  Karte mit sich zeichnender Route.
+- **Azienda** — Fuhrparkraster: achtzig Silhouetten, die sich beim Scrollen füllen,
+  mit mitzählender Zahl. Danach die Zeitleiste, bei der die Jahreszahl stehen
+  bleibt, solange ihre Etappe läuft.
+- **Trasporti** — zweite Aussage über dem Hafenschema, dann der Fahrzeugwähler.
+- **Rotta** — die begehbare Seite mit mitlaufender Karte (siehe unten).
+- **Gallery** — die Bilder kommen gestaffelt herein.
+
+`assets/js/racconto.js` steuert Wortenthüllung und Raster in einem gemeinsamen
+rAF-Lauf: es liest nur Rechtecke, schreibt kein Layout, und rechnet nur für
+Elemente in Sichtweite. Bei „reduzierter Bewegung" steht sofort alles fertig da.
 
 ## „La rotta" — Scrollytelling
 Fünf Stationen von Caltanissetta bis auf das Festland. Die Bilder stehen fest im
@@ -207,6 +222,18 @@ Neues Band setzen: in `build.py` `fascia("dateiname", "textschlüssel")` an die
 gewünschte Stelle der Seite schreiben.
 
 ## Gezeichnete Motive (Kie.ai)
+Vier Motive, alle rein dekorativ, alle in `assets/grafica/`, alle in AVIF, WebP
+und JPEG. Modell `gpt-image/1.5-text-to-image`, je 22 Credits.
+
+- `mappa-mediterraneo-*` — hinter dem Streckendiagramm
+- `trama-linee-*` — Linienraster auf dunklen Flächen
+- `notte-strada-*` — nächtliche Autobahn hinter der ersten Aussage
+- `porto-schema-*` — Hafenschema hinter der zweiten Aussage
+
+Die nächtliche Straße sieht aus wie eine Fotografie, ist aber keine. Deshalb
+nennt `/note-legali/` sie ausdrücklich beim Namen: gezeichnet sind nur die
+Hintergründe, alle Fotografien und der Film zeigen das Unternehmen selbst.
+
 Zwei Motive sind erzeugt, beide rein dekorativ, beide in `assets/grafica/`:
 
 - `mappa-mediterraneo-*` — Kartenbild hinter dem Streckendiagramm, 42 % Deckung

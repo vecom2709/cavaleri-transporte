@@ -840,7 +840,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   }
 }
 @media(max-width:380px){ .mappa-viva{ width:72px; bottom:12px; } }
-.mappa-viva .etichetta{ font-size:.72rem; letter-spacing:.1em; }
+.mappa-viva .etichetta{ font-size:.78rem; letter-spacing:.08em; }
 
 /* =========================================================================
    Kopfbild als Folge: drei Aufnahmen, langsam ineinander
@@ -930,3 +930,79 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   font-size:.84rem; color:var(--blu);
 }
 .mezzo-scelto b{ font-weight:600; }
+
+/* =========================================================================
+   Scrollytelling: Aussage, Fuhrparkraster
+   ========================================================================= */
+
+/* ---------- Ganzflächige Aussage ---------------------------------------- */
+.dichiarazione{
+  position:relative; overflow:clip; background:var(--blu-scuro); color:#fff;
+  padding-block:clamp(120px,22vh,240px);
+  display:grid; place-items:center;
+}
+.dichiarazione::before{
+  content:""; position:absolute; inset:0; z-index:0;
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  opacity:.55;
+}
+.dichiarazione::after{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:radial-gradient(70% 70% at 50% 50%, rgba(9,21,58,.55), rgba(9,21,58,.9));
+}
+.dichiarazione .wrap{ position:relative; z-index:2; }
+.dichiarazione[data-sfondo="notte-strada"]::before{
+  background-image:url("../grafica/notte-strada-1600.jpg");
+  background-image:image-set(url("../grafica/notte-strada-1600.avif") type("image/avif"),
+                             url("../grafica/notte-strada-1600.webp") type("image/webp"));
+}
+.dichiarazione[data-sfondo="porto-schema"]::before{
+  background-image:url("../grafica/porto-schema-1600.jpg");
+  background-image:image-set(url("../grafica/porto-schema-1600.avif") type("image/avif"),
+                             url("../grafica/porto-schema-1600.webp") type("image/webp"));
+  opacity:.7;
+}
+.frase-lunga{
+  margin:0 auto; max-width:22ch; text-align:center;
+  font-family:var(--display); font-weight:800; text-transform:uppercase;
+  font-size:clamp(1.7rem,5vw,4rem); line-height:1.06; letter-spacing:-.022em;
+}
+.parola{
+  display:inline-block; opacity:.14; filter:blur(2px);
+  transform:translateY(.18em);
+  transition:opacity .5s var(--ease), filter .5s var(--ease), transform .5s var(--ease);
+}
+.parola.vista{ opacity:1; filter:none; transform:none; }
+
+/* ---------- Fuhrparkraster ---------------------------------------------- */
+.conta-flotta{
+  font-family:var(--display); font-weight:800; letter-spacing:-.02em;
+  color:var(--blu); margin-bottom:var(--s3);
+  display:flex; align-items:baseline; gap:.4em;
+}
+.conta-flotta b{ font-size:clamp(2.6rem,6vw,4.2rem); line-height:1; font-variant-numeric:tabular-nums; }
+.conta-flotta span{
+  font-family:var(--testo); font-weight:500; font-size:.9rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--grigio);
+}
+.raster{
+  display:grid; gap:clamp(6px,1vw,12px);
+  grid-template-columns:repeat(auto-fill,minmax(clamp(46px,6vw,74px),1fr));
+}
+.raster i{ display:block; }
+.sagoma{ width:100%; height:auto; display:block; fill:var(--linea); transition:fill .45s var(--ease); }
+.raster i.vista .sagoma{ fill:var(--blu); }
+.raster i:nth-child(7n) .sagoma,
+.raster i:nth-child(11n) .sagoma{ transition-delay:.06s; }
+.nota-flotta{ margin-top:var(--s5); }
+
+@media(prefers-reduced-motion:reduce){
+  .parola{ opacity:1; filter:none; transform:none; }
+}
+
+/* Die Jahreszahl bleibt stehen, solange ihre Etappe läuft. */
+@media(min-width:760px){
+  .tappa .anno{ position:sticky; top:calc(72px + var(--s5)); }
+}
+/* Bilder der Gallery kommen gestaffelt herein. */
+.griglia-foto .rivela{ transform:translateY(18px); }

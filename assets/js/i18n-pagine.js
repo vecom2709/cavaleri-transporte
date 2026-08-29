@@ -3,6 +3,11 @@
 const A = {
 
 it:{
+  "dc.1":"Un carico non è un dato. È qualcuno che aspetta.",
+  "dc.2":"L’orario del traghetto non si negozia. Tutto il resto sì.",
+  "fl.occhiello":"La flotta", "fl.titolo":"Ottanta mezzi, uno per uno",
+  "fl.txt":"Non sono ottanta volte lo stesso camion. Trattori e motrici di lunghezza diversa, centinati, ribaltabili, casse mobili: la flotta è fatta per entrare dove il carico deve arrivare, non per stare bene in fotografia.",
+  "fl.conta":"mezzi in flotta", "fl.persone":"E trenta persone che li muovono: autisti, magazzino, amministrazione.",
   "mz.occhiello":"I mezzi", "mz.titolo":"Quale mezzo per quale carico",
   "mz.guida":"La flotta è diversificata per tipologia e dimensione. Il mezzo si sceglie sul punto di scarico e sulla merce, non sul listino: chi prende l’ordine decide anche questo.",
   "mz.1n":"Semirimorchio centinato", "mz.1x":"Per merce pallettizzata e materiale confezionato. Si apre di lato e dietro, quindi si carica anche dove non c’è rampa. È il mezzo dei giri di distribuzione e del groupage.",
@@ -42,7 +47,7 @@ it:{
   "nl.d4t":"Modulo di preventivo",
   "nl.d4x":"Le risposte non vengono trasmesse a questo sito: il pulsante finale apre il programma di posta dell’utente con il testo già scritto. L’invio avviene dalla sua casella, come una normale e-mail.",
   "nl.d5t":"Immagini",
-  "nl.d5x":"Tutte le fotografie e il filmato ritraggono mezzi, sedi e attività dell’azienda. La carta del Mediterraneo e il reticolo di linee sullo sfondo sono disegni generati, non documenti cartografici.",
+  "nl.d5x":"Tutte le fotografie e il filmato ritraggono mezzi, sedi e attività dell’azienda. La carta del Mediterraneo, il reticolo di linee, la strada notturna e lo schema del porto sullo sfondo sono immagini generate, non fotografie dell’azienda.",
   "nl.d6t":"Diritti",
   "nl.d6x":"Per chiedere informazioni o la cancellazione di una corrispondenza è sufficiente scrivere all’indirizzo qui sopra.",
   "vid.occhiello":"Uno sguardo dentro",
@@ -105,6 +110,11 @@ it:{
 },
 
 de:{
+  "dc.1":"Eine Ladung ist keine Zahl. Da wartet jemand.",
+  "dc.2":"Die Abfahrt der Fähre verhandelt niemand. Alles andere schon.",
+  "fl.occhiello":"Der Fuhrpark", "fl.titolo":"Achtzig Fahrzeuge, eines nach dem anderen",
+  "fl.txt":"Das sind nicht achtzig gleiche Lastwagen. Zugmaschinen und Motorwagen verschiedener Länge, Planenauflieger, Kipper, Wechselbrücken: Der Fuhrpark ist dafür gebaut, dorthin zu kommen, wo die Ladung hin muss — nicht dafür, auf dem Foto gut auszusehen.",
+  "fl.conta":"Fahrzeuge im Fuhrpark", "fl.persone":"Dazu dreißig Menschen, die sie bewegen: Fahrer, Lager, Verwaltung.",
   "mz.occhiello":"Die Fahrzeuge", "mz.titolo":"Welches Fahrzeug für welche Ladung",
   "mz.guida":"Der Fuhrpark ist nach Typ und Größe gemischt. Das Fahrzeug richtet sich nach Entladestelle und Ware, nicht nach der Preisliste — und wer den Auftrag annimmt, entscheidet auch darüber.",
   "mz.1n":"Planenauflieger", "mz.1x":"Für Palettenware und verpacktes Material. Seitlich und hinten zu öffnen, also auch dort zu beladen, wo keine Rampe steht. Das Fahrzeug der Verteiltouren und des Sammelguts.",
@@ -144,7 +154,7 @@ de:{
   "nl.d4t":"Angebotsformular",
   "nl.d4x":"Die Antworten werden nicht an diese Seite übertragen: Der letzte Knopf öffnet das E-Mail-Programm des Nutzers mit fertigem Text. Versendet wird aus dessen eigenem Postfach, wie eine gewöhnliche E-Mail.",
   "nl.d5t":"Bilder",
-  "nl.d5x":"Alle Fotografien und der Film zeigen Fahrzeuge, Standorte und Arbeit des Unternehmens. Die Mittelmeerkarte und das Linienraster im Hintergrund sind erzeugte Zeichnungen, keine kartografischen Unterlagen.",
+  "nl.d5x":"Alle Fotografien und der Film zeigen Fahrzeuge, Standorte und Arbeit des Unternehmens. Die Mittelmeerkarte, das Linienraster, die nächtliche Straße und das Hafenschema im Hintergrund sind erzeugte Bilder, keine Aufnahmen des Unternehmens.",
   "nl.d6t":"Rechte",
   "nl.d6x":"Für Auskunft oder die Löschung eines Schriftwechsels genügt eine Nachricht an die oben genannte Adresse.",
   "vid.occhiello":"Ein Blick hinein",
@@ -207,6 +217,11 @@ de:{
 },
 
 en:{
+  "dc.1":"A load is not a number. Someone is waiting for it.",
+  "dc.2":"The ferry's departure is not negotiable. Everything else is.",
+  "fl.occhiello":"The fleet", "fl.titolo":"Eighty vehicles, one by one",
+  "fl.txt":"These are not eighty of the same lorry. Tractor units and rigids of different lengths, curtainsiders, tippers, swap bodies: the fleet is built to reach where the load has to go, not to look good in a photograph.",
+  "fl.conta":"vehicles in the fleet", "fl.persone":"And thirty people who move them: drivers, warehouse, administration.",
   "mz.occhiello":"The vehicles", "mz.titolo":"Which vehicle for which load",
   "mz.guida":"The fleet is mixed by type and size. The vehicle follows the unloading point and the goods, not the price list — and whoever takes the order decides that too.",
   "mz.1n":"Curtainsider semi-trailer", "mz.1x":"For palletised goods and packaged material. Opens at the side and the rear, so it loads where there is no dock. This is the vehicle of the distribution rounds and of groupage.",
@@ -246,7 +261,7 @@ en:{
   "nl.d4t":"Quote form",
   "nl.d4x":"Answers are not transmitted to this site: the final button opens the visitor's own email programme with the text already written. It is sent from their own mailbox, like any ordinary email.",
   "nl.d5t":"Images",
-  "nl.d5x":"All photographs and the film show the company's vehicles, premises and work. The Mediterranean map and the line pattern in the background are generated drawings, not cartographic documents.",
+  "nl.d5x":"All photographs and the film show the company's vehicles, premises and work. The Mediterranean map, the line pattern, the night road and the port schematic in the background are generated images, not photographs of the company.",
   "nl.d6t":"Rights",
   "nl.d6x":"To request information or the deletion of correspondence, a message to the address above is enough.",
   "vid.occhiello":"A look inside",
