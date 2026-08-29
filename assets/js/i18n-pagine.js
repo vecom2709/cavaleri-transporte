@@ -3,6 +3,7 @@
 const A = {
 
 it:{
+  "vid.suonoOn":"Attiva l’audio", "vid.suonoOff":"Disattiva l’audio",
   "dc.1":"Un carico non è un dato. È qualcuno che aspetta.",
   "dc.2":"L’orario del traghetto non si negozia. Tutto il resto sì.",
   "fl.occhiello":"La flotta", "fl.titolo":"Ottanta mezzi, uno per uno",
@@ -110,6 +111,7 @@ it:{
 },
 
 de:{
+  "vid.suonoOn":"Ton einschalten", "vid.suonoOff":"Ton ausschalten",
   "dc.1":"Eine Ladung ist keine Zahl. Da wartet jemand.",
   "dc.2":"Die Abfahrt der Fähre verhandelt niemand. Alles andere schon.",
   "fl.occhiello":"Der Fuhrpark", "fl.titolo":"Achtzig Fahrzeuge, eines nach dem anderen",
@@ -217,6 +219,7 @@ de:{
 },
 
 en:{
+  "vid.suonoOn":"Turn sound on", "vid.suonoOff":"Turn sound off",
   "dc.1":"A load is not a number. Someone is waiting for it.",
   "dc.2":"The ferry's departure is not negotiable. Everything else is.",
   "fl.occhiello":"The fleet", "fl.titolo":"Eighty vehicles, one by one",

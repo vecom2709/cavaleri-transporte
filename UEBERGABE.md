@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 24: Filmrahmen auf Texthöhe)
+# Cavaleri Srl — Übergabe (Stand 25: Ton am Sichtbereich)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,34 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Ton des Films
+Kommt der Abschnitt ins Bild, läuft der Film und der Ton geht an. Verlässt er das
+Bild, ist beides wieder aus. Der Knopf im Rahmen schaltet den Ton von Hand um;
+wer ihn dort ausschaltet, bekommt ihn beim nächsten Hereinscrollen **nicht wieder
+aufgedrängt** — die Wahl bleibt bestehen, bis er sie zurücknimmt.
+
+**Wichtig zur Erwartung:** Browser lassen Ton ohne vorherige Nutzerhandlung nicht
+zu. Beim allerersten Besuch startet der Film deshalb stumm, und der Knopf lädt zum
+Einschalten ein; sobald irgendwo auf der Seite geklickt wurde, greift die
+Automatik. Das ist keine Einstellungssache, sondern eine Regel der Browser — sie
+lässt sich nicht umgehen, nur sauber abfangen. Genau das tut das Skript: Wird der
+Ton verweigert, läuft der Film stumm weiter statt gar nicht.
+
+Zwei Dinge waren dafür nötig:
+
+1. **Die Tonspur fehlte.** Beim ersten Komprimieren hatte ich den Film mit `-an`
+   stummgeschaltet. Er ist neu kodiert, mit AAC bei 64 kbit/s Mono — 2,3 statt
+   2,0 MB.
+2. **Eine zweite Fassung in freien Codecs** (`piazzale.webm`, VP9 und Opus). Sie
+   steht als erste Quelle im `<video>`, MP4 als zweite. Das ist nicht nur
+   Vorsorge: Chromium ohne proprietäre Codecs — auch der Browser, mit dem ich
+   hier prüfe — kann H.264 gar nicht abspielen. Ohne WebM ließ sich das Verhalten
+   nicht messen, sondern nur behaupten.
+
+Gemessen wurde: im Bild Ton an und Film läuft · Klick schaltet stumm, Film läuft
+weiter · außer Sicht stumm und angehalten · zurück im Bild läuft er, bleibt aber
+stumm, weil der Nutzer das so wollte.
 
 ## Filmabschnitt
 Der Rahmen ist auf breiten Bildschirmen jetzt genau so hoch wie die Textspalte

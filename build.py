@@ -635,10 +635,12 @@ def incorpora_media(html):
         "document.querySelectorAll('[data-foto]').forEach(i=>i.src=FOTO[i.dataset.foto]);"
         "</script></body>" % elenco)
 
+    # Der Film hat zwei <source>; die sind oben mit den Bildquellen entfernt
+    # worden. Für die Einzeldatei kommt eine Fassung direkt an das <video>.
     video = W / "assets/video/piazzale.mp4"
     if video.exists():
-        html = re.sub(r'(\.\./)*assets/video/piazzale\.mp4',
-                      "data:video/mp4;base64," + base64.b64encode(video.read_bytes()).decode(), html)
+        uri = "data:video/mp4;base64," + base64.b64encode(video.read_bytes()).decode()
+        html = html.replace("<video ", f'<video src="{uri}" ', 1)
     poster = W / "assets/video/piazzale-poster.jpg"
     if poster.exists():
         html = re.sub(r'(\.\./)*assets/video/piazzale-poster\.jpg',

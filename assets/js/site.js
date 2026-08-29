@@ -163,27 +163,72 @@
     p.style.setProperty("--len", l);
   });
 
-  /* ---------- 7. Film: lädt und läuft nur, wenn er im Bild ist ------------
-     Ohne Ton, ohne Ruckeln im Hintergrund, und still bei reduzierter Bewegung. */
+  /* ---------- 7. Film: Bild und Ton am Sichtbereich -----------------------
+     Kommt der Abschnitt ins Bild, läuft der Film und der Ton geht an; verlässt
+     er das Bild, ist beides wieder aus.
+
+     Browser lassen Ton ohne vorherige Nutzerhandlung nicht zu. Deshalb startet
+     der Film immer stumm, und der Ton wird erst versucht — klappt es nicht,
+     bleibt er stumm und der Knopf lädt zum Einschalten ein. Wer den Ton von
+     Hand ausschaltet, bekommt ihn nicht wieder aufgedrängt. */
   const film = document.querySelector("[data-film]");
   if (film) {
     const tasto = document.querySelector("[data-pausa]");
+    let vuole = true;          // Ton erwünscht, solange nicht abgewählt
+    let inVista = false;
+
+    const parola = (chiave, ripiego) =>
+      (window.TESTI[document.documentElement.lang] || {})[chiave] || ripiego;
+
     const etichetta = () => {
       if (!tasto) return;
-      const d = window.TESTI[document.documentElement.lang] || {};
-      tasto.textContent = film.paused ? (d["vid.play"] || "Play") : (d["vid.pausa"] || "Pause");
+      tasto.textContent = film.muted
+        ? parola("vid.suonoOn", "Ton an") : parola("vid.suonoOff", "Ton aus");
+      tasto.setAttribute("aria-pressed", String(!film.muted));
     };
+
+    const accendi = async () => {
+      if (!vuole) return;
+      film.muted = false;
+      try {
+        await film.play();                 // schlägt fehl, wenn der Browser sperrt
+      } catch (e) {
+        film.muted = true;
+        film.play().catch(() => {});
+      }
+      etichetta();
+    };
+
     if (tasto) {
       tasto.hidden = false;
-      tasto.addEventListener("click", () => { film.paused ? film.play() : film.pause(); etichetta(); });
-    }
-    new IntersectionObserver((v) => {
-      v.forEach(x => {
-        if (x.isIntersecting && !ridotto) { film.preload = "auto"; film.play().catch(() => {}); }
-        else film.pause();
+      tasto.addEventListener("click", async () => {
+        vuole = film.muted;                // Klick kehrt den Wunsch um
+        film.muted = !film.muted;
+        try {
+          await film.play();
+        } catch (e) {                      // Ton verweigert: wenigstens Bild
+          film.muted = true;
+          film.play().catch(() => {});
+        }
         etichetta();
       });
-    }, { threshold: .35 }).observe(film);
+    }
+
+    new IntersectionObserver((v) => {
+      v.forEach(x => {
+        inVista = x.isIntersecting;
+        if (inVista && !ridotto) {
+          film.preload = "auto";
+          film.play().catch(() => {});
+          accendi();
+        } else {
+          film.muted = true;               // außer Sicht ist immer still
+          film.pause();
+          etichetta();
+        }
+      });
+    }, { threshold: .45 }).observe(film);
+
     etichetta();
   }
 

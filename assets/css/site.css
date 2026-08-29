@@ -451,7 +451,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   position:absolute; right:14px; bottom:14px; z-index:2;
   border:1px solid rgba(255,255,255,.4); background:rgba(9,21,58,.55);
   color:#fff; border-radius:999px; padding:9px 16px; cursor:pointer;
-  font-family:var(--display); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  font-family:var(--display); font-size:.76rem; letter-spacing:.12em; text-transform:uppercase;
   backdrop-filter:blur(6px); transition:background .3s ease;
 }
 .suono:hover{ background:rgba(9,21,58,.85); }
