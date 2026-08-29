@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 19: geografisch richtige Karte)
+# Cavaleri Srl — Übergabe (Stand 20: Schatten- und Höhensystem)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,48 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Schatten und Höhe
+`assets/css/schatteneffekte.css` ist die zentrale Datei — Schattenwerte stehen
+nirgends sonst.
+
+**Eine Lichtquelle** für die ganze Seite: von oben, nur y-Versatz, nie x.
+**Zwei Schichten je Höhe**: ein kurzer Kontaktschatten, der das Objekt an die
+Fläche klebt, und ein weiter Streuschatten, der die Höhe macht. Mit steigender
+Höhe wird der Schatten weicher und **blasser**, nicht kräftiger.
+
+**Schattenfarbe aus der Marke abgeleitet**, nicht Schwarz: `#1a3a8f` hat den
+Farbton 224°; halbierte Sättigung und 12 % Helligkeit ergeben `20 26 41`. Auf den
+kühlen Flächen dieser Seite wirkt reines Schwarz sonst grau und schmutzig.
+
+**Auf den dunklen Flächen** (Kopfbereich, blaue Abschnitte, Aussagen, Fuß) trägt
+Schatten nicht — dort kommt die Tiefe aus einer Lichtkante an der Oberkante und
+einer hellen statt dunklen Hairline.
+
+Zuordnung der Bauteile:
+
+| Bauteil | Ruhe | Zeigen | Drücken |
+|---|---|---|---|
+| Schaltflächen, Auswahlkacheln, Reiter | 2 | 3 + 3 px nach oben | 1 + `scale(.98)` |
+| Bilder der Gallery | 2 | 3 + 3 px nach oben | — |
+| Bild in einer Karte | nur Kante | — | — |
+| Kartenraster (Leistungen, Personen) | 1 am Verbund | nur Flächentönung | — |
+| Eingabefelder | eingelassen | — | — |
+| Kopfzeile | keine Höhe, 2 beim Scrollen | — | — |
+| Fuß, Bildbänder, Aussagen | keine Höhe | — | — |
+
+Die Zeilen der Kartenraster wechseln bewusst **nicht** die Höhe — bei mehreren
+nebeneinander wirkt das nervös.
+
+Das Logo ist freigestellt und bekommt deshalb `drop-shadow`, nicht `box-shadow`;
+letzteres würde den unsichtbaren Rahmen schatten.
+
+Textschatten gibt es nur noch dort, wo er zulässig wäre — auf den Bildbändern ist
+er entfallen und durch einen etwas kräftigeren Verlauf unter der Schrift ersetzt.
+
+Nachgemessen mit dem Audit des Skills: keine Schatten mit x-Versatz, kein reines
+Schwarz auf hellen Flächen, keine einschichtigen Flächenschatten, kein
+Textschatten unter Überschriftengröße.
 
 ## Feinschliff
 Anker rutschen nicht mehr unter die Kopfzeile; Textauswahl in Markenfarbe;

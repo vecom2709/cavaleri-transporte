@@ -760,7 +760,10 @@ def main():
     print("Pfade geprüft: alle relativ")
 
     # ---- Einzeldatei-Vorschau: alle Seiten, Umschaltung über den Anker ----
-    css = (W / "assets/css/site.css").read_text(encoding="utf-8").replace('@import url("../font/schriften.css");\n', "")
+    css = (W / "assets/css/site.css").read_text(encoding="utf-8")
+    css = css.replace('@import url("../font/schriften.css");\n', "")
+    css = css.replace('@import url("schatteneffekte.css");',
+                      (W / "assets/css/schatteneffekte.css").read_text(encoding="utf-8"))
     b64 = lambda f: "data:font/woff2;base64," + base64.b64encode((W / "assets/font" / f).read_bytes()).decode()
     fonts = ""
     for famiglia in ("archivo", "inter"):

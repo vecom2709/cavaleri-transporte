@@ -1,0 +1,76 @@
+/* ============================================================
+   SCHATTENEFFEKTE · Höhen- und Schattensystem
+   Lichtquelle: oben, leicht frontal → ausschließlich y-Versatz.
+   Schattenfarbe aus dem Markenblau abgeleitet (#1a3a8f, HSL 224/69/33):
+   Farbton behalten, Sättigung halbiert, Helligkeit auf 12 % → 20 26 41.
+   Werte hier zentral pflegen, niemals in Bauteilen.
+   ============================================================ */
+
+:root{
+  --sh: 20 26 41;          /* kühl, aus dem Hintergrund abgeleitet */
+  --sh-kante: .07;
+  --sh-faktor: 1;
+
+  --e1: 0 1px 1px -0.5px rgb(var(--sh) / calc(.10 * var(--sh-faktor))),
+        0 2px 6px  -1px   rgb(var(--sh) / calc(.07 * var(--sh-faktor)));
+  --e2: 0 1px 2px -0.5px rgb(var(--sh) / calc(.12 * var(--sh-faktor))),
+        0 6px 14px -3px   rgb(var(--sh) / calc(.10 * var(--sh-faktor)));
+  --e3: 0 2px 3px -1px   rgb(var(--sh) / calc(.13 * var(--sh-faktor))),
+        0 14px 28px -6px  rgb(var(--sh) / calc(.14 * var(--sh-faktor)));
+  --e4: 0 3px 5px -1px   rgb(var(--sh) / calc(.14 * var(--sh-faktor))),
+        0 28px 56px -12px rgb(var(--sh) / calc(.18 * var(--sh-faktor)));
+
+  --kante: 0 0 0 1px rgb(var(--sh) / var(--sh-kante));
+
+  --incavo: inset 0 1px 2px rgb(var(--sh) / .12),
+            inset 0 0 0 1px rgb(var(--sh) / .10);
+
+  --t-auf:  0 1px 1px rgb(var(--sh) / .16);
+  --t-hoch: 0 1px 1px rgb(var(--sh) / .18), 0 3px 10px rgb(var(--sh) / .14);
+
+  --auf-ease: cubic-bezier(.16,1,.3,1);
+}
+
+/* ------------------------------------------------------------
+   Dunkle Flächen: Tiefe kommt dort nicht vom Schatten, sondern
+   von aufgehellter Fläche und einer Lichtkante an der Oberkante.
+   Die Hairline wird von dunkel auf hell umgestellt.
+   ------------------------------------------------------------ */
+.sfondo-blu, .hero, .dichiarazione, .mondo, .piede, .intro, .fascia{
+  --sh: 0 0 0;
+  --sh-kante: .09;
+  --e1: 0 1px 2px  rgb(0 0 0 / .40), inset 0 1px 0 rgb(255 255 255 / .05);
+  --e2: 0 4px 10px rgb(0 0 0 / .45), inset 0 1px 0 rgb(255 255 255 / .07);
+  --e3: 0 10px 24px rgb(0 0 0 / .50), inset 0 1px 0 rgb(255 255 255 / .09);
+  --e4: 0 22px 48px rgb(0 0 0 / .55), inset 0 1px 0 rgb(255 255 255 / .11);
+  --kante: 0 0 0 1px rgb(255 255 255 / var(--sh-kante));
+  --incavo: inset 0 1px 2px rgb(0 0 0 / .45), inset 0 0 0 1px rgb(255 255 255 / .12);
+}
+
+/* ---- Flächen ---------------------------------------------- */
+.auf-0{ box-shadow: var(--kante); }
+.auf-1{ box-shadow: var(--kante), var(--e1); }
+.auf-2{ box-shadow: var(--kante), var(--e2); }
+.auf-3{ box-shadow: var(--kante), var(--e3); }
+.auf-4{ box-shadow: var(--kante), var(--e4); }
+
+/* ---- Zustände: genau eine Ebene hoch, beim Drücken eine tiefer ---- */
+.hebt{ transition: box-shadow .24s var(--auf-ease), transform .24s var(--auf-ease); }
+@media(hover:hover){
+  .hebt:hover{ box-shadow: var(--kante), var(--e3); transform: translateY(-3px); }
+}
+.hebt:active{ box-shadow: var(--kante), var(--e1); transform: scale(.98); transition-duration:.12s; }
+
+@media (prefers-reduced-motion: reduce){
+  .hebt:hover, .hebt:active{ transform: none; }
+}
+
+/* ---- Freigestellte Motive: drop-shadow, nie box-shadow ---- */
+.frei{
+  filter: drop-shadow(0 2px 2px rgb(var(--sh) / .16))
+          drop-shadow(0 12px 20px rgb(var(--sh) / .18));
+}
+
+/* ---- Schrift: nur Überschriften, nie Fließtext ------------ */
+.t-auf{ text-shadow: var(--t-auf); }
+.t-hoch{ text-shadow: var(--t-hoch); }

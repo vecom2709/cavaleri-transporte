@@ -1,4 +1,5 @@
 @import url("../font/schriften.css");
+@import url("schatteneffekte.css");
 
 /* =========================================================================
    CAVALERI SRL — Design-System
@@ -38,7 +39,6 @@
   --rand: clamp(20px, 5vw, 64px);
 
   --ease: cubic-bezier(.16,1,.3,1);
-  --ombra: 0 1px 2px rgba(15,23,37,.05), 0 12px 34px -18px rgba(26,58,143,.35);
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -98,7 +98,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   transition:transform .4s var(--ease), background .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 .bottone .freccia{ transition:transform .45s var(--ease); }
-.bottone:hover{ background:var(--blu-medio); border-color:var(--blu-medio); transform:translateY(-2px); box-shadow:var(--ombra); }
+.bottone:hover{ background:var(--blu-medio); border-color:var(--blu-medio); transform:translateY(-2px); box-shadow:var(--kante), var(--e3); }
 .bottone:hover .freccia{ transform:translateX(5px); }
 .bottone--linea{ --bg:transparent; --fg:var(--blu); border-color:var(--linea); }
 .bottone--linea:hover{ background:var(--blu-chiaro); border-color:var(--blu); color:var(--blu); }
@@ -440,7 +440,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .telaio{
   position:relative; margin:0; border-radius:6px; overflow:hidden;
   aspect-ratio:9/16; max-height:78vh; background:var(--blu-scuro);
-  box-shadow:0 30px 70px -30px rgba(9,21,58,.7);
+  box-shadow:var(--kante), var(--e3);
 }
 .telaio video{ width:100%; height:100%; object-fit:cover; display:block; }
 .telaio::after{
@@ -543,7 +543,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .fascia .sfondo img{ width:100%; height:100%; object-fit:cover; }
 .fascia::after{
   content:""; position:absolute; inset:0; z-index:1;
-  background:linear-gradient(180deg, rgba(9,21,58,.62), rgba(9,21,58,.34) 45%, rgba(9,21,58,.72));
+  background:linear-gradient(180deg, rgba(9,21,58,.70), rgba(9,21,58,.46) 45%, rgba(9,21,58,.78));
 }
 .fascia .frase{
   position:relative; z-index:2; margin:0; text-align:center; color:#fff;
@@ -551,7 +551,6 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   letter-spacing:-.02em; line-height:1.05;
   font-size:clamp(1.5rem,3.6vw,3rem); max-width:18ch;
   padding-inline:var(--rand);
-  text-shadow:0 2px 30px rgba(6,14,36,.55);
 }
 .fascia .frase span{ color:#8fb6ff; }
 
@@ -743,7 +742,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   padding:14px 14px 10px; border-radius:6px;
   background:rgba(6,14,36,.52); backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 20px 50px -24px rgba(0,0,0,.8);
+  box-shadow:var(--kante), var(--e3);
 }
 .mappa-viva svg{ width:100%; height:auto; display:block; overflow:visible; }
 .mappa-viva .scia{
@@ -1234,3 +1233,91 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
   .visibile .carta-rotta .nodo-rotta{ opacity:1; animation:none; }
   .carta-rotta .nodo-rotta .alone{ animation:none; }
 }
+
+/* =========================================================================
+   Höhen: Zuordnung der Bauteile nach dem Schattensystem
+   Ebene 1 liegt an · 2 liegt auf · 3 angehoben · 4 schwebt
+   ========================================================================= */
+
+/* --- Schaltflächen: 2 · Hover 3 · gedrückt 1 -------------------------- */
+.bottone{
+  --sh:12 22 58;                      /* eigener Ton aus dem Markenblau */
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease),
+             background .3s ease, border-color .3s ease;
+}
+@media(hover:hover){
+  .bottone:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+.bottone:active{ box-shadow:var(--kante), var(--e1); transform:scale(.98); transition-duration:.12s; }
+.bottone--linea{ --sh:20 26 41; }
+.hero .bottone--linea, .sfondo-blu .bottone--linea, .dichiarazione .bottone--linea{ --sh:0 0 0; }
+
+/* --- Raster aus Karten: der Verbund liegt an, die Zellen tönen nur ----- */
+.servizi, .persone, .blocchi{ box-shadow:var(--kante), var(--e1); }
+.persona:hover, .blocchi article:hover{ box-shadow:none; }
+
+/* --- Frei stehende Bilder: 2, beim Zeigen 3 --------------------------- */
+.griglia-foto figure{
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease);
+}
+@media(hover:hover){
+  .griglia-foto figure:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+/* Bild in einer Karte: keine zweite Höhe, nur die Kante */
+.pannello > figure{ box-shadow:var(--kante); }
+
+/* --- Filmrahmen und Kartenkarte auf dunklem Grund --------------------- */
+.telaio{ box-shadow:var(--kante), var(--e3); }
+.mappa-viva{ box-shadow:var(--kante), var(--e3); }
+
+/* --- Eingabefelder: eingelassen, nicht erhaben ------------------------ */
+.campo input, .campo textarea{ box-shadow:var(--incavo); }
+.campo input:focus, .campo textarea:focus{
+  box-shadow:var(--incavo), 0 0 0 3px rgba(47,107,209,.18);
+}
+
+/* --- Auswahlkacheln und Reiter: wie Schaltflächen --------------------- */
+.scelte button, .scheda{
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease),
+             background .25s ease, border-color .25s ease, color .25s ease;
+}
+@media(hover:hover){
+  .scelte button:hover, .scheda:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+.scelte button:active, .scheda:active{ box-shadow:var(--kante), var(--e1); transform:scale(.98); }
+.scelte button[aria-pressed="true"], .scheda[aria-selected="true"]{
+  --sh:12 22 58; box-shadow:var(--kante), var(--e1); transform:none;
+}
+
+/* --- Kopfzeile: keine Höhe im Ruhezustand, Ebene 2 beim Scrollen ------ */
+.testa{ box-shadow:none; transition:background .45s ease, backdrop-filter .45s ease,
+        border-color .45s ease, color .45s ease, box-shadow .24s var(--ease); }
+.testa.attaccata{ box-shadow:var(--e2); }
+.navi.aperta{ box-shadow:var(--e3); }
+
+/* --- Das Logo ist freigestellt: drop-shadow, nicht box-shadow --------- */
+.logo{ filter:drop-shadow(0 1px 1px rgb(0 0 0 / .22)) drop-shadow(0 6px 14px rgb(0 0 0 / .18)); }
+.testa.attaccata .logo{ filter:none; }
+.logo-piede{ filter:drop-shadow(0 2px 3px rgb(0 0 0 / .30)); }
+
+/* --- Fußzeile und Flächenabschnitte bleiben ohne Höhe ----------------- */
+.piede, .fascia, .dichiarazione{ box-shadow:none; }
+
+/* `hidden` schlägt jede Anzeigeart — sonst steht die Zeile auch ohne Fahrzeug da. */
+[hidden]{ display:none !important; }
+
+/* Höhe braucht Luft: bei 2 px Abstand fressen sich die Schatten gegenseitig. */
+.griglia-foto{ gap:clamp(12px,1.6vw,22px); background:none; }
+.griglia-foto figure{ border-radius:3px; }
+.griglia-foto figcaption{ border-radius:0 0 3px 3px; }
+
+/* Das Bild muss die Kachel füllen. Vorher hing die Höhe an einer
+   Prozentangabe, die bei breiten Aufnahmen nicht aufging — unten blieb
+   ein weißer Streifen. Jetzt liegt das Bild absolut in der Kachel. */
+.griglia-foto figure{ position:relative; }
+.griglia-foto picture{ position:absolute; inset:0; top:0; height:100%; display:block; }
+.griglia-foto img{ width:100%; height:100%; object-fit:cover; transform:scale(1.04); }
+@media(prefers-reduced-motion:reduce){ .griglia-foto img{ transform:none; } }
