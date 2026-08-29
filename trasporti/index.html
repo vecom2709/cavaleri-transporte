@@ -100,6 +100,60 @@
       </div>
     </div>
   </section>
+  <section class="mezzi riga-sopra" id="mezzi">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="mz.occhiello"></p>
+          <h2 data-t="mz.titolo"></h2>
+        </div>
+        <p class="guida" data-t="mz.guida"></p>
+      </div>
+      <div class="schede" role="tablist">
+        <button type="button" class="scheda" role="tab" data-mezzo="centinato"
+                aria-selected="true" aria-controls="mezzo-0" id="scheda-0">
+          <span data-t="mz.1n"></span>
+        </button>
+        <button type="button" class="scheda" role="tab" data-mezzo="ribaltabile"
+                aria-selected="false" aria-controls="mezzo-1" id="scheda-1">
+          <span data-t="mz.2n"></span>
+        </button>
+        <button type="button" class="scheda" role="tab" data-mezzo="trattore"
+                aria-selected="false" aria-controls="mezzo-2" id="scheda-2">
+          <span data-t="mz.3n"></span>
+        </button>
+      </div>
+      <div class="pannelli">
+      <div class="pannello" id="mezzo-0" role="tabpanel" aria-labelledby="scheda-0">
+        <figure><picture><source type="image/avif" srcset="/assets/foto/rimorchio-krone-640.avif 640w, /assets/foto/rimorchio-krone-1000.avif 1000w, /assets/foto/rimorchio-krone-1152.avif 1152w" sizes="(min-width:900px) 55vw, 100vw"><source type="image/webp" srcset="/assets/foto/rimorchio-krone-640.webp 640w, /assets/foto/rimorchio-krone-1000.webp 1000w, /assets/foto/rimorchio-krone-1152.webp 1152w" sizes="(min-width:900px) 55vw, 100vw"><img src="../assets/foto/rimorchio-krone-1152.jpg" alt="" width="1152" height="2048" loading="lazy" decoding="async"></picture></figure>
+        <div class="dettaglio">
+          <h3 data-t="mz.1n"></h3>
+          <p data-t="mz.1x"></p>
+          <ul data-t="mz.1t" data-tag="lista"></ul>
+          <a class="bottone" href="../preventivo/?mezzo=centinato"><span data-t="mz.cta"></span><span class="freccia">→</span></a>
+        </div>
+      </div>
+      <div class="pannello" id="mezzo-1" role="tabpanel" aria-labelledby="scheda-1" hidden>
+        <figure><picture><source type="image/avif" srcset="/assets/foto/ribaltabile-640.avif 640w, /assets/foto/ribaltabile-1000.avif 1000w, /assets/foto/ribaltabile-1500.avif 1500w" sizes="(min-width:900px) 55vw, 100vw"><source type="image/webp" srcset="/assets/foto/ribaltabile-640.webp 640w, /assets/foto/ribaltabile-1000.webp 1000w, /assets/foto/ribaltabile-1500.webp 1500w" sizes="(min-width:900px) 55vw, 100vw"><img src="../assets/foto/ribaltabile-1500.jpg" alt="" width="1500" height="2000" loading="lazy" decoding="async"></picture></figure>
+        <div class="dettaglio">
+          <h3 data-t="mz.2n"></h3>
+          <p data-t="mz.2x"></p>
+          <ul data-t="mz.2t" data-tag="lista"></ul>
+          <a class="bottone" href="../preventivo/?mezzo=ribaltabile"><span data-t="mz.cta"></span><span class="freccia">→</span></a>
+        </div>
+      </div>
+      <div class="pannello" id="mezzo-2" role="tabpanel" aria-labelledby="scheda-2" hidden>
+        <figure><picture><source type="image/avif" srcset="/assets/foto/daf-piazzale-640.avif 640w, /assets/foto/daf-piazzale-1000.avif 1000w, /assets/foto/daf-piazzale-1152.avif 1152w" sizes="(min-width:900px) 55vw, 100vw"><source type="image/webp" srcset="/assets/foto/daf-piazzale-640.webp 640w, /assets/foto/daf-piazzale-1000.webp 1000w, /assets/foto/daf-piazzale-1152.webp 1152w" sizes="(min-width:900px) 55vw, 100vw"><img src="../assets/foto/daf-piazzale-1152.jpg" alt="" width="1152" height="2048" loading="lazy" decoding="async"></picture></figure>
+        <div class="dettaglio">
+          <h3 data-t="mz.3n"></h3>
+          <p data-t="mz.3x"></p>
+          <ul data-t="mz.3t" data-tag="lista"></ul>
+          <a class="bottone" href="../preventivo/?mezzo=trattore"><span data-t="mz.cta"></span><span class="freccia">→</span></a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
   <section class="fascia">
     <div class="sfondo" data-parallasse="0.22" data-asse="scala"><figure><picture><source type="image/avif" srcset="/assets/foto/imbarco-640.avif 640w, /assets/foto/imbarco-1000.avif 1000w, /assets/foto/imbarco-1500.avif 1500w" sizes="100vw"><source type="image/webp" srcset="/assets/foto/imbarco-640.webp 640w, /assets/foto/imbarco-1000.webp 1000w, /assets/foto/imbarco-1500.webp 1500w" sizes="100vw"><img src="../assets/foto/imbarco-1500.jpg" alt="" width="1500" height="843" loading="lazy" decoding="async"></picture></figure></div>
     <p class="frase" data-t="fa.1"></p>

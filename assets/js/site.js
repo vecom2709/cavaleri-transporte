@@ -176,6 +176,30 @@
     }
   }
 
+
+  /* ---------- 10. Fahrzeugwähler ----------------------------------------
+     Reiter statt Aufklappen: alle drei Typen sind mit einem Tipp erreichbar. */
+  const schede = [...document.querySelectorAll(".scheda")];
+  if (schede.length) {
+    const mostra = (n) => {
+      schede.forEach((s, i) => {
+        s.setAttribute("aria-selected", String(i === n));
+        const p = document.getElementById(s.getAttribute("aria-controls"));
+        if (p) p.hidden = i !== n;
+      });
+    };
+    schede.forEach((s, i) => {
+      s.addEventListener("click", () => mostra(i));
+      s.addEventListener("keydown", e => {
+        const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const n = (i + d + schede.length) % schede.length;
+        mostra(n); schede[n].focus();
+      });
+    });
+  }
+
   /* ---------- 9. Foto-Fallback ------------------------------------------
      Fehlt ein Bild, bleibt die prozedurale Nachtszene stehen — kein
      kaputtes Bildsymbol, kein Sprung im Layout.                          */

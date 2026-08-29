@@ -279,6 +279,7 @@ MODULO = '''  <section>
 
         <fieldset class="passo" style="border:0;margin:0;padding:0">
           <h2 data-t="pr.p1"></h2>
+          <p class="mezzo-scelto" id="c-mezzo" hidden><span data-t="pr.mezzo"></span>: <b></b></p>
           <div class="campo">
             <p class="etichetta" data-t="pr.q1"></p>
             <div class="scelte" id="g-merce" data-t="pr.q1a" data-tag="scelte"></div>
@@ -329,6 +330,47 @@ def fascia(nome, chiave, forza="0.22"):
     return f'''  <section class="fascia">
     <div class="sfondo" data-parallasse="{forza}" data-asse="scala">{figura(nome, sizes="100vw")}</div>
     <p class="frase" data-t="{chiave}"></p>
+  </section>'''
+
+
+def mezzi():
+    tipi = [("centinato", "rimorchio-krone"), ("ribaltabile", "ribaltabile"),
+            ("trattore", "daf-piazzale")]
+    schede = "\n".join(
+        '''        <button type="button" class="scheda" role="tab" data-mezzo="%s"
+                aria-selected="%s" aria-controls="mezzo-%d" id="scheda-%d">
+          <span data-t="mz.%dn"></span>
+        </button>''' % (slug, "true" if n == 0 else "false", n, n, n + 1)
+        for n, (slug, _) in enumerate(tipi))
+    pannelli = "\n".join(
+        '''      <div class="pannello" id="mezzo-%d" role="tabpanel" aria-labelledby="scheda-%d"%s>
+        %s
+        <div class="dettaglio">
+          <h3 data-t="mz.%dn"></h3>
+          <p data-t="mz.%dx"></p>
+          <ul data-t="mz.%dt" data-tag="lista"></ul>
+          <a class="bottone" href="/preventivo/?mezzo=%s"><span data-t="mz.cta"></span><span class="freccia">→</span></a>
+        </div>
+      </div>''' % (n, n, "" if n == 0 else " hidden",
+                    figura(foto, sizes="(min-width:900px) 55vw, 100vw"),
+                    n + 1, n + 1, n + 1, slug)
+        for n, (slug, foto) in enumerate(tipi))
+    return f'''  <section class="mezzi riga-sopra" id="mezzi">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="mz.occhiello"></p>
+          <h2 data-t="mz.titolo"></h2>
+        </div>
+        <p class="guida" data-t="mz.guida"></p>
+      </div>
+      <div class="schede" role="tablist">
+{schede}
+      </div>
+      <div class="pannelli">
+{pannelli}
+      </div>
+    </div>
   </section>'''
 
 
@@ -387,7 +429,7 @@ NOTE = '''  <section>
 
 PAGINE = {
  "azienda":    ("az.title", "az.lead", intro("storia.occhiello", "az.h1", "az.lead") + "\n" + fatti() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + PERSONE + "\n" + FIDUCIA + "\n" + INVITO, ""),
- "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead") + "\n" + servizi([1, 2, 3]) + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
+ "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead") + "\n" + servizi([1, 2, 3]) + "\n" + mezzi() + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
  "edilizia":   ("ed.title", "ed.lead", intro("servizi.occhiello", "ed.h1", "ed.lead") + "\n" + servizi([4]) + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.lead", intro("rotta.occhiello", "ro.h1", "ro.lead") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.lead", intro("nav.gallery", "ga.h1", "ga.lead") + "\n" + gallery() + "\n" + INVITO, ""),

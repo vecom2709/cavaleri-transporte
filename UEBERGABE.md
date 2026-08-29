@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 11: Kopfbild als Folge)
+# Cavaleri Srl — Übergabe (Stand 12: Fahrzeugwähler)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -127,6 +127,20 @@ weggeschnitten.
 `assets/marke/cavaleri-marchio.svg` ist jetzt ein Nachbau nach den Fahrzeugfotos
 (Raute mit Verlauf, blaues C). Liegt die Vektordatei des Originals vor, ersetzt sie
 diese Datei unter demselben Namen.
+
+## Fahrzeugwähler
+Auf `/trasporti/` steht ein Wähler mit drei Typen — Planenauflieger, Kipper,
+Zugmaschinen. Reiter statt Aufklappen, damit alle drei mit einem Tipp erreichbar
+sind; mit Pfeiltasten bedienbar, `role="tablist"` samt `aria-selected`.
+
+Jeder Typ führt über „Angebot für dieses Fahrzeug" nach
+`/preventivo/?mezzo=…`. Dort steht der Typ oben im Formular und geht in die
+E-Mail mit — der Kunde muss ihn nicht noch einmal beschreiben.
+
+**Bewusst ohne Zahlen.** Innenmaße, Nutzlasten und Palettenplätze fehlen, weil ich
+sie nicht kenne und nicht erfinden wollte. Sobald sie vorliegen, gehören sie in
+`i18n-pagine.js` unter `mz.1t`, `mz.2t`, `mz.3t` — die Schlagwortleisten sind
+dafür schon da.
 
 ## Kopfbild als Folge
 Drei Aufnahmen lösen sich im Kopf der Startseite ab — Hof, Verladung, Festland,

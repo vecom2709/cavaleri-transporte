@@ -3,6 +3,17 @@
 const A = {
 
 it:{
+  "mz.occhiello":"I mezzi", "mz.titolo":"Quale mezzo per quale carico",
+  "mz.guida":"La flotta è diversificata per tipologia e dimensione. Il mezzo si sceglie sul punto di scarico e sulla merce, non sul listino: chi prende l’ordine decide anche questo.",
+  "mz.1n":"Semirimorchio centinato", "mz.1x":"Per merce pallettizzata e materiale confezionato. Si apre di lato e dietro, quindi si carica anche dove non c’è rampa. È il mezzo dei giri di distribuzione e del groupage.",
+  "mz.1t":"Merce pallettizzata|Carico laterale|Groupage",
+  "mz.2n":"Ribaltabile", "mz.2x":"Per inerti, materiale sfuso e forniture di cantiere. Scarica da solo, senza muletto e senza attesa — anche su piazzali stretti.",
+  "mz.2t":"Inerti e sfusi|Edilizia|Scarico autonomo",
+  "mz.3n":"Trattori e motrici", "mz.3x":"Le unità di traino, differenziate per dimensione. Per cantieri e centri storici conta l’accesso: dove non passa un bilico si manda una motrice più corta.",
+  "mz.3t":"Lunga percorrenza|Accessi difficili|Autisti dipendenti",
+  "mz.cta":"Chiedi un preventivo per questo mezzo",
+  "pr.mezzo":"Mezzo indicato"
+,
   "ro.mappa":"Avanzamento del percorso",
   "rotta.fonte":"La carta sullo sfondo è un disegno, non una mappa nautica. Le fotografie del sito ritraggono invece mezzi e sedi dell’azienda.",
   "fa.1":"Ottanta mezzi. <span>Un solo interlocutore.</span>", "fa.2":"Dal 1974 <span>sulle stesse strade.</span>", "fa.3":"Dalla rampa <span>al cantiere.</span>",
@@ -94,6 +105,17 @@ it:{
 },
 
 de:{
+  "mz.occhiello":"Die Fahrzeuge", "mz.titolo":"Welches Fahrzeug für welche Ladung",
+  "mz.guida":"Der Fuhrpark ist nach Typ und Größe gemischt. Das Fahrzeug richtet sich nach Entladestelle und Ware, nicht nach der Preisliste — und wer den Auftrag annimmt, entscheidet auch darüber.",
+  "mz.1n":"Planenauflieger", "mz.1x":"Für Palettenware und verpacktes Material. Seitlich und hinten zu öffnen, also auch dort zu beladen, wo keine Rampe steht. Das Fahrzeug der Verteiltouren und des Sammelguts.",
+  "mz.1t":"Palettenware|Seitliche Beladung|Sammelgut",
+  "mz.2n":"Kipper", "mz.2x":"Für Schüttgut, loses Material und Baustellenlieferungen. Lädt selbst ab, ohne Stapler und ohne Wartezeit — auch auf engen Höfen.",
+  "mz.2t":"Schüttgut|Bau|Selbstentladend",
+  "mz.3n":"Zugmaschinen und Motorwagen", "mz.3x":"Die ziehenden Einheiten, nach Größe gestaffelt. Bei Baustellen und Altstädten zählt die Zufahrt: wo kein Sattelzug durchkommt, fährt ein kürzerer Motorwagen.",
+  "mz.3t":"Fernverkehr|Enge Zufahrten|Angestellte Fahrer",
+  "mz.cta":"Angebot für dieses Fahrzeug",
+  "pr.mezzo":"Gewünschtes Fahrzeug"
+,
   "ro.mappa":"Fortschritt der Strecke",
   "rotta.fonte":"Die Karte im Hintergrund ist eine Zeichnung, keine Seekarte. Die Fotografien der Seite zeigen dagegen Fahrzeuge und Standorte des Unternehmens.",
   "fa.1":"Achtzig Fahrzeuge. <span>Ein Ansprechpartner.</span>", "fa.2":"Seit 1974 <span>auf denselben Straßen.</span>", "fa.3":"Von der Rampe <span>auf die Baustelle.</span>",
@@ -185,6 +207,17 @@ de:{
 },
 
 en:{
+  "mz.occhiello":"The vehicles", "mz.titolo":"Which vehicle for which load",
+  "mz.guida":"The fleet is mixed by type and size. The vehicle follows the unloading point and the goods, not the price list — and whoever takes the order decides that too.",
+  "mz.1n":"Curtainsider semi-trailer", "mz.1x":"For palletised goods and packaged material. Opens at the side and the rear, so it loads where there is no dock. This is the vehicle of the distribution rounds and of groupage.",
+  "mz.1t":"Palletised goods|Side loading|Groupage",
+  "mz.2n":"Tipper", "mz.2x":"For aggregates, loose material and site deliveries. Unloads by itself, with no forklift and no waiting — even in tight yards.",
+  "mz.2t":"Aggregates|Construction|Self-unloading",
+  "mz.3n":"Tractor units and rigids", "mz.3x":"The pulling units, graded by size. On sites and in old town centres access decides: where an articulated lorry cannot pass, a shorter rigid goes instead.",
+  "mz.3t":"Long distance|Difficult access|Employed drivers",
+  "mz.cta":"Request a quote for this vehicle",
+  "pr.mezzo":"Vehicle requested"
+,
   "ro.mappa":"Progress along the route",
   "rotta.fonte":"The map in the background is a drawing, not a nautical chart. The photographs on this site, by contrast, show the company's own vehicles and premises.",
   "fa.1":"Eighty vehicles. <span>One point of contact.</span>", "fa.2":"Since 1974 <span>on the same roads.</span>", "fa.3":"From the loading bay <span>to the site.</span>",

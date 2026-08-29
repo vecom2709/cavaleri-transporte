@@ -4,6 +4,18 @@
   const modulo = document.querySelector(".modulo");
   if (!modulo) return;
 
+  /* Kommt der Besucher über "Angebot für dieses Fahrzeug", steht der Typ
+     in der Adresse. Er wird angezeigt und mitgeschickt. */
+  const tipi = { centinato: "mz.1n", ribaltabile: "mz.2n", trattore: "mz.3n" };
+  const scelto = new URLSearchParams(location.search).get("mezzo");
+  const riga = document.getElementById("c-mezzo");
+  if (riga && tipi[scelto]) {
+    const nome = () => (window.TESTI[document.documentElement.lang] || {})[tipi[scelto]] || scelto;
+    riga.hidden = false;
+    riga.querySelector("b").textContent = nome();
+    addEventListener("lingua-cambiata", () => { riga.querySelector("b").textContent = nome(); });
+  }
+
   const passi = [...modulo.querySelectorAll(".passo")];
   const barra = modulo.querySelector(".barra i");
   const conta = modulo.querySelector(".conta");
@@ -56,6 +68,7 @@
   modulo.querySelector("[data-invia]").addEventListener("click", () => {
     if (!valida(corrente)) return;
     const righe = [
+      ...(riga && !riga.hidden ? [`0) ${riga.textContent.trim()}`] : []),
       `1) ${val("#g-merce")}`,
       `2) ${val("#c-ritiro")} → ${val("#c-destinazione")}`,
       `3) ${val("#g-quando")}`,

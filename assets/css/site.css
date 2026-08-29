@@ -740,7 +740,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .servizi > *, .persone > *, .blocchi > *, .rotta > *, .filmato > *, .fatti > *,
 .contatti > *, .intestazione > *, .coppia > *{ min-width:0; }
 
-.marchio .sotto{ font-size:.74rem; }
+.marchio .sotto{ font-size:.76rem; }
 
 /* ---------- Sehr schmale Geräte: Kopfzeile entlasten --------------------- */
 @media(max-width:560px){
@@ -886,3 +886,47 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   .hero-scena.in-corso .hero-foto img{ animation:none; }
   .hero-foto:not(:first-child){ opacity:0; }
 }
+
+/* =========================================================================
+   Fahrzeugwähler
+   ========================================================================= */
+.schede{
+  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:var(--s5);
+  border-bottom:1px solid var(--linea); padding-bottom:var(--s3);
+}
+.scheda{
+  font:inherit; cursor:pointer; padding:13px 20px; min-height:44px;
+  background:var(--bianco); border:1px solid var(--linea); border-radius:3px;
+  color:var(--blu); font-family:var(--display); font-weight:600;
+  font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+  transition:background .25s ease, border-color .25s ease, color .25s ease;
+}
+.scheda:hover{ border-color:var(--segnale); }
+.scheda[aria-selected="true"]{ background:var(--blu); border-color:var(--blu); color:#fff; }
+.pannello{ display:grid; gap:clamp(24px,3.5vw,var(--s6)); align-items:center; }
+@media(min-width:900px){ .pannello{ grid-template-columns:1.15fr .85fr; } }
+.pannello[hidden]{ display:none; }
+.pannello > figure{ margin:0; overflow:clip; border-radius:4px; }
+.pannello > figure img{ width:100%; height:100%; object-fit:cover; aspect-ratio:4/3; }
+.pannello .dettaglio h3{ margin-bottom:var(--s2); }
+.pannello .dettaglio p{ color:var(--grigio); }
+.pannello .dettaglio ul{
+  list-style:none; margin:var(--s3) 0 var(--s5); padding:0;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.pannello .dettaglio li{
+  font-size:.78rem; letter-spacing:.06em; color:var(--blu);
+  background:var(--blu-chiaro); border-radius:999px; padding:6px 14px;
+}
+@media(max-width:560px){
+  .schede{ gap:6px; }
+  .scheda{ flex:1 1 100%; text-align:left; }
+  .pannello .dettaglio .bottone{ width:100%; justify-content:center; }
+}
+/* Der gewünschte Fahrzeugtyp im Formular */
+.mezzo-scelto{
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:var(--s4);
+  background:var(--blu-chiaro); border-radius:999px; padding:9px 16px;
+  font-size:.84rem; color:var(--blu);
+}
+.mezzo-scelto b{ font-weight:600; }
