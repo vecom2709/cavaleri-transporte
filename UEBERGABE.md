@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 21: Logo abgesetzt und mit Lichtglanz)
+# Cavaleri Srl — Übergabe (Stand 22: Seitenwechsel, Licht, Korn, Prüfsummen)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,29 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Zwischenspeicher: Prüfsummen an den Dateien
+GitHub Pages lässt CSS und JavaScript zehn Minuten im Browser liegen — nach einer
+Änderung sah man deshalb weiter den alten Stand. `build.py` hängt jetzt an jede
+eigene CSS- und JS-Adresse die Prüfsumme der Datei
+(`site.css?v=0921a065`). Ändert sich die Datei, ändert sich die Adresse, und der
+Browser holt sie sofort neu. Kein Nachdenken über Zwischenspeicher mehr.
+
+## Moderne Schicht
+- **Seitenwechsel ohne Blitzer.** `@view-transition { navigation: auto }` blendet
+  beim Wechsel zwischen den Seiten. Kopfzeile und Logo bleiben dabei stehen, statt
+  mitzublenden. Browser ohne Unterstützung navigieren wie bisher.
+- **Überschriften laufen zeilenweise ein** — ein Aufziehen über `clip-path`.
+  Beobachtet wird dabei das umgebende Element, nicht die Überschrift selbst: ihr
+  eigener `clip-path` macht sie für den IntersectionObserver unsichtbar, sie würde
+  nie als „im Bild" gemeldet werden.
+- **Licht folgt dem Zeiger** über den dunklen Flächen — ein weicher Schein, der
+  die Fläche als Material lesbar macht. Nur mit echtem Zeiger, nicht auf Touch,
+  und nicht bei „reduzierter Bewegung".
+- **Feines Korn** auf den dunklen Abschnitten: filmische Anmutung, ein SVG-Rauschen
+  ohne zusätzliche Datei.
+- **Bildkacheln neigen sich** beim Zeigen leicht zum Betrachter, gemeinsam mit dem
+  Höhenwechsel aus dem Schattensystem.
 
 ## Logo: Höhe und Glanz
 Das Logo ist ein freigestelltes Motiv und bekommt deshalb `drop-shadow`, nicht

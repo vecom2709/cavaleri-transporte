@@ -127,6 +127,22 @@
 
   document.querySelectorAll(".rivela, .mappa, [data-cifra]").forEach(el => osservatore.observe(el));
 
+  /* Überschriften laufen zeilenweise ein, sobald sie ins Bild kommen.
+     Beobachtet wird das umgebende Element, nicht die Überschrift selbst:
+     ihr clip-path macht sie für den Beobachter unsichtbar, sie würde nie
+     als "im Bild" gemeldet. */
+  const titoli = new IntersectionObserver(voci => {
+    voci.forEach(v => {
+      if (!v.isIntersecting) return;
+      v.target.querySelectorAll("h2:not(.frase-lunga):not(.testo)")
+        .forEach(h => h.classList.add("svelata"));
+      titoli.unobserve(v.target);
+    });
+  }, { threshold: .2, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll("h2:not(.frase-lunga):not(.testo)").forEach(h => {
+    if (h.parentElement) titoli.observe(h.parentElement);
+  });
+
   /* ---------- 5. Zähler ------------------------------------------------- */
   function conta(el) {
     const meta = parseFloat(el.dataset.cifra);

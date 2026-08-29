@@ -1391,3 +1391,76 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 @media(prefers-reduced-motion:reduce){
   .marchio:hover .logo::after{ animation:none; }
 }
+
+/* =========================================================================
+   Moderne Schicht: Seitenwechsel, Überschriften, Licht, Korn, Neigung
+   ========================================================================= */
+
+/* --- 1. Seitenwechsel: die Seite blendet, statt zu blitzen --------------
+   View Transitions über Dokumentgrenzen. Browser ohne Unterstützung
+   navigieren wie bisher — es gibt nichts zu ersetzen. */
+@view-transition{ navigation: auto; }
+@media(prefers-reduced-motion:no-preference){
+  ::view-transition-old(root){ animation:.28s var(--ease) both svanisci; }
+  ::view-transition-new(root){ animation:.42s var(--ease) both apparire; }
+}
+@keyframes svanisci{ to{ opacity:0; } }
+@keyframes apparire{ from{ opacity:0; transform:translateY(10px); } }
+/* Kopfzeile und Logo bleiben beim Wechsel stehen, statt mitzublenden. */
+.testa{ view-transition-name:testa; }
+.logo{ view-transition-name:logo; }
+
+/* --- 2. Überschriften laufen zeilenweise ein --------------------------- */
+.js h2:not(.frase-lunga):not(.testo){
+  /* Etwas Luft unten, damit Unterlängen beim Aufziehen nicht abgeschnitten
+     werden — negative Werte in inset() sind nicht überall gültig. */
+  padding-bottom:.14em; margin-bottom:-.14em;
+  clip-path:inset(0 0 100% 0); opacity:0;
+  transition:clip-path 1s var(--ease), opacity .7s var(--ease);
+}
+/* Dieselbe Spezifität wie die Ausgangsregel, sonst gewinnt die. */
+.js h2.svelata:not(.frase-lunga):not(.testo){ clip-path:inset(0); opacity:1; }
+@media(prefers-reduced-motion:reduce){
+  .js h2:not(.frase-lunga):not(.testo){ clip-path:none; opacity:1; transition:none; }
+}
+
+/* --- 3. Licht folgt dem Zeiger über dunklen Flächen -------------------- */
+.luce-attiva .sfondo-blu, .luce-attiva .dichiarazione,
+.luce-attiva .hero, .luce-attiva .intro{ position:relative; }
+.luce-attiva .sfondo-blu::after, .luce-attiva .dichiarazione::after,
+.luce-attiva .intro::after{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  opacity:calc(var(--luce, 0) * .5); transition:opacity .5s ease;
+  background:radial-gradient(340px circle at var(--lx,50%) var(--ly,50%),
+             rgba(143,182,255,.16), transparent 68%);
+}
+.luce-attiva .hero::after{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  opacity:calc(var(--luce, 0) * .30); transition:opacity .5s ease;
+  background:radial-gradient(300px circle at var(--lx,50%) var(--ly,50%),
+             rgba(143,182,255,.14), transparent 72%);
+}
+/* Die Aussage hatte schon ein ::after — dort wird das Licht davorgelegt. */
+.luce-attiva .dichiarazione::after{ z-index:1; }
+
+/* --- 4. Feines Korn auf dunklen Flächen: filmische Anmutung ------------ */
+.sfondo-blu, .dichiarazione, .hero, .mondo, .intro{ isolation:isolate; }
+.grana-scura{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  opacity:.055; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- 5. Bildkacheln neigen sich leicht zum Zeiger ---------------------- */
+@media(hover:hover) and (pointer:fine){
+  .griglia-foto{ perspective:1200px; }
+  .griglia-foto figure{ transform-style:preserve-3d; }
+  .griglia-foto figure:hover{
+    transform:translateY(-4px) rotateX(1.6deg) rotateY(-1.2deg) scale(1.012);
+  }
+  .griglia-foto figure:hover img{ transform:scale(1.08); }
+  .griglia-foto img{ transition:transform .6s var(--ease); }
+}
+@media(prefers-reduced-motion:reduce){
+  .griglia-foto figure:hover{ transform:none; }
+}

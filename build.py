@@ -84,6 +84,7 @@ PIEDE = '''<footer class="piede">
 
 def intro(chiave_occhiello, h1, lead):
     return f'''  <section class="intro">
+    <span class="grana-scura" aria-hidden="true"></span>
     <div class="wrap">
       <p class="occhiello" data-t="{chiave_occhiello}"></p>
       <h1 data-t="{h1}"></h1>
@@ -389,6 +390,7 @@ def fascia(nome, chiave, forza="0.22"):
 def dichiarazione(sfondo, chiave, chiaro=False):
     """Ganzflächige Aussage: die Wörter erscheinen einzeln mit dem Scrollen."""
     return f'''  <section class="dichiarazione{ " chiara" if chiaro else "" }" data-sfondo="{sfondo}">
+    <span class="grana-scura" aria-hidden="true"></span>
     <div class="wrap">
       <p class="frase-lunga" data-t="{chiave}" data-parole></p>
     </div>
@@ -474,6 +476,7 @@ def mondo():
     # Die Karte zeichnet sich mit dem Scrollen. Die Punkte setzt das Skript
     # über getPointAtLength auf den Pfad — keine von Hand gesetzten Koordinaten.
     return f'''  <section class="mondo" data-tappe="{len(tappe)}">
+    <span class="grana-scura" aria-hidden="true" style="z-index:4"></span>
     <div class="scene" aria-hidden="true">
 {sfondi}
       <aside class="mappa-viva">
@@ -579,7 +582,8 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
 <script src="/assets/js/i18n-pagine.js"></script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/parallasse.js" defer></script>
-<script src="/assets/js/racconto.js" defer></script>{js}
+<script src="/assets/js/racconto.js" defer></script>
+<script src="/assets/js/atmosfera.js" defer></script>{js}
 </body>
 </html>
 '''
@@ -640,6 +644,27 @@ def incorpora_media(html):
         html = re.sub(r'(\.\./)*assets/video/piazzale-poster\.jpg',
                       "data:image/jpeg;base64," + base64.b64encode(poster.read_bytes()).decode(), html)
     return html.replace('preload="none"', 'preload="auto"')
+
+
+def versione(html):
+    """An jede eigene CSS- und JS-Datei ihre Prüfsumme hängen.
+    Ändert sich die Datei, ändert sich die Adresse — der Browser holt sie neu,
+    statt zehn Minuten lang die alte aus dem Zwischenspeicher zu zeigen."""
+    import hashlib
+    memoria = {}
+
+    def marca(m):
+        rel = m.group(2)
+        f = W / rel.split("/", 1)[-1] if rel.startswith(("assets/", "../")) else None
+        # Pfad relativ auflösen: alles nach dem letzten "../"
+        percorso = W / rel.replace("../", "")
+        if percorso not in memoria:
+            memoria[percorso] = (hashlib.sha1(percorso.read_bytes()).hexdigest()[:8]
+                                 if percorso.exists() else "")
+        h = memoria[percorso]
+        return m.group(0) if not h else f'{m.group(1)}="{rel}?v={h}"'
+
+    return re.sub(r'(href|src)="((?:\.\./)*assets/(?:css|js)/[\w.-]+)"', marca, html)
 
 
 def adatta(html, profondita):
@@ -707,22 +732,22 @@ def main():
         alt = "\n".join(f'<link rel="alternate" hreflang="{l}" href="{SITO}{radice(l)}">' for l in LINGUE)
         home = home.replace(f'<link rel="canonical" href="{SITO}/">',
                             f'<link rel="canonical" href="{SITO}{radice(lingua)}">\n{alt}')
-        (base / "index.html").write_text(adatta(home, salto), encoding="utf-8")
+        (base / "index.html").write_text(versione(adatta(home, salto)), encoding="utf-8")
 
         for slug, (tit, desc, corpo, extra) in PAGINE.items():
             cartella = base / slug
             cartella.mkdir(exist_ok=True)
             testo = per_lingua(pagina(slug, tit, desc, corpo, extra, lingua), lingua)
-            (cartella / "index.html").write_text(adatta(testo, salto + 1), encoding="utf-8")
+            (cartella / "index.html").write_text(versione(adatta(testo, salto + 1)), encoding="utf-8")
         print(f"erzeugt: {radice(lingua)} mit {len(PAGINE)} Unterseiten")
 
     # 404 (sprachlos, die Umschaltung greift dort über das Skript)
     (W / "404.html").write_text(
-        adatta(pagina("404", "e404.title", "e404.lead",
+        versione(adatta(pagina("404", "e404.title", "e404.lead",
                intro("marchio.sotto", "e404.h1", "e404.lead") + '''
   <section><div class="wrap"><a class="bottone" href="/"><span data-t="e404.torna"></span><span class="freccia">→</span></a></div></section>''',
                "").replace(f'<link rel="canonical" href="{SITO}/404/">',
-                           '<meta name="robots" content="noindex">'), 0), encoding="utf-8")
+                           '<meta name="robots" content="noindex">'), 0)), encoding="utf-8")
 
     (W / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITO}/sitemap.xml\n", encoding="utf-8")
 
