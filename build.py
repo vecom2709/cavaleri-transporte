@@ -19,8 +19,6 @@ NAV = [("/azienda/", "nav.azienda"), ("/trasporti/", "nav.trasporti"),
        ("/edilizia/", "nav.edilizia"), ("/rotta/", "nav.rotta2"),
        ("/gallery/", "nav.gallery"), ("/contatti/", "nav.contatti")]
 
-MARCHIO = "/assets/marke/cavaleri-marchio.svg"
-
 IMMAGINI = json.loads((pathlib.Path(__file__).parent / "assets/foto/immagini.json").read_text())
 
 
@@ -50,15 +48,8 @@ def testa(attivo, slug_corrente=""):
     voci = "\n".join(voce(h, k) for h, k in NAV)
     return f'''<header class="testa attaccata">
   <div class="wrap">
-    <a class="marchio" href="/">
-<span class="segno">
-        <img class="colorato" src="/assets/marke/cavaleri-marchio.svg" alt="" width="36" height="36">
-        <img class="chiaro" src="/assets/marke/cavaleri-marchio-bianco.svg" alt="" width="36" height="36">
-      </span>
-      <span>
-        <span class="nome">Cavaleri</span>
-        <span class="sotto" data-t="marchio.sotto"></span>
-      </span>
+    <a class="marchio" href="/" aria-label="Cavaleri Srl — Trasporti nazionali e internazionali">
+      <span class="logo"></span>
     </a>
     <nav class="navi" aria-label="Principale">
 {voci}
@@ -78,7 +69,10 @@ def testa(attivo, slug_corrente=""):
 
 PIEDE = '''<footer class="piede">
   <div class="wrap riga">
-    <p data-t="piede.diritti"></p>
+    <div class="colonna-marchio">
+      <span class="logo-piede" role="img" aria-label="Cavaleri Srl"></span>
+      <p data-t="piede.diritti"></p>
+    </div>
     <p>
       <a href="/note-legali/" data-t="piede.note"></a> ·
       <a href="/note-legali/#privacy" data-t="piede.privacy"></a> ·
@@ -508,7 +502,6 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1b45">
-<link rel="icon" href="/assets/marke/cavaleri-marchio.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/marke/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/marke/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
@@ -719,7 +712,6 @@ def main():
         for sotto in ("latin", "latin-ext"):
             fonts += (f"@font-face{{font-family:'{famiglia.capitalize()}';font-weight:100 900;"
                       f"font-display:swap;src:url({b64(f'{famiglia}-{sotto}.woff2')}) format('woff2');}}\n")
-    marchio = "data:image/svg+xml;base64," + base64.b64encode((W / MARCHIO.lstrip("/")).read_bytes()).decode()
 
     # Die gezeichneten Motive stehen im CSS mit relativen Pfaden — für die
     # Einzeldatei werden sie eingebettet, die AVIF/WebP-Varianten entfallen.
@@ -773,10 +765,15 @@ def main():
 <script>{router}</script>
 <script>{moduli}</script>
 </body></html>'''
-    for nome in ("cavaleri-marchio", "cavaleri-marchio-bianco"):
-        dati = ("data:image/svg+xml;base64,"
-                + base64.b64encode((W / "assets/marke" / f"{nome}.svg").read_bytes()).decode())
-        out = re.sub(r'src="(\.\./)*assets/marke/%s\.svg"' % nome, f'src="{dati}"', out)
+    # Das Logo steht im CSS als Hintergrundbild — für die Einzeldatei einbetten.
+    for nome in ("logo-compatto-bianco-2x", "logo-compatto-colore-2x",
+                 "logo-compatto-bianco-3x", "logo-compatto-colore-3x",
+                 "logo-bianco-2x", "logo-bianco-3x"):
+        f = W / "assets/marke" / f"{nome}.avif"
+        if not f.exists():
+            continue
+        dati = "data:image/avif;base64," + base64.b64encode(f.read_bytes()).decode()
+        css = css.replace(f'url("../marke/{nome}.avif")', f'url("{dati}")')
     out = re.sub(r' data-vai="[^"]*"', '', out)
     out = incorpora_media(out)
     fuori = pathlib.Path("/mnt/user-data/outputs/cavaleri-vorschau.html")

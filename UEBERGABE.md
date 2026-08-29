@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 17: keine leeren Bildflächen, Feinschliff)
+# Cavaleri Srl — Übergabe (Stand 18: das echte Logo)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -138,10 +138,34 @@ weggeschnitten.
 - `assets/video/piazzale.mp4` — 34 s, ohne Ton, 2,1 MB; lädt erst, wenn der Abschnitt
   ins Bild kommt, läuft stumm in Schleife und bleibt bei „reduzierter Bewegung" stehen
 
-## Bildmarke
-`assets/marke/cavaleri-marchio.svg` ist jetzt ein Nachbau nach den Fahrzeugfotos
-(Raute mit Verlauf, blaues C). Liegt die Vektordatei des Originals vor, ersetzt sie
-diese Datei unter demselben Namen.
+## Logo
+Das gelieferte Logo lag als JPEG auf schwarzem Grund vor. Daraus sind vier
+Fassungen entstanden, alle in `assets/marke/`:
+
+| Datei | Verwendung |
+|---|---|
+| `logo-compatto-colore-*` | Kopfzeile auf hellem Grund |
+| `logo-compatto-bianco-*` | Kopfzeile über dem dunklen Kopfbild |
+| `logo-colore-*` / `logo-bianco-*` | vollständige Sperrung mit Fußzeile |
+
+**Freistellung:** Der schwarze Grund ist über die Helligkeit in Transparenz
+umgerechnet und die Farbe anschließend zurückgerechnet, damit Blau und Silber
+unverfälscht bleiben. Die weiße Fassung ist keine Silhouette — sonst wäre das C
+in der Raute verschwunden: Blau und die graue Fußzeile werden weiß, die
+Silberfüllung der Raute wird fast durchsichtig, damit die Raute als Kontur steht.
+
+**Kompakt gegen vollständig:** In einer 38 px hohen Leiste wäre die Zeile
+„Trasporti nazionali e internazionali" vier Pixel hoch — ein Fleck. Im Kopf steht
+deshalb die kompakte Sperrung (Raute + Schriftzug), die vollständige steht im
+Seitenfuß mit 64 px Höhe, wo sie lesbar ist.
+
+Eingebunden als CSS-Hintergrund mit `image-set()`: AVIF in einfacher und doppelter
+Auflösung, PNG als Rückfallebene. Alle sechs Dateien zusammen unter 40 KB.
+Der Name steht als `aria-label` am Link, damit Vorlesesoftware ihn findet.
+
+Favicon, Startbildschirmsymbol und Manifest-Symbole sind aus der Raute des echten
+Logos neu gerastert. Der frühere SVG-Nachbau ist entfernt.
+
 
 ## Pfade: zwei Fallen, beide jetzt abgesichert
 Die Seite läuft mit relativen Pfaden, damit sie in jedem Verzeichnis funktioniert.

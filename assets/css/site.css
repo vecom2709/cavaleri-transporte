@@ -121,16 +121,10 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .testa .wrap{ display:flex; align-items:center; gap:var(--s4); height:78px; }
 .marchio{ display:flex; align-items:center; gap:12px; text-decoration:none; margin-right:auto; }
 .marchio img{ height:36px; width:auto; }
-.testa .marchio img{ filter:brightness(0) invert(1); transition:filter .45s ease; }
-.testa.attaccata .marchio img{ filter:none; }
-.marchio .nome{
-  font-family:var(--display); font-weight:800; font-size:1.05rem;
-  letter-spacing:.22em; text-transform:uppercase; line-height:1;
-}
-.marchio .sotto{
-  display:block; font-family:var(--testo); font-weight:400; font-size:.6rem;
-  letter-spacing:.18em; opacity:.7; margin-top:5px;
-}
+
+
+
+
 .navi{ display:flex; align-items:center; gap:var(--s4); }
 .navi a{
   font-size:.82rem; font-weight:500; letter-spacing:.06em; text-decoration:none;
@@ -634,32 +628,26 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
    ========================================================================= */
 
 /* ---------- Bildmarke: zwei Fassungen statt Filter ----------------------- */
-.marchio .segno{ position:relative; display:block; width:36px; height:36px; flex:0 0 auto; }
-.marchio .segno img{
-  position:absolute; inset:0; width:100%; height:100%;
-  transition:opacity .35s ease;
-}
-.testa .marchio img{ filter:none; }              /* der alte Trick entfällt */
-.testa .segno .colorato{ opacity:0; }
-.testa .segno .chiaro{ opacity:1; }
-.testa.attaccata .segno .colorato{ opacity:1; }
-.testa.attaccata .segno .chiaro{ opacity:0; }
+
+
+              /* der alte Trick entfällt */
+
+
+
+
 @media(max-width:900px){
   .navi.aperta ~ .marchio .segno .colorato{ opacity:1; }
 }
 
 /* ---------- Kopfzeile: nichts darf umbrechen ---------------------------- */
 .testa .wrap{ height:72px; gap:clamp(14px,2.2vw,32px); }
-.marchio .nome{ font-size:1rem; letter-spacing:.2em; white-space:nowrap; }
-.marchio .sotto{
-  font-size:.66rem; letter-spacing:.14em; white-space:nowrap;
-  overflow:hidden; text-overflow:ellipsis; max-width:26ch;
-}
+
+
 .navi a{ white-space:nowrap; }
 .navi .bottone{ white-space:nowrap; padding:13px 20px; font-size:.76rem; letter-spacing:.1em; }
 
 /* Ab hier wird es eng: erst die Unterzeile, dann die ganze Leiste ins Menü. */
-@media(max-width:1400px){ .marchio .sotto{ display:none; } }
+@media(max-width:1400px){  }
 @media(max-width:1180px){
   .menu-tasto{ display:block; order:3; }
   .navi{
@@ -740,13 +728,13 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .servizi > *, .persone > *, .blocchi > *, .rotta > *, .filmato > *, .fatti > *,
 .contatti > *, .intestazione > *, .coppia > *{ min-width:0; }
 
-.marchio .sotto{ font-size:.76rem; }
+
 
 /* ---------- Sehr schmale Geräte: Kopfzeile entlasten --------------------- */
 @media(max-width:560px){
   .testa .wrap{ gap:8px; padding-inline:16px; }
-  .marchio .nome{ font-size:.92rem; letter-spacing:.16em; }
-  .marchio .segno{ width:32px; height:32px; }
+  
+  
   .lingue{ gap:0; }
   .lingue .sep{ display:none; }
   .lingue button{ min-width:38px; padding-inline:4px; }
@@ -758,7 +746,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .menu-tasto{ display:none; }
 @media(max-width:1180px){ .menu-tasto{ display:grid; place-items:center; } }
 /* Die Unterzeile darf ausgeschrieben werden, solange Platz ist. */
-.marchio .sotto{ max-width:none; }
+
 
 /* =========================================================================
    "La rotta": mitlaufende Karte
@@ -1018,7 +1006,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   h1{ font-size:clamp(4.4rem,5.2vw,7rem); }
   h2{ font-size:clamp(2.8rem,3.2vw,4.2rem); }
   .testa .wrap{ height:88px; }
-  .marchio .nome{ font-size:1.15rem; }
+  
   .navi a{ font-size:.92rem; }
   .bottone{ font-size:.88rem; padding:17px 30px; }
   .frase-lunga{ font-size:clamp(3rem,4.4vw,5.6rem); }
@@ -1034,8 +1022,8 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 /* Sehr kleine Telefone: die Kopfzeile muss noch hineinpassen. */
 @media(max-width:400px){
   .testa .wrap{ gap:6px; padding-inline:12px; }
-  .marchio .nome{ font-size:.84rem; letter-spacing:.12em; }
-  .marchio .segno{ width:28px; height:28px; }
+  
+  
   .lingue button{ min-width:32px; padding-inline:2px; font-size:.72rem; }
   .menu-tasto{ min-width:40px; margin-right:-6px; }
   h1{ font-size:clamp(2.1rem,10vw,2.6rem); }
@@ -1072,8 +1060,8 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   .navi .lingue .sep{ display:none; }
 }
 @media(max-width:400px){
-  .marchio .nome{ font-size:.9rem; letter-spacing:.16em; }
-  .marchio .segno{ width:32px; height:32px; }
+  
+  
 }
 /* Auf breiten Bildschirmen darf auch der Kopftext breiter werden,
    sonst bricht die dritte Zeile der Überschrift um. */
@@ -1177,3 +1165,42 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 @media(max-width:1180px){
   .navi .bottone{ min-height:52px; padding-block:16px; }
 }
+
+/* =========================================================================
+   Das echte Logo
+   Kopfzeile: kompakte Sperrung (Raute + Schriftzug). Die Fußzeile des Logos
+   wäre bei 38 px Höhe vier Pixel hoch — dort gehört sie nicht hin.
+   Vollständige Sperrung mit Fußzeile: im Seitenfuß, wo sie 64 px bekommt.
+   Zwei Farbfassungen: farbig auf hell, weiß auf dunkel.
+   ========================================================================= */
+.marchio{ display:flex; align-items:center; margin-right:auto; text-decoration:none; min-height:44px; }
+.logo{
+  display:block; height:38px; width:calc(38px * 4.36);
+  background-repeat:no-repeat; background-position:left center; background-size:contain;
+  background-image:image-set(url("../marke/logo-compatto-bianco-2x.avif") type("image/avif") 1x,
+                             url("../marke/logo-compatto-bianco-3x.avif") type("image/avif") 2x);
+}
+.testa.attaccata .logo{
+  background-image:image-set(url("../marke/logo-compatto-colore-2x.avif") type("image/avif") 1x,
+                             url("../marke/logo-compatto-colore-3x.avif") type("image/avif") 2x);
+}
+@supports not (background-image:image-set(url("x.avif") type("image/avif") 1x)){
+  .logo{ background-image:url("../marke/logo-compatto-bianco-2x.png"); }
+  .testa.attaccata .logo{ background-image:url("../marke/logo-compatto-colore-2x.png"); }
+}
+@media(max-width:400px){ .logo{ height:31px; width:calc(31px * 4.36); } }
+@media(min-width:1600px){ .logo{ height:46px; width:calc(46px * 4.36); } }
+
+/* Im Fuß die vollständige Sperrung, weiß auf Marineblau. */
+.logo-piede{
+  display:block; height:64px; width:calc(64px * 3.445); margin-bottom:var(--s4);
+  background-repeat:no-repeat; background-position:left center; background-size:contain;
+  background-image:image-set(url("../marke/logo-bianco-2x.avif") type("image/avif") 1x,
+                             url("../marke/logo-bianco-3x.avif") type("image/avif") 2x);
+}
+@supports not (background-image:image-set(url("x.avif") type("image/avif") 1x)){
+  .logo-piede{ background-image:url("../marke/logo-bianco-2x.png"); }
+}
+@media(max-width:560px){ .logo-piede{ height:52px; width:calc(52px * 3.445); } }
+.piede .riga{ align-items:flex-end; }
+.piede .colonna-marchio{ display:flex; flex-direction:column; }
