@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 23: Menü vereinheitlicht)
+# Cavaleri Srl — Übergabe (Stand 24: Filmrahmen auf Texthöhe)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,22 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Filmabschnitt
+Der Rahmen ist auf breiten Bildschirmen jetzt genau so hoch wie die Textspalte
+daneben. Vorher gab das Seitenverhältnis 9:16 die Höhe vor, der Film ragte um das
+Doppelte über den Text hinaus.
+
+Zwei Dinge waren dafür nötig: die Zeile richtet sich nicht mehr nach dem
+höchsten Element (`align-items: stretch`), und das Video liegt absolut im Rahmen.
+Sonst hätte seine eigene Größe von 464 × 832 die Zeilenhöhe weiter bestimmt.
+Der Film wird dabei beschnitten, nicht gestaucht.
+
+Auf Telefonen und im Querformat behält der Rahmen sein Hochformat — dort stehen
+Text und Film untereinander, eine Angleichung hätte keinen Sinn.
+
+Dazu ein leichter Rahmen: eine Linie in Weiß bei 22 % statt der bisherigen
+inneren Kante. Eine Linie, nicht zwei.
 
 ## Menü
 Alle sieben Einträge sind gleich — auch „Angebot". Vorher war er eine gefüllte
