@@ -4,7 +4,10 @@
 
   /* ---------- 1. Sprache ------------------------------------------------ */
   const LINGUE = ["it", "de", "en"];
+  // Jede Sprache hat ihre eigene Adresse. Steht dort eine, gilt sie —
+  // sonst (Vorschau, 404) entscheidet die Einstellung des Browsers.
   const scegli = () => {
+    if (LINGUE.includes(window.LINGUA)) return window.LINGUA;
     const salvata = localStorage.getItem("cavaleri.lingua");
     if (LINGUE.includes(salvata)) return salvata;
     const nav = (navigator.language || "it").slice(0, 2).toLowerCase();
@@ -46,7 +49,11 @@
 
   applica(scegli());
   document.querySelectorAll(".lingue button").forEach(b => {
-    b.addEventListener("click", () => applica(b.dataset.lingua));
+    b.addEventListener("click", () => {
+      localStorage.setItem("cavaleri.lingua", b.dataset.lingua);
+      if (b.dataset.vai) location.href = b.dataset.vai;   // eigene Adresse je Sprache
+      else applica(b.dataset.lingua);                     // Vorschau: an Ort und Stelle
+    });
   });
 
   /* ---------- 2. Kopfzeile und Menü ------------------------------------ */

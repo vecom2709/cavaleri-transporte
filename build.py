@@ -10,6 +10,11 @@ W = pathlib.Path(__file__).parent
 
 SITO = "https://www.cavaleri.it"
 
+# Italienisch liegt in der Wurzel, die anderen Sprachen in eigenen Verzeichnissen.
+LINGUE = ["it", "de", "en"]
+def radice(lingua):
+    return "/" if lingua == "it" else f"/{lingua}/"
+
 NAV = [("/azienda/", "nav.azienda"), ("/trasporti/", "nav.trasporti"),
        ("/edilizia/", "nav.edilizia"), ("/rotta/", "nav.rotta2"),
        ("/gallery/", "nav.gallery"), ("/contatti/", "nav.contatti")]
@@ -36,7 +41,7 @@ def figura(nome, alt="", sizes="100vw", classe="", eager=False, didascalia=None)
             f'</picture>{cap}</figure>')
 
 
-def testa(attivo):
+def testa(attivo, slug_corrente=""):
     def voce(h, k):
         att = ' aria-current="page"' if h == attivo else ''
         return '      <a href="%s"%s data-t="%s"></a>' % (h, att, k)
@@ -58,9 +63,9 @@ def testa(attivo):
       <a class="bottone" href="/preventivo/" data-t="nav.preventivo"></a>
     </nav>
     <div class="lingue" role="group" aria-label="Lingua">
-      <button type="button" data-lingua="it">IT</button><span class="sep">/</span>
-      <button type="button" data-lingua="de">DE</button><span class="sep">/</span>
-      <button type="button" data-lingua="en">EN</button>
+      <button type="button" data-lingua="it" data-vai="{radice('it')}{slug_corrente}">IT</button><span class="sep">/</span>
+      <button type="button" data-lingua="de" data-vai="{radice('de')}{slug_corrente}">DE</button><span class="sep">/</span>
+      <button type="button" data-lingua="en" data-vai="{radice('en')}{slug_corrente}">EN</button>
     </div>
     <button class="menu-tasto" type="button" aria-expanded="false" aria-label="Menu">
       <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h20M3 18h20"/></svg>
@@ -389,25 +394,30 @@ DATI_STRUTTURATI = """{
 }""" % SITO
 
 
-def pagina(slug, titolo_key, desc_key, corpo, extra_js):
+def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
     js = {"modulo": '\n<script src="/assets/js/preventivo.js" defer></script>',
           "mondo": '\n<script src="/assets/js/mondo.js" defer></script>'}.get(extra_js, "")
+    via = f"{radice(lingua)}{slug}/"
+    alternative = "\n".join(
+        f'<link rel="alternate" hreflang="{l}" href="{SITO}{radice(l)}{slug}/">' for l in LINGUE)
+    alternative += f'\n<link rel="alternate" hreflang="x-default" href="{SITO}{radice("it")}{slug}/">'
     briciole = json.dumps({
         "@context": "https://schema.org", "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITO + "/"},
-            {"@type": "ListItem", "position": 2, "name": slug, "item": f"{SITO}/{slug}/"}]},
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITO + radice(lingua)},
+            {"@type": "ListItem", "position": 2, "name": slug, "item": SITO + via}]},
         ensure_ascii=False)
     return f'''<!DOCTYPE html>
-<html lang="it">
+<html lang="{lingua}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-t="{titolo_key}">Cavaleri Srl</title>
 <meta name="description" content="" data-meta="{desc_key}">
-<link rel="canonical" href="{SITO}/{slug}/">
+<link rel="canonical" href="{SITO}{via}">
+{alternative}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{SITO}/{slug}/">
+<meta property="og:url" content="{SITO}{via}">
 <meta property="og:image" content="{SITO}/assets/foto/og-cavaleri-1200.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -426,11 +436,12 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js):
 <body>
 <a class="salta" href="#contenuto" data-t="salta"></a>
 <div class="filo" aria-hidden="true"></div>
-{testa("/" + slug + "/")}
+{testa("/" + slug + "/", slug + "/")}
 <main id="contenuto">
 {corpo}
 </main>
 {PIEDE}
+<script>window.LINGUA="{lingua}";</script>
 <script src="/assets/js/i18n.js"></script>
 <script src="/assets/js/i18n-pagine.js"></script>
 <script src="/assets/js/site.js" defer></script>
@@ -438,6 +449,17 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js):
 </body>
 </html>
 '''
+
+
+def per_lingua(html, lingua):
+    """Interne Seitenverweise auf das Sprachverzeichnis umbiegen.
+    Dateien unter /assets/ bleiben unberührt — sie sind sprachlos."""
+    if lingua == "it":
+        return html
+    slugs = "|".join(list(PAGINE) + ["404"])
+    html = re.sub(r'href="/(%s)/"' % slugs, lambda m: f'href="/{lingua}/{m.group(1)}/"', html)
+    html = html.replace('href="/"', f'href="/{lingua}/"')
+    return html
 
 
 def incorpora_media(html):
@@ -505,7 +527,8 @@ def adatta(html, profondita):
     """Wurzelbezogene Pfade in relative umschreiben.
     profondita 0 = Startseite, 1 = Unterseite in einem Verzeichnis."""
     p = "../" * profondita
-    html = re.sub(r'(href|src)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
+    html = re.sub(r'(href|src|data-vai)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
+    html = html.replace(f'data-vai="{p}"', f'data-vai="{p}index.html"' if p else 'data-vai="index.html"')
     html = html.replace(f'href="{p}"', f'href="{p}index.html"')
     return html
 
@@ -545,17 +568,32 @@ def controlla_vorschau(percorso):
 
 def main():
     controlla_js()
-    for slug, (tit, desc, corpo, extra) in PAGINE.items():
-        cartella = W / slug
-        cartella.mkdir(exist_ok=True)
-        (cartella / "index.html").write_text(adatta(pagina(slug, tit, desc, corpo, extra), 1), encoding="utf-8")
-        print("erzeugt:", slug + "/")
 
-    (W / "index.html").write_text(
-        adatta((W / "sorgenti/index.html").read_text(encoding="utf-8"), 0), encoding="utf-8")
-    print("erzeugt: index.html")
+    sorgente_home = (W / "sorgenti/index.html").read_text(encoding="utf-8")
 
-    # 404, robots.txt, sitemap.xml
+    for lingua in LINGUE:
+        base = W if lingua == "it" else (W / lingua)
+        base.mkdir(exist_ok=True)
+        salto = 0 if lingua == "it" else 1
+
+        # Startseite
+        home = per_lingua(sorgente_home, lingua)
+        home = home.replace('<script src="/assets/js/i18n.js">',
+                            '<script>window.LINGUA="%s";</script>\n<script src="/assets/js/i18n.js">' % lingua)
+        home = home.replace('<html lang="it">', f'<html lang="{lingua}">')
+        alt = "\n".join(f'<link rel="alternate" hreflang="{l}" href="{SITO}{radice(l)}">' for l in LINGUE)
+        home = home.replace(f'<link rel="canonical" href="{SITO}/">',
+                            f'<link rel="canonical" href="{SITO}{radice(lingua)}">\n{alt}')
+        (base / "index.html").write_text(adatta(home, salto), encoding="utf-8")
+
+        for slug, (tit, desc, corpo, extra) in PAGINE.items():
+            cartella = base / slug
+            cartella.mkdir(exist_ok=True)
+            testo = per_lingua(pagina(slug, tit, desc, corpo, extra, lingua), lingua)
+            (cartella / "index.html").write_text(adatta(testo, salto + 1), encoding="utf-8")
+        print(f"erzeugt: {radice(lingua)} mit {len(PAGINE)} Unterseiten")
+
+    # 404 (sprachlos, die Umschaltung greift dort über das Skript)
     (W / "404.html").write_text(
         adatta(pagina("404", "e404.title", "e404.lead",
                intro("marchio.sotto", "e404.h1", "e404.lead") + '''
@@ -565,15 +603,18 @@ def main():
 
     (W / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITO}/sitemap.xml\n", encoding="utf-8")
 
-    voci = ["/"] + [f"/{s}/" for s in PAGINE]
+    voci = []
+    for lingua in LINGUE:
+        voci.append(radice(lingua))
+        voci += [f"{radice(lingua)}{s}/" for s in PAGINE]
     righe = "\n".join(
         f"  <url><loc>{SITO}{v}</loc><changefreq>monthly</changefreq>"
-        f"<priority>{'1.0' if v == '/' else '0.7'}</priority></url>" for v in voci)
+        f"<priority>{'1.0' if v in ('/',) else '0.7'}</priority></url>" for v in voci)
     (W / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + righe + "\n</urlset>\n",
         encoding="utf-8")
-    print("erzeugt: 404.html, robots.txt, sitemap.xml")
+    print(f"erzeugt: 404.html, robots.txt, sitemap.xml ({len(voci)} Adressen)")
 
     # ---- Einzeldatei-Vorschau: alle Seiten, Umschaltung über den Anker ----
     css = (W / "assets/css/site.css").read_text(encoding="utf-8").replace('@import url("../font/schriften.css");\n', "")
@@ -635,6 +676,7 @@ def main():
 <script>{moduli}</script>
 </body></html>'''
     out = re.sub(r'src="(\.\./)*assets/marke/cavaleri-marchio\.svg"', f'src="{marchio}"', out)
+    out = re.sub(r' data-vai="[^"]*"', '', out)
     out = incorpora_media(out)
     fuori = pathlib.Path("/mnt/user-data/outputs/cavaleri-vorschau.html")
     fuori.write_text(out, encoding="utf-8")

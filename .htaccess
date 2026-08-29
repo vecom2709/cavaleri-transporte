@@ -26,6 +26,15 @@ ErrorDocument 404 /404.html
   RewriteRule ^preventivi?\.html?$    /preventivo/  [R=301,L]
   RewriteRule ^index\.html?$          /             [R=301,L]
 
+  # Erstbesucher mit deutschem oder englischem Browser einmal in ihre Sprache
+  # schicken — nur von der Startseite aus, und nur wenn sie noch keine Wahl
+  # getroffen haben (Cookie wird von der Seite selbst nicht gesetzt, die Regel
+  # greift daher genau einmal pro Aufruf der Wurzel).
+  RewriteCond %{HTTP:Accept-Language} ^de [NC]
+  RewriteRule ^$ /de/ [R=302,L]
+  RewriteCond %{HTTP:Accept-Language} ^en [NC]
+  RewriteRule ^$ /en/ [R=302,L]
+
   # /azienda ohne Schrägstrich -> /azienda/
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteCond %{REQUEST_URI} !/$

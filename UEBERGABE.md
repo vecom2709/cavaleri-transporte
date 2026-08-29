@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 8: Darstellung geprüft und überarbeitet)
+# Cavaleri Srl — Übergabe (Stand 9: eigene Adressen je Sprache)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,22 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Sprachen
+Jede Sprache hat eigene Adressen — vorher lagen alle drei unter derselben, womit
+Suchmaschinen nur Italienisch erfassen konnten:
+
+- Italienisch in der Wurzel: `/`, `/azienda/`, `/trasporti/` …
+- Deutsch unter `/de/`, Englisch unter `/en/`
+
+Jede Seite nennt ihre Übersetzungen per `hreflang` (inklusive `x-default` auf
+Italienisch), trägt `lang` im HTML und ein eigenes `canonical`. Der Sprachschalter
+wechselt jetzt die Adresse statt nur den Text; die gewählte Sprache bleibt beim
+Weiterklicken erhalten. In der `.htaccess` schickt eine Weiche Erstbesucher mit
+deutschem oder englischem Browser einmalig von der Wurzel in ihre Sprache — als
+302, damit die italienische Startseite die maßgebliche bleibt.
+
+Die Sitemap führt alle 27 Adressen.
 
 ## Seitenstruktur und Adressen
 Saubere Verzeichnisadressen ohne Dateiendung, wie auf trendonix-buecher.de:
