@@ -567,6 +567,11 @@ def adatta(html, profondita):
     profondita 0 = Startseite, 1 = Unterseite, 2 = Unterseite einer Sprache."""
     p = "../" * profondita
     html = re.sub(r'(href|src|data-vai)="/(?!/)', lambda m: f'{m.group(1)}="{p}', html)
+    # srcset und data-srcset tragen mehrere Adressen in einer Zeichenkette —
+    # die fasst der Ausdruck oben nicht. Hier jede einzeln.
+    html = re.sub(r'(srcset)="([^"]*)"',
+                  lambda m: '%s="%s"' % (m.group(1), m.group(2).replace("/assets/", p + "assets/")),
+                  html)
     html = html.replace(f'data-vai="{p}"', f'data-vai="{p}index.html"' if p else 'data-vai="index.html"')
     return html
 
@@ -653,6 +658,19 @@ def main():
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + righe + "\n</urlset>\n",
         encoding="utf-8")
     print(f"erzeugt: 404.html, robots.txt, sitemap.xml ({len(voci)} Adressen)")
+
+    resti = []
+    pagine = [f for f in list(W.glob("*.html")) + list(W.glob("*/index.html")) + list(W.glob("*/*/index.html"))
+              if "sorgenti" not in f.parts]
+    for f in pagine:
+        testo = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'(?:href|src|srcset|data-src|data-srcset|data-vai)="[^"]*?"', testo):
+            if re.search(r'="/(?!/)|,\s*/assets/|"/assets/', m.group(0)):
+                resti.append(f"{f.relative_to(W)}: {m.group(0)[:70]}")
+    if resti:
+        raise SystemExit("Bau abgebrochen — wurzelbezogene Pfade übrig (brechen in Unterverzeichnissen):\n  "
+                         + "\n  ".join(resti[:10]) + (f"\n  … und {len(resti)-10} weitere" if len(resti) > 10 else ""))
+    print("Pfade geprüft: alle relativ")
 
     # ---- Einzeldatei-Vorschau: alle Seiten, Umschaltung über den Anker ----
     css = (W / "assets/css/site.css").read_text(encoding="utf-8").replace('@import url("../font/schriften.css");\n', "")
