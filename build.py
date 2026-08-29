@@ -667,6 +667,13 @@ def main():
         for m in re.finditer(r'(?:href|src|srcset|poster|data-src|data-srcset|data-vai)="[^"]*?"', testo):
             if re.search(r'="/(?!/)|,\s*/assets/|"/assets/', m.group(0)):
                 resti.append(f"{f.relative_to(W)}: {m.group(0)[:70]}")
+    for f in pagine:
+        tiefe = len(f.relative_to(W).parts) - 1
+        if tiefe == 0:
+            continue
+        testo = f.read_text(encoding="utf-8")
+        for m in re.finditer(r'(?:href|src|srcset|poster|data-src|data-srcset)="(assets/[^"]*)"', testo):
+            resti.append(f"{f.relative_to(W)}: fehlendes ../ in {m.group(0)[:60]}")
     if resti:
         raise SystemExit("Bau abgebrochen — wurzelbezogene Pfade übrig (brechen in Unterverzeichnissen):\n  "
                          + "\n  ".join(resti[:10]) + (f"\n  … und {len(resti)-10} weitere" if len(resti) > 10 else ""))
