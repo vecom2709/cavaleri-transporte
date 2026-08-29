@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Cavaleri">
+  <!-- Helle Fassung für dunkle Flächen: Raute offen, C weiß.
+       Die farbige Fassung steht in cavaleri-marchio.svg. -->
+  <path d="M50 4 96 50 50 96 4 50Z" fill="none" stroke="#ffffff" stroke-width="4"/>
+  <path d="M64 34a20 20 0 1 0 0 32" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="butt"/>
+</svg>

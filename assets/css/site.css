@@ -627,3 +627,135 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   margin-top:var(--s3); font-size:.72rem; letter-spacing:.04em;
   color:var(--grigio-blu); max-width:46ch;
 }
+
+/* =========================================================================
+   Überarbeitung: Kopfzeile, Tippflächen, Schriftgrößen, enge Bildschirme
+   Diese Regeln stehen bewusst am Ende und haben damit das letzte Wort.
+   ========================================================================= */
+
+/* ---------- Bildmarke: zwei Fassungen statt Filter ----------------------- */
+.marchio .segno{ position:relative; display:block; width:36px; height:36px; flex:0 0 auto; }
+.marchio .segno img{
+  position:absolute; inset:0; width:100%; height:100%;
+  transition:opacity .35s ease;
+}
+.testa .marchio img{ filter:none; }              /* der alte Trick entfällt */
+.testa .segno .colorato{ opacity:0; }
+.testa .segno .chiaro{ opacity:1; }
+.testa.attaccata .segno .colorato{ opacity:1; }
+.testa.attaccata .segno .chiaro{ opacity:0; }
+@media(max-width:900px){
+  .navi.aperta ~ .marchio .segno .colorato{ opacity:1; }
+}
+
+/* ---------- Kopfzeile: nichts darf umbrechen ---------------------------- */
+.testa .wrap{ height:72px; gap:clamp(14px,2.2vw,32px); }
+.marchio .nome{ font-size:1rem; letter-spacing:.2em; white-space:nowrap; }
+.marchio .sotto{
+  font-size:.66rem; letter-spacing:.14em; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis; max-width:26ch;
+}
+.navi a{ white-space:nowrap; }
+.navi .bottone{ white-space:nowrap; padding:13px 20px; font-size:.76rem; letter-spacing:.1em; }
+
+/* Ab hier wird es eng: erst die Unterzeile, dann die ganze Leiste ins Menü. */
+@media(max-width:1400px){ .marchio .sotto{ display:none; } }
+@media(max-width:1180px){
+  .menu-tasto{ display:block; order:3; }
+  .navi{
+    position:fixed; inset:72px 0 auto; flex-direction:column; align-items:stretch;
+    gap:4px; padding:var(--s4) var(--rand) var(--s5);
+    background:rgba(255,255,255,.98); backdrop-filter:blur(16px); color:var(--inchiostro);
+    border-bottom:1px solid var(--linea);
+    transform:translateY(-12px); opacity:0; pointer-events:none;
+    transition:opacity .3s ease, transform .3s var(--ease);
+    max-height:calc(100svh - 72px); overflow:auto;
+  }
+  .navi.aperta{ opacity:1; transform:none; pointer-events:auto; }
+  .navi a{
+    font-size:1.15rem; font-family:var(--display); font-weight:700; text-transform:uppercase;
+    color:var(--blu); opacity:1; padding-block:14px; border-bottom:1px solid var(--linea);
+  }
+  .navi a::after{ display:none; }
+  .navi a:last-of-type{ border-bottom:0; }
+  .navi .bottone{
+    width:100%; justify-content:center; margin-top:var(--s3);
+    background:var(--blu); border-color:var(--blu); color:#fff; font-size:.86rem; padding:16px 20px;
+  }
+  .testa:not(.attaccata) .navi .bottone{ background:var(--blu); border-color:var(--blu); color:#fff; }
+  .navi{ inset-inline:0; }
+}
+
+/* ---------- Tippflächen: nirgends unter 44 Pixel ------------------------- */
+.lingue button{ min-width:44px; min-height:44px; font-size:.78rem; }
+.menu-tasto{ min-width:44px; min-height:44px; display:grid; place-items:center; }
+.persona a, .blocco a, .blocco p{ padding-block:10px; min-height:44px; display:flex; align-items:center; }
+.piede a{ display:inline-block; padding-block:10px; }
+.suono{ min-height:44px; padding-inline:20px; }
+@media(min-width:1181px){ .navi a{ padding-block:12px; } }
+
+/* ---------- Schrift: nichts unter 12 Pixel ------------------------------- */
+.occhiello{ font-size:.8rem; }
+.servizio li{ font-size:.78rem; padding:6px 14px; }
+.persona .ruolo, .blocco h3, .servizio .num{ font-size:.78rem; }
+.scorri{ font-size:.7rem; }
+.nota-fonte{ font-size:.78rem; }
+.piede{ font-size:.86rem; }
+
+/* ---------- Enge Bildschirme -------------------------------------------- */
+@media(max-width:760px){
+  .fatti{ grid-template-columns:1fr 1fr; }
+  .fatto{ border-top:0; border-left:1px solid var(--linea); padding:var(--s4) var(--s3); }
+  .fatto:nth-child(odd){ border-left:0; padding-left:0; }
+  .fatto p{ max-width:none; }
+  .cifra{ font-size:clamp(2rem,9vw,2.8rem); }
+  .hero{ padding-bottom:clamp(40px,10vw,72px); }
+  .hero .azioni .bottone{ width:100%; justify-content:center; }
+  .intro{ padding-block:clamp(112px,26vw,150px) clamp(40px,10vw,64px); }
+  .stazione{ min-height:88svh; padding-block:var(--s6); }
+  .telaio{ max-height:60svh; margin-inline:auto; width:min(100%,340px); }
+  .fascia{ height:clamp(260px,44vh,360px); }
+  .fascia .frase{ font-size:clamp(1.3rem,6.4vw,1.9rem); }
+  .campo .coppia{ grid-template-columns:1fr; }
+  .scelte{ grid-template-columns:1fr; }
+  .azioni-modulo .bottone{ flex:1 1 100%; justify-content:center; }
+  .storia{ padding-left:22px; }
+  .tappa::before{ left:-22px; }
+}
+@media(min-width:761px) and (max-width:1000px){
+  .griglia-foto{ grid-template-columns:1fr 1fr; }
+}
+
+/* ---------- Überläufe sauber abschneiden -------------------------------- */
+.scena, .telaio, .hero, .mappa{ overflow:clip; }
+.scene{ overflow:clip; }
+
+/* Rasterspalten dürfen nicht am Eigenmaß der Bilder wachsen.
+   "1fr" heißt minmax(auto,1fr) — und auto ist bei einem Bild seine echte Breite. */
+.griglia-foto{ grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr)); }
+@media(min-width:761px) and (max-width:1000px){
+  .griglia-foto{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+.griglia-foto > figure,
+.servizi > *, .persone > *, .blocchi > *, .rotta > *, .filmato > *, .fatti > *,
+.contatti > *, .intestazione > *, .coppia > *{ min-width:0; }
+
+.marchio .sotto{ font-size:.74rem; }
+
+/* ---------- Sehr schmale Geräte: Kopfzeile entlasten --------------------- */
+@media(max-width:560px){
+  .testa .wrap{ gap:8px; padding-inline:16px; }
+  .marchio .nome{ font-size:.92rem; letter-spacing:.16em; }
+  .marchio .segno{ width:32px; height:32px; }
+  .lingue{ gap:0; }
+  .lingue .sep{ display:none; }
+  .lingue button{ min-width:38px; padding-inline:4px; }
+  .menu-tasto{ margin-right:-8px; }
+}
+.marchio{ min-height:44px; align-items:center; }
+
+/* Der Menüknopf gehört nur auf schmale Bildschirme. */
+.menu-tasto{ display:none; }
+@media(max-width:1180px){ .menu-tasto{ display:grid; place-items:center; } }
+/* Die Unterzeile darf ausgeschrieben werden, solange Platz ist. */
+.marchio .sotto{ max-width:none; }

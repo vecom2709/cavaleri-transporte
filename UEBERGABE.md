@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 7: Tiefe, Parallaxe, gezeichnete Motive)
+# Cavaleri Srl — Übergabe (Stand 8: Darstellung geprüft und überarbeitet)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -128,6 +128,36 @@ Unter der Karte steht eine Herkunftszeile, und `/note-legali/` benennt es ebenfa
 gezeichnet ist nur der Hintergrund, alle Fotografien und der Film zeigen das
 Unternehmen selbst. Das ist derselbe Umgang wie bei Trendonix, wo im Fuß steht,
 dass kein Motiv eine historische Fotografie ist.
+
+## Darstellung: geprüft, nicht geschätzt
+`prova.py` ruft jede Seite in drei Breiten (380, 768, 1440) in einem echten
+Browser auf, macht Bildschirmfotos und meldet Überläufe, Tippflächen unter
+44 Pixeln und Schrift unter 12 Pixeln.
+
+```bash
+python3 -m http.server 8099   # in einem zweiten Fenster laufen lassen
+python3 prova.py
+```
+
+Dabei gefunden und behoben:
+
+- **Kopfzeile brach auf dem Desktop um.** Sechs Menüpunkte, Schaltfläche,
+  Sprachwahl und Unterzeile passten bei 1440 px nicht nebeneinander. Jetzt bricht
+  nichts mehr um, und die Leiste geht schon ab 1180 px ins Menü statt erst ab 900.
+- **Die Bildmarke verlor ihr C.** Auf dunklem Grund wurde sie mit
+  `filter: brightness(0) invert(1)` weiß gefärbt — damit verschwand auch das
+  weiße C in der Raute. Es gibt jetzt zwei Dateien, `cavaleri-marchio.svg` und
+  `cavaleri-marchio-bianco.svg`, die je nach Zustand der Kopfzeile eingeblendet werden.
+- **Bilderraster lief über den Rand** (812 statt 768 px). Ursache: `1fr` bedeutet
+  `minmax(auto, 1fr)`, und `auto` ist bei einem Bild dessen echte Breite. Behoben mit
+  `minmax(0, 1fr)` und `min-width: 0` auf allen Rasterkindern.
+- **Zu kleine Tippflächen**: Sprachwahl 29 × 24 px, Kontaktzeilen 32 px hoch.
+  Alles Anklickbare liegt jetzt bei mindestens 44 × 44 px.
+- **Zu kleine Schrift**: Unterzeile 9,6 px, Schlagworte und Rollen 11,5 px.
+  Nichts unter 12 px mehr.
+- **Enge Geräte**: Zahlenband zweispaltig statt fünf untereinander, Schaltflächen
+  über die volle Breite, Formularfelder einspaltig, Auswahlkacheln untereinander,
+  Filmrahmen begrenzt, Kopfzeile ab 560 px zusätzlich entlastet.
 
 ## Auf den Server legen
 Der gesamte Ordnerinhalt gehört in das Wurzelverzeichnis der Domain, `.htaccess`
