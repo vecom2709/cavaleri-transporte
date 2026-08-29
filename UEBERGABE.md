@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 22: Seitenwechsel, Licht, Korn, Prüfsummen)
+# Cavaleri Srl — Übergabe (Stand 23: Menü vereinheitlicht)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,21 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Menü
+Alle sieben Einträge sind gleich — auch „Angebot". Vorher war er eine gefüllte
+Schaltfläche: weißer Kasten über dem Kopfbild, eigener Schatten, eigene Bewegung
+beim Zeigen. Damit fiel er aus der Reihe. Jetzt trägt er dieselbe Schrift,
+dieselbe Größe und denselben Unterstrich wie die übrigen.
+
+Der Weg zum Angebot bleibt trotzdem breit: die großen Schaltflächen im
+Kopfbereich, am Ende jeder Seite und beim Fahrzeugwähler führen dorthin. Soll der
+Menüeintrag wieder auffallen, ist die zurückhaltende Fassung eine farbige
+Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
+
+Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
+Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
+dahinter nicht überall greift.
 
 ## Zwischenspeicher: Prüfsummen an den Dateien
 GitHub Pages lässt CSS und JavaScript zehn Minuten im Browser liegen — nach einer

@@ -53,7 +53,7 @@ def testa(attivo, slug_corrente=""):
     </a>
     <nav class="navi" aria-label="Principale">
 {voci}
-      <a class="bottone" href="/preventivo/" data-t="nav.preventivo"></a>
+      <a href="/preventivo/" data-t="nav.preventivo"></a>
     </nav>
     <div class="lingue" role="group" aria-label="Lingua">
       <button type="button" data-lingua="it" data-vai="{radice('it')}{slug_corrente}">IT</button><span class="sep">/</span>
