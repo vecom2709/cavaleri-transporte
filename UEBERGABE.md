@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 20: Schatten- und Höhensystem)
+# Cavaleri Srl — Übergabe (Stand 21: Logo abgesetzt und mit Lichtglanz)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -318,6 +318,26 @@ dass kein Motiv eine historische Fotografie ist.
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
 
+## Logo: Höhe und Glanz
+Das Logo ist ein freigestelltes Motiv und bekommt deshalb `drop-shadow`, nicht
+`box-shadow` — letzteres würde den unsichtbaren Rahmen schatten und den
+Freisteller verraten. Zwei gestapelte Filter, Kontakt und Streuung, wie bei den
+Flächen. Auf weißem Grund im Schattenton der Marke, auf dunklem Grund schwarz.
+
+Die leichte Wölbung macht ein ruhender Lichtverlauf von oben, der über
+`mask-image` auf die Silhouette des Logos begrenzt ist — deshalb liegt er auf dem
+Motiv und nicht in einem Kasten darum. Kein Emboss: es gibt keinen hellen
+Schatten nach oben, nur den Verlauf innerhalb der Form.
+
+Der **Lichtglanz** ist ein schmaler Streif, der beim Zeigen einmal über das Logo
+läuft, ebenfalls auf die Silhouette maskiert. Beim Zeigen hebt sich das Logo
+zugleich um eine Ebene. Bei „reduzierter Bewegung" bleibt der Streif aus, Schatten
+und Wölbung bleiben.
+
+Die Datei steht dafür in einer Variable `--img`, damit Hintergrundbild und Maske
+immer dieselbe Fassung benutzen — sonst läge der Glanz auf der falschen Silhouette,
+wenn die Kopfzeile zwischen heller und dunkler Fassung wechselt.
+
 ## Schatten und Höhe
 `assets/css/schatteneffekte.css` ist die zentrale Datei — Schattenwerte stehen
 nirgends sonst.
@@ -355,6 +375,8 @@ letzteres würde den unsichtbaren Rahmen schatten.
 
 Textschatten gibt es nur noch dort, wo er zulässig wäre — auf den Bildbändern ist
 er entfallen und durch einen etwas kräftigeren Verlauf unter der Schrift ersetzt.
+
+Die Leuchtspuren an Routenlinie und Wanderpunkt sind bewusst einschichtig und ohne Versatz — das ist abgestrahltes Licht, kein Höhenschatten.
 
 Nachgemessen mit dem Audit des Skills: keine Schatten mit x-Versatz, kein reines
 Schwarz auf hellen Flächen, keine einschichtigen Flächenschatten, kein

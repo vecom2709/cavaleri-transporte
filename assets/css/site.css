@@ -1153,25 +1153,26 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 
 /* =========================================================================
    Das echte Logo
-   Kopfzeile: kompakte Sperrung (Raute + Schriftzug). Die Fußzeile des Logos
-   wäre bei 38 px Höhe vier Pixel hoch — dort gehört sie nicht hin.
-   Vollständige Sperrung mit Fußzeile: im Seitenfuß, wo sie 64 px bekommt.
-   Zwei Farbfassungen: farbig auf hell, weiß auf dunkel.
+   Kopfzeile: kompakte Sperrung. Vollständige Sperrung mit Fußzeile: im Fuß.
+   Die Datei steht in --img, damit Hintergrund und Maske dieselbe Silhouette
+   benutzen — der Lichtglanz liegt dadurch genau auf dem Logo, nicht im Kasten.
    ========================================================================= */
 .marchio{ display:flex; align-items:center; margin-right:auto; text-decoration:none; min-height:44px; }
 .logo{
-  display:block; height:38px; width:calc(38px * 4.36);
+  --img:image-set(url("../marke/logo-compatto-bianco-2x.avif") type("image/avif") 1x,
+                  url("../marke/logo-compatto-bianco-3x.avif") type("image/avif") 2x);
+  position:relative; display:block; height:38px; width:calc(38px * 4.36);
+  background-image:var(--img);
   background-repeat:no-repeat; background-position:left center; background-size:contain;
-  background-image:image-set(url("../marke/logo-compatto-bianco-2x.avif") type("image/avif") 1x,
-                             url("../marke/logo-compatto-bianco-3x.avif") type("image/avif") 2x);
+  transition:filter .3s ease;
 }
 .testa.attaccata .logo{
-  background-image:image-set(url("../marke/logo-compatto-colore-2x.avif") type("image/avif") 1x,
-                             url("../marke/logo-compatto-colore-3x.avif") type("image/avif") 2x);
+  --img:image-set(url("../marke/logo-compatto-colore-2x.avif") type("image/avif") 1x,
+                  url("../marke/logo-compatto-colore-3x.avif") type("image/avif") 2x);
 }
 @supports not (background-image:image-set(url("x.avif") type("image/avif") 1x)){
-  .logo{ background-image:url("../marke/logo-compatto-bianco-2x.png"); }
-  .testa.attaccata .logo{ background-image:url("../marke/logo-compatto-colore-2x.png"); }
+  .logo{ --img:url("../marke/logo-compatto-bianco-2x.png"); }
+  .testa.attaccata .logo{ --img:url("../marke/logo-compatto-colore-2x.png"); }
 }
 @media(max-width:400px){ .logo{ height:31px; width:calc(31px * 4.36); } }
 @media(min-width:1600px){ .logo{ height:46px; width:calc(46px * 4.36); } }
@@ -1298,11 +1299,6 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 .testa.attaccata{ box-shadow:var(--e2); }
 .navi.aperta{ box-shadow:var(--e3); }
 
-/* --- Das Logo ist freigestellt: drop-shadow, nicht box-shadow --------- */
-.logo{ filter:drop-shadow(0 1px 1px rgb(0 0 0 / .22)) drop-shadow(0 6px 14px rgb(0 0 0 / .18)); }
-.testa.attaccata .logo{ filter:none; }
-.logo-piede{ filter:drop-shadow(0 2px 3px rgb(0 0 0 / .30)); }
-
 /* --- Fußzeile und Flächenabschnitte bleiben ohne Höhe ----------------- */
 .piede, .fascia, .dichiarazione{ box-shadow:none; }
 
@@ -1321,3 +1317,77 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 .griglia-foto picture{ position:absolute; inset:0; top:0; height:100%; display:block; }
 .griglia-foto img{ width:100%; height:100%; object-fit:cover; transform:scale(1.04); }
 @media(prefers-reduced-motion:reduce){ .griglia-foto img{ transform:none; } }
+
+/* =========================================================================
+   Logo: abgesetzt, leicht plastisch, mit Lichtglanz
+   Zwei gestapelte drop-shadow — Kontakt und Streuung, wie bei den Flächen,
+   nur eben für ein freigestelltes Motiv. Der Glanz ist auf die Silhouette
+   des Logos maskiert und läuft beim Zeigen einmal darüber.
+   ========================================================================= */
+.logo, .logo-piede{
+  filter:drop-shadow(0 1px 1px rgb(0 0 0 / .34))
+         drop-shadow(0 7px 14px rgb(0 0 0 / .26));
+}
+/* Auf weißem Grund gilt der Schattenton der Marke, nicht Schwarz. */
+.testa.attaccata .logo{
+  filter:drop-shadow(0 1px 1px rgb(var(--sh) / .20))
+         drop-shadow(0 6px 13px rgb(var(--sh) / .16));
+}
+
+/* Ruhender Lichtverlauf von oben: gibt dem Motiv leichte Wölbung,
+   ohne in Emboss zu kippen (heller Schatten nach oben bleibt aus). */
+.logo::before, .logo-piede::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgb(255 255 255 / .24) 0%,
+                             rgb(255 255 255 / .04) 44%, rgb(0 0 0 / .12) 100%);
+  -webkit-mask-image:var(--img); mask-image:var(--img);
+  -webkit-mask-size:contain;     mask-size:contain;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:left center; mask-position:left center;
+  mix-blend-mode:soft-light;
+}
+
+/* Der Glanz: ein schmaler Streif, der beim Zeigen einmal durchläuft. */
+.logo::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:0;
+  background:linear-gradient(112deg, transparent 43%, rgb(255 255 255 / .42) 50%,
+                             transparent 57%);
+  -webkit-mask-image:var(--img); mask-image:var(--img);
+  -webkit-mask-size:contain;     mask-size:contain;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:left center; mask-position:left center;
+}
+@media(hover:hover){
+  .marchio:hover .logo::after{ animation:lucido 1.05s var(--ease); }
+  .marchio:hover .logo{
+    filter:drop-shadow(0 1px 1px rgb(0 0 0 / .36))
+           drop-shadow(0 11px 20px rgb(0 0 0 / .30));
+  }
+  .testa.attaccata .marchio:hover .logo{
+    filter:drop-shadow(0 1px 1px rgb(var(--sh) / .22))
+           drop-shadow(0 10px 20px rgb(var(--sh) / .18));
+  }
+}
+.marchio:focus-visible .logo::after{ animation:lucido 1.05s var(--ease); }
+
+@keyframes lucido{
+  0%   { opacity:0;  transform:translateX(-45%); }
+  12%  { opacity:1; }
+  88%  { opacity:1; }
+  100% { opacity:0;  transform:translateX(45%); }
+}
+
+/* Das Fußlogo trägt seine eigene Silhouette als Maske. */
+.logo-piede{
+  --img:image-set(url("../marke/logo-bianco-2x.avif") type("image/avif") 1x,
+                  url("../marke/logo-bianco-3x.avif") type("image/avif") 2x);
+  position:relative;
+}
+@supports not (background-image:image-set(url("x.avif") type("image/avif") 1x)){
+  .logo-piede{ --img:url("../marke/logo-bianco-2x.png"); }
+}
+.logo-piede{ background-image:var(--img); }
+
+@media(prefers-reduced-motion:reduce){
+  .marchio:hover .logo::after{ animation:none; }
+}
