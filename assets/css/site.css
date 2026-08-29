@@ -840,3 +840,4 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   }
 }
 @media(max-width:380px){ .mappa-viva{ width:72px; bottom:12px; } }
+.mappa-viva .etichetta{ font-size:.72rem; letter-spacing:.1em; }
