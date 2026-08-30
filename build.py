@@ -17,7 +17,8 @@ def radice(lingua):
 
 NAV = [("/azienda/", "nav.azienda"), ("/trasporti/", "nav.trasporti"),
        ("/edilizia/", "nav.edilizia"), ("/rotta/", "nav.rotta2"),
-       ("/gallery/", "nav.gallery"), ("/contatti/", "nav.contatti")]
+       ("/gallery/", "nav.gallery"), ("/lavora/", "nav.lavora"),
+       ("/contatti/", "nav.contatti")]
 
 IMMAGINI = json.loads((pathlib.Path(__file__).parent / "assets/foto/immagini.json").read_text())
 
@@ -82,6 +83,8 @@ PIEDE = '''<footer class="piede">
       </a>
     </div>
     <p class="piede-legale">
+      <a href="/lavora/" data-t="nav.lavora"></a>
+      <span class="punto" aria-hidden="true">·</span>
       <a href="/note-legali/" data-t="piede.note"></a>
       <span class="punto" aria-hidden="true">·</span>
       <a href="/note-legali/#privacy" data-t="piede.privacy"></a>
@@ -506,6 +509,64 @@ def procedura():
   </section>'''
 
 
+def lavora():
+    """Stellenseite. Es werden keine konkreten Stellen behauptet — genannt sind
+    die drei Bereiche, in denen die dreißig Beschäftigten arbeiten, und die
+    Anforderungen, die dort üblich sind."""
+    aree = "\n".join(
+        '''        <article class="area">
+          <h3 data-t="lv.%dt"></h3>
+          <p data-t="lv.%dx"></p>
+          <ul data-t="lv.%dr" data-tag="lista"></ul>
+        </article>''' % (n, n, n) for n in (1, 2, 3))
+    return '''  <section class="riga-sopra">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="lv.occhiello"></p>
+          <h2 data-t="lv.titolo"></h2>
+        </div>
+        <p class="guida" data-t="lv.txt"></p>
+      </div>
+      <div class="aree">
+''' + aree + '''
+      </div>
+      <p class="guida nota-aperte" data-t="lv.aperte"></p>
+    </div>
+  </section>
+
+  <section class="sfondo-carta riga-sopra">
+    <div class="wrap">
+      <form class="modulo candidatura" novalidate>
+        <h2 data-t="lv.mod"></h2>
+        <div class="campo">
+          <p class="etichetta" data-t="lv.q1"></p>
+          <div class="scelte" id="g-area" data-t="lv.q1a" data-tag="scelte"></div>
+        </div>
+        <div class="campo coppia">
+          <span><label for="c-nome-c" data-t="pr.nome"></label><input id="c-nome-c" required></span>
+          <span><label for="c-tel-c" data-t="pr.tel"></label><input id="c-tel-c" type="tel"></span>
+        </div>
+        <div class="campo">
+          <label for="c-email-c" data-t="pr.email"></label><input id="c-email-c" type="email" required>
+        </div>
+        <div class="campo">
+          <label for="c-patenti" data-t="lv.q2"></label><input id="c-patenti" data-p="lv.q2p">
+        </div>
+        <div class="campo">
+          <label for="c-esperienza" data-t="lv.q3"></label><textarea id="c-esperienza" data-p="lv.q3p"></textarea>
+        </div>
+        <div class="azioni-modulo">
+          <button type="button" class="bottone" data-invia-candidatura>
+            <span data-t="lv.invia"></span><span class="freccia">→</span>
+          </button>
+        </div>
+        <p class="nota-modulo" data-t="lv.nota"></p>
+      </form>
+    </div>
+  </section>'''
+
+
 def dichiarazione(sfondo, chiave, chiaro=False):
     """Ganzflächige Aussage: die Wörter erscheinen einzeln mit dem Scrollen."""
     return f'''  <section class="dichiarazione{ " chiara" if chiaro else "" }" data-sfondo="{sfondo}">
@@ -635,6 +696,7 @@ PAGINE = {
  "edilizia":   ("ed.title", "ed.lead", intro("servizi.occhiello", "ed.h1", "ed.lead") + "\n" + servizi([4]) + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.lead", intro("rotta.occhiello", "ro.h1", "ro.lead") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.lead", intro("nav.gallery", "ga.h1", "ga.lead") + "\n" + gallery() + "\n" + INVITO, ""),
+ "lavora":     ("lv.title", "lv.lead", intro("nav.lavora", "lv.h1", "lv.lead") + "\n" + lavora() + "\n" + fascia("flotta-schierata", "fa.1"), "candidatura"),
  "contatti":   ("co.title", "co.lead", intro("nav.contatti", "co.h1", "co.lead") + "\n" + CONTATTI_BLOCCO + "\n" + persone() + "\n" + INVITO, ""),
  "preventivo": ("pr.title", "pr.lead", intro("invito.occhiello", "pr.h1", "pr.lead") + "\n" + MODULO + "\n" + CONTATTI_BLOCCO, "modulo"),
  "note-legali":("nl.title", "nl.lead", intro("piede.note", "nl.h1", "nl.lead") + "\n" + NOTE, ""),
@@ -652,6 +714,7 @@ DATI_STRUTTURATI = """{
 
 def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
     js = {"modulo": '\n<script src="/assets/js/preventivo.js" defer></script>',
+          "candidatura": '\n<script src="/assets/js/candidatura.js" defer></script>',
           "mondo": '\n<script src="/assets/js/mondo.js" defer></script>'}.get(extra_js, "")
     via = f"{radice(lingua)}{slug}/"
     alternative = "\n".join(

@@ -1813,3 +1813,29 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
   .piede-legale{ gap:0; padding-top:var(--s4); }
   .piede-legale a{ padding-block:12px; }
 }
+
+/* =========================================================================
+   Stellenseite: die drei Bereiche
+   ========================================================================= */
+.aree{ display:grid; gap:clamp(16px,1.8vw,26px); }
+@media(min-width:820px){ .aree{ grid-template-columns:repeat(3,1fr); } }
+.area{
+  background:var(--bianco); border-radius:4px; padding:clamp(26px,2.6vw,var(--s5));
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease);
+}
+@media(hover:hover){
+  .area:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+.area h3{ margin-bottom:var(--s2); }
+.area p{ color:var(--grigio); font-size:.95rem; }
+.area ul{
+  list-style:none; margin:var(--s4) 0 0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.area li{
+  font-size:.78rem; letter-spacing:.06em; color:var(--blu);
+  background:var(--blu-chiaro); border-radius:999px; padding:6px 14px;
+}
+.nota-aperte{ margin-top:clamp(32px,4vw,var(--s6)); max-width:62ch; }
+.candidatura h2{ margin-bottom:var(--s6); }

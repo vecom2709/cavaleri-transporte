@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 38: Fußzeile mittig)
+# Cavaleri Srl — Übergabe (Stand 39: Stellenseite)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,30 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Stellenseite `/lavora/`
+Im Menü als achter Punkt und zusätzlich im Fuß verlinkt, dreisprachig.
+
+**Es werden keine konkreten Stellen behauptet.** Genannt sind die drei Bereiche,
+in denen die dreißig Beschäftigten arbeiten — Fahrer, Lager, Verwaltung und
+Disposition — mit den Anforderungen, die dort üblich sind. Dazu ein klarer Satz:
+Es gibt hier keine Liste offener Stellen, Initiativbewerbungen werden gelesen und
+aufbewahrt. Das ist ehrlich und kostet nichts an Wirkung; eine erfundene
+Stellenliste hätte beim ersten Anruf Schaden angerichtet.
+
+Das Argument für den Betrieb steht oben und ist belegt: eigene Fahrzeuge,
+angestellte Fahrer, ein Standort, die Geschäftsführung im Haus. Im Fahrermarkt
+ist genau das der Unterschied zu einer Vermittlung.
+
+**Das Formular** ist einstufig: Bereich per Kachel, Name, Telefon, E-Mail,
+Führerscheine, Erfahrung und Verfügbarkeit. Der Knopf öffnet das E-Mail-Programm
+mit fertigem Text — bewusst, damit der Lebenslauf angehängt werden kann. Ein
+Formulardienst könnte keine Dateien annehmen, ohne dass Daten über Dritte laufen.
+
+**Anzupassen, sobald bekannt:** die Empfängeradresse (steht auf
+`info@cavaleri.it`) und die Angaben in den Anforderungen, falls sie nicht
+zutreffen — sie beschreiben, was in diesen Berufen üblich ist, nicht was das
+Unternehmen konkret verlangt.
 
 ## Neue Inhalte
 Alle Angaben stammen von cavaleri.it und aus der ASTRE-Reportage — nichts ist
