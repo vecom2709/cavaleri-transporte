@@ -645,9 +645,28 @@ Netlify kennt `.htaccess` nicht:
 - Sprachweiche für Erstbesucher, als 302
 - `sorgenti/` und `assets/foto/originali/` sind gesperrt
 
-**Anbindung**: Netlify baut aus dem GitHub-Repository. Jeder Push auf `main`
-veröffentlicht dann von selbst — kein Hochladen von Hand, und der Stand auf
-GitHub bleibt die eine Wahrheit.
+Adresse: **https://cavaleri-trasporti.netlify.app**
+
+**Zwei Stolpersteine, beide behoben:**
+
+1. Bei Netlify gewinnt die **zuletzt** passende Kopfzeilen-Regel. Meine
+   allgemeine `/*`-Regel stand unten und hat damit sämtliche
+   Zwischenspeicher-Regeln überschrieben — Bilder wurden gar nicht
+   zwischengespeichert. Sie steht jetzt oben.
+2. Sperren und Weiterleitungen brauchen `force = true`, wenn an der Stelle eine
+   Datei liegt. Ohne das waren `sorgenti/`, `build.py` und die Originalfotos
+   trotz Sperre abrufbar, und die Sprachweiche griff nie.
+
+Nachgemessen: Bilder ein Jahr, CSS und JS eine Woche, HTML ohne
+Zwischenspeicher; `sorgenti/`, `*.py` und `assets/foto/originali/` liefern 404;
+deutscher Browser landet auf `/de/`, englischer auf `/en/`, italienischer bleibt
+auf `/`.
+
+**Noch offen:** Netlify ist bisher nicht mit GitHub verbunden — ich habe direkt
+veröffentlicht. Für automatische Veröffentlichung bei jedem Push:
+Netlify → Project configuration → Build & deploy → Link repository →
+`vecom2709/cavaleri-transporte`, Branch `main`, Build command leer,
+Publish directory `.`.
 
 ## Auf den Server legen
 Der gesamte Ordnerinhalt gehört in das Wurzelverzeichnis der Domain, `.htaccess`

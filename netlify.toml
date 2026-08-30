@@ -6,6 +6,19 @@
   publish = "."
   command = ""
 
+# ---------- Grundregel zuerst -------------------------------------------
+# Bei Netlify gewinnt die zuletzt passende Regel. Deshalb steht das
+# allgemeine "/*" oben und die besonderen Pfade darunter.
+# HTML nie lange halten, sonst sieht niemand Änderungen.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:"
+
 # ---------- Zwischenspeicher --------------------------------------------
 # Bilder, Schriften und Film tragen ihre Breite im Namen und ändern sich nicht.
 [[headers]]
@@ -44,15 +57,6 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
-# HTML nie lange halten, sonst sieht niemand Änderungen.
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    X-Frame-Options = "SAMEORIGIN"
-    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:"
 
 # ---------- Alte Adressen der bisherigen Seite ---------------------------
 [[redirects]]
@@ -94,19 +98,20 @@
 
 # ---------- Sprachweiche für Erstbesucher --------------------------------
 # Nur von der Wurzel aus, als 302 — die italienische Startseite bleibt die
-# maßgebliche Adresse für Suchmaschinen.
+# maßgebliche Adresse für Suchmaschinen. "force" ist nötig, weil sonst die
+# vorhandene index.html gewinnt und die Weiche nie greift.
 [[redirects]]
   from = "/"
   to = "/de/"
   status = 302
-  force = false
+  force = true
   conditions = {Language = ["de"]}
 
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 302
-  force = false
+  force = true
   conditions = {Language = ["en"]}
 
 # Quelldateien und Werkzeuge gehören nicht ins Netz.
@@ -114,7 +119,19 @@
   from = "/sorgenti/*"
   to = "/404.html"
   status = 404
+  force = true
 [[redirects]]
   from = "/assets/foto/originali/*"
   to = "/404.html"
   status = 404
+  force = true
+[[redirects]]
+  from = "/build.py"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/*.py"
+  to = "/404.html"
+  status = 404
+  force = true
