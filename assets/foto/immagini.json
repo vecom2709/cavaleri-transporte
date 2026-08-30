@@ -356,6 +356,31 @@
    ]
   }
  },
+ "persona-tonino": {
+  "w": 397,
+  "h": 496,
+  "anteprima": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABMNDhEODBMRDxEVFBMXHTAfHRoaHToqLCMwRT1JR0Q9Q0FMVm1dTFFoUkFDX4JgaHF1e3x7SlyGkIV3j214e3b/2wBDARQVFR0ZHTgfHzh2T0NPdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnb/wAARCAAeABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUGAwT/xAAnEAACAQMCBQQDAAAAAAAAAAABAgMABBEFIRITMVGBIkFCcRSx4f/EABcBAAMBAAAAAAAAAAAAAAAAAAABAwL/xAAaEQACAwEBAAAAAAAAAAAAAAAAAQIREhNB/9oADAMBAAIRAxEAPwBwZFDeogVnHeFrl0HBy198nOO/akFzqcyyFpFManOx2OPY1ib5kii5EvE8inmjHTfpn6pqLYrXpVR31tK3DHPGzdg1FR94ojukeDCh1DAL8W6HHmitONCTGcuk3MJaGbTYrkkYSU5z44f5XJHoN4UBjaPLHAXckffbzVnfailiQOWXdxnbakkuoT3M4lJCMOnAMEeepqTnllVDSE34Fxa3MS3lpNldgwPpG+ck+9FUS3ryMpueKZF+JOP1RR0sOdH/2Q==",
+  "fonti": {
+   "avif": [
+    [
+     "persona-tonino-397.avif",
+     397
+    ]
+   ],
+   "webp": [
+    [
+     "persona-tonino-397.webp",
+     397
+    ]
+   ],
+   "jpg": [
+    [
+     "persona-tonino-397.jpg",
+     397
+    ]
+   ]
+  }
+ },
  "ribaltabile": {
   "w": 1500,
   "h": 2000,

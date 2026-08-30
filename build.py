@@ -127,7 +127,7 @@ def persone():
     gente = [("francesco", "Francesco Cavaleri", "p1.ruolo", "+39 348 806 3771",
               "3488063771", "francesco@cavaleri.it", "50% 20%"),
              ("tonino", "Antonino Cavaleri", "p2.ruolo", "+39 348 806 3773",
-              "3488063773", "tonino@cavaleri.it", "50% 20%"),
+              "3488063773", "tonino@cavaleri.it", "50% 12%"),
              ("giusy", "Giusy Cavaleri", "p3.ruolo", "+39 366 356 7922",
               "3663567922", "giusy@cavaleri.it", "62% 14%")]
     presenti = [g for g in gente if f"persona-{g[0]}" in IMMAGINI]
