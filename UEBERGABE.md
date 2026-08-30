@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 31: Kontrast auf Bildern gemessen)
+# Cavaleri Srl — Übergabe (Stand 32: Netlify)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -627,6 +627,27 @@ Dabei gefunden und behoben:
   Leiste wären sie 32 px breit gewesen.
 - Telefon im Querformat: bildschirmhohe Abschnitte sind dort eine Zumutung —
   Kopfbereich, Seitenköpfe und Aussagen haben eigene, flachere Maße.
+
+## Netlify
+Es gibt jetzt ein Netlify-Projekt **cavaleri-trasporti**
+(app.netlify.com/projects/cavaleri-trasporti). Die Zwangsanmeldung über das
+Netlify-Konto, die für neue Projekte des Teams voreingestellt war, ist
+abgeschaltet — die Seite ist ohne Konto erreichbar.
+
+`netlify.toml` übernimmt, was `.htaccess` auf einem Apache-Server tut, denn
+Netlify kennt `.htaccess` nicht:
+
+- ein Jahr Zwischenspeicher für Bilder, Schriften, Film und Zeichnungen
+- eine Woche für CSS und JS (die tragen ihre Prüfsumme in der Adresse)
+- HTML ohne Zwischenspeicher
+- Sicherheitskopfzeilen samt Content-Security-Policy
+- Weiterleitung der alten `.html`-Adressen
+- Sprachweiche für Erstbesucher, als 302
+- `sorgenti/` und `assets/foto/originali/` sind gesperrt
+
+**Anbindung**: Netlify baut aus dem GitHub-Repository. Jeder Push auf `main`
+veröffentlicht dann von selbst — kein Hochladen von Hand, und der Stand auf
+GitHub bleibt die eine Wahrheit.
 
 ## Auf den Server legen
 Der gesamte Ordnerinhalt gehört in das Wurzelverzeichnis der Domain, `.htaccess`

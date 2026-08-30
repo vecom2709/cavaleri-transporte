@@ -1,0 +1,120 @@
+# Cavaleri Srl — Netlify
+# Entspricht dem, was .htaccess auf einem Apache-Server tut. Netlify kennt
+# .htaccess nicht; die Regeln stehen deshalb hier.
+
+[build]
+  publish = "."
+  command = ""
+
+# ---------- Zwischenspeicher --------------------------------------------
+# Bilder, Schriften und Film tragen ihre Breite im Namen und ändern sich nicht.
+[[headers]]
+  for = "/assets/foto/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/font/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/grafica/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/marke/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# CSS und JS tragen eine Prüfsumme in der Adresse — sie dürfen lange liegen.
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# HTML nie lange halten, sonst sieht niemand Änderungen.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:"
+
+# ---------- Alte Adressen der bisherigen Seite ---------------------------
+[[redirects]]
+  from = "/azienda.html"
+  to = "/azienda/"
+  status = 301
+[[redirects]]
+  from = "/trasporti.html"
+  to = "/trasporti/"
+  status = 301
+[[redirects]]
+  from = "/edilizia.html"
+  to = "/edilizia/"
+  status = 301
+[[redirects]]
+  from = "/gallery.html"
+  to = "/gallery/"
+  status = 301
+[[redirects]]
+  from = "/galleria.html"
+  to = "/gallery/"
+  status = 301
+[[redirects]]
+  from = "/contatti.html"
+  to = "/contatti/"
+  status = 301
+[[redirects]]
+  from = "/preventivi.html"
+  to = "/preventivo/"
+  status = 301
+[[redirects]]
+  from = "/preventivo.html"
+  to = "/preventivo/"
+  status = 301
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+# ---------- Sprachweiche für Erstbesucher --------------------------------
+# Nur von der Wurzel aus, als 302 — die italienische Startseite bleibt die
+# maßgebliche Adresse für Suchmaschinen.
+[[redirects]]
+  from = "/"
+  to = "/de/"
+  status = 302
+  force = false
+  conditions = {Language = ["de"]}
+
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 302
+  force = false
+  conditions = {Language = ["en"]}
+
+# Quelldateien und Werkzeuge gehören nicht ins Netz.
+[[redirects]]
+  from = "/sorgenti/*"
+  to = "/404.html"
+  status = 404
+[[redirects]]
+  from = "/assets/foto/originali/*"
+  to = "/404.html"
+  status = 404
