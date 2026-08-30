@@ -1,16 +1,29 @@
 /* Cavaleri Srl — Eingangsanimation.
 
-   Sie erscheint nur beim ersten Aufruf je Sitzung: wer sich durch die Seiten
-   klickt, sieht sie einmal und danach nicht mehr. Bei "reduzierter Bewegung"
-   erscheint sie gar nicht. Die Seite darunter ist die ganze Zeit vollständig
-   geladen — der Vorhang liegt nur davor und verschwindet von selbst.
+   Wann sie erscheint:
+   - beim Aktualisieren der Seite: immer wieder, so oft man neu lädt
+   - beim ersten Aufruf einer Sitzung: einmal
+   - beim Weiterklicken innerhalb der Seite: nicht mehr
+
+   Unterschieden wird das über die Navigation Timing API: der Browser sagt
+   selbst, ob die Seite neu geladen ("reload"), angeklickt ("navigate") oder
+   über die Zurück-Taste geholt wurde. Bei "reduzierter Bewegung" erscheint sie
+   gar nicht. Die Seite darunter ist die ganze Zeit vollständig geladen — der
+   Vorhang liegt nur davor und verschwindet von selbst.
 
    Das Markup wird hier erzeugt und nicht in jede Seite geschrieben: so steht
    es nur an einer Stelle und kostet in den 30 Seiten kein Byte. */
 (() => {
   const RIDOTTO = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (RIDOTTO) return;
-  try { if (sessionStorage.getItem("cavaleri.entrata") === "1") return; } catch (e) {}
+  const voce = performance.getEntriesByType("navigation")[0];
+  const tipo = voce ? voce.type : "navigate";
+  const ricarica = tipo === "reload";
+
+  if (!ricarica) {
+    // Kein Neuladen: nur beim ersten Aufruf der Sitzung zeigen.
+    try { if (sessionStorage.getItem("cavaleri.entrata") === "1") return; } catch (e) {}
+  }
 
   const base = document.documentElement.dataset.base || "";
   const sipario = document.createElement("div");

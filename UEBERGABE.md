@@ -616,9 +616,18 @@ hervor, ein Lichtstreif läuft darüber, der Vorhang wird durchsichtig.
 scharf in jeder Größe, und es verzögert nichts: die Seite darunter ist fertig
 geladen, der Vorhang liegt nur davor.
 
-Drei Vorkehrungen:
-- **Nur beim ersten Aufruf je Sitzung** (`sessionStorage`). Wer sich durch die
-  Seiten klickt, sieht sie einmal.
+Wann sie läuft:
+- **Beim Aktualisieren immer wieder** — so oft man neu lädt.
+- **Beim ersten Aufruf einer Sitzung** einmal.
+- **Beim Weiterklicken innerhalb der Seite nicht**, sonst stünden vier Sekunden
+  vor jedem Klick.
+
+Unterschieden wird das über die Navigation Timing API: Der Browser meldet selbst,
+ob die Seite neu geladen (`reload`), angeklickt (`navigate`) oder über die
+Zurück-Taste geholt wurde. Nur bei `reload` wird der Merker in `sessionStorage`
+übergangen.
+
+Weitere Vorkehrungen:
 - **Bei „reduzierter Bewegung" gar nicht** — das Skript erzeugt dann nichts.
 - **Überspringbar**: ein Klick oder die Esc-Taste blendet sie in 350 ms aus.
   Zusätzlich räumt ein Zeitgeber nach 5 Sekunden auf, falls eine Animation
