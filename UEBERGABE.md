@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 34: Sprachweiche wieder aktiv)
+# Cavaleri Srl — Übergabe (Stand 35: Sprachverhalten wie zuvor)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -45,9 +45,19 @@ auf `/de/`, ein englischer auf `/en/`, alle anderen auf der italienischen
 Startseite. Als 302, damit `/` die maßgebliche Adresse für Suchmaschinen bleibt.
 Steht in `netlify.toml` und ebenso in `.htaccess` für den späteren Umzug.
 
-**Die zuvor gewählte Sprache wirkt nicht mehr nach.** Das bleibt so: Wer `/`
-aufruft, bekommt Italienisch oder die Weiche — nie mehr die Sprache, die er
-irgendwann einmal umgeschaltet hatte.
+**Die zuletzt gewählte Sprache wird wieder gemerkt.** Sie greift dort, wo keine
+Sprache in der Adresse steht — also auf der 404-Seite und in der
+Einzeldatei-Vorschau. Auf den echten Seiten entscheidet immer die Adresse:
+`/` ist italienisch, `/de/` deutsch, `/en/` englisch.
+
+**Umschalten funktioniert aus jeder Sprache heraus**, auch mit italienischem
+Browser: Der Schalter springt auf dieselbe Seite im anderen Sprachverzeichnis,
+und die Sprache bleibt beim Weiterklicken erhalten, weil dann alle Menüpunkte
+dorthin zeigen. Geprüft: `/en/gallery/` → IT ergibt `/gallery/`, → DE ergibt
+`/de/gallery/`.
+
+Nebenbei behoben: Das Ziel „Italienisch" führte auf `/index.html` statt auf `/` —
+zwei Adressen für dieselbe Seite. Jetzt zeigt es auf das Verzeichnis.
 
 Deutsch und Englisch erreicht man über die Umschaltung oben rechts oder direkt
 über `/de/` und `/en/`. Die einmal gewählte Sprache bleibt beim Weiterklicken

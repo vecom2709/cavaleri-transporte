@@ -9,12 +9,15 @@
 
   /* ---------- 1. Sprache ------------------------------------------------ */
   const LINGUE = ["it", "de", "en"];
-  // Jede Sprache hat ihre eigene Adresse. Steht dort eine, gilt sie.
-  // Sonst (Vorschau, 404-Seite) gilt Italienisch — nicht die Browsersprache
-  // und nicht die zuletzt gewählte: der erste Aufruf zeigt immer Italienisch.
+  // Jede Sprache hat ihre eigene Adresse. Steht dort eine, gilt sie —
+  // sonst (Vorschau, 404-Seite) zählt die zuletzt gewählte Sprache, danach
+  // die Einstellung des Browsers, zuletzt Italienisch.
   const scegli = () => {
     if (LINGUE.includes(window.LINGUA)) return window.LINGUA;
-    return "it";
+    const salvata = localStorage.getItem("cavaleri.lingua");
+    if (LINGUE.includes(salvata)) return salvata;
+    const nav = (navigator.language || "it").slice(0, 2).toLowerCase();
+    return LINGUE.includes(nav) ? nav : "it";
   };
 
   function applica(lingua) {

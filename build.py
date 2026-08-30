@@ -714,7 +714,9 @@ def adatta(html, profondita):
     html = re.sub(r'(srcset)="([^"]*)"',
                   lambda m: '%s="%s"' % (m.group(1), m.group(2).replace("/assets/", p + "assets/")),
                   html)
-    html = html.replace(f'data-vai="{p}"', f'data-vai="{p}index.html"' if p else 'data-vai="index.html"')
+    # Ziel Italienisch ist das Wurzelverzeichnis: "../" bzw. "./" — nicht
+    # "index.html", das ergäbe eine zweite Adresse für dieselbe Seite.
+    html = html.replace('data-vai=""', 'data-vai="./"')
     return html
 
 
