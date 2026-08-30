@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 33: erster Aufruf immer Italienisch)
+# Cavaleri Srl — Übergabe (Stand 34: Sprachweiche wieder aktiv)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -40,10 +40,14 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
 
 ## Sprachen
-**Der erste Aufruf zeigt immer Italienisch.** Es gibt keine Weiche mehr, die
-nach der Browsersprache umleitet, und das Skript greift auch nicht mehr auf eine
-zuvor gewählte Sprache zurück. Wer `/` aufruft, sieht Italienisch — die Sprache
-des Unternehmens und der maßgebliche Auftritt.
+**Sprachweiche für Erstbesucher ist wieder aktiv**: Ein deutscher Browser landet
+auf `/de/`, ein englischer auf `/en/`, alle anderen auf der italienischen
+Startseite. Als 302, damit `/` die maßgebliche Adresse für Suchmaschinen bleibt.
+Steht in `netlify.toml` und ebenso in `.htaccess` für den späteren Umzug.
+
+**Die zuvor gewählte Sprache wirkt nicht mehr nach.** Das bleibt so: Wer `/`
+aufruft, bekommt Italienisch oder die Weiche — nie mehr die Sprache, die er
+irgendwann einmal umgeschaltet hatte.
 
 Deutsch und Englisch erreicht man über die Umschaltung oben rechts oder direkt
 über `/de/` und `/en/`. Die einmal gewählte Sprache bleibt beim Weiterklicken
@@ -667,8 +671,8 @@ Adresse: **https://cavaleri-trasporti.netlify.app**
 
 Nachgemessen: Bilder ein Jahr, CSS und JS eine Woche, HTML ohne
 Zwischenspeicher; `sorgenti/`, `*.py` und `assets/foto/originali/` liefern 404;
-keine Sprachweiche mehr — jeder Browser landet auf der italienischen
-Startseite.
+deutscher Browser landet auf `/de/`, englischer auf `/en/`, italienischer
+bleibt auf `/`.
 
 **Noch offen:** Netlify ist bisher nicht mit GitHub verbunden — ich habe direkt
 veröffentlicht. Für automatische Veröffentlichung bei jedem Push:
