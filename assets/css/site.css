@@ -1535,3 +1535,53 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
   .tappa .anno{ text-align:left; }
   .tappa p:not(.anno){ max-width:none; }
 }
+
+/* =========================================================================
+   Ansprechpartner mit Bild
+   Das Porträt steht oben in der Karte — ein Bild in einer Karte bekommt keine
+   eigene Höhe, nur die Kante (siehe Schattensystem).
+   ========================================================================= */
+.persona.con-foto{ display:flex; flex-direction:column; padding:0; }
+.persona .ritratto{
+  margin:0; aspect-ratio:4/5; overflow:clip; position:relative;
+  background:var(--blu-chiaro); box-shadow:var(--kante);
+}
+.persona .ritratto picture{ position:absolute; inset:0; display:block; }
+.persona .ritratto img{
+  width:100%; height:100%; object-fit:cover; object-position:50% 22%;
+  transition:transform .7s var(--ease);
+}
+@media(hover:hover){ .persona:hover .ritratto img{ transform:scale(1.04); } }
+/* Fehlt ein Foto: ruhiges Feld mit der Raute, gleiche Höhe wie die anderen. */
+.persona .ritratto.vuoto{
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(59,123,224,.10), transparent 70%),
+    var(--blu-chiaro);
+}
+.persona.con-foto .dati{ padding:clamp(24px,2.6vw,var(--s5)); }
+.persona:hover{ transform:none; }   /* die Karte selbst bleibt liegen */
+@media(max-width:819px){
+  .persona.con-foto{ flex-direction:row; align-items:stretch; }
+  .persona.con-foto .ritratto{ flex:0 0 38%; aspect-ratio:auto; }
+  .persona.con-foto .dati{ flex:1; }
+}
+@media(max-width:520px){
+  .persona.con-foto{ flex-direction:column; }
+  .persona.con-foto .ritratto{ flex:none; aspect-ratio:4/3; }
+}
+
+/* Solange nicht alle Porträts da sind: eines neben der Überschrift. */
+.accanto{ display:grid; gap:var(--s4); }
+@media(min-width:900px){ .accanto{ grid-template-columns:auto 1fr; align-items:start; } }
+.ritratto-guida{
+  margin:0; width:clamp(150px,16vw,210px); aspect-ratio:4/5;
+  position:relative; overflow:clip; border-radius:3px;
+  box-shadow:var(--kante), var(--e2);
+}
+.ritratto-guida picture{ position:absolute; inset:0; display:block; }
+.ritratto-guida img{ width:100%; height:100%; object-fit:cover; object-position:50% 18%; }
+.ritratto-guida figcaption{
+  position:absolute; inset:auto 0 0 0; padding:22px 12px 10px; color:#fff;
+  font-size:.76rem; letter-spacing:.04em;
+  background:linear-gradient(transparent, rgba(9,21,58,.85));
+}

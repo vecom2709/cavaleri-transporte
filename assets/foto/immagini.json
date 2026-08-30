@@ -306,6 +306,31 @@
    ]
   }
  },
+ "persona-francesco": {
+  "w": 390,
+  "h": 488,
+  "anteprima": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABMNDhEODBMRDxEVFBMXHTAfHRoaHToqLCMwRT1JR0Q9Q0FMVm1dTFFoUkFDX4JgaHF1e3x7SlyGkIV3j214e3b/2wBDARQVFR0ZHTgfHzh2T0NPdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnb/wAARCAAeABgDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUCAwQG/8QAJBAAAgEEAgIBBQAAAAAAAAAAAQIDAAQREgVBITFhEyNRcqH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAQD/xAAYEQADAQEAAAAAAAAAAAAAAAAAARESAv/aAAwDAQACEQMRAD8AlGdhipRbyRySBwFjONNfJHrOeqRXF08sxVWYJjxg9005W3l4uGJFmOJTvgdfH9q5ZqjbCwJorDYSsVBdsk0Vchors4o/qo9wx1VgSq9imXP3a3yW7Q7EIGDbewSabz2VsiZaBG/HiqYePtLi5hzCADIFIHorjPn5orqifIjtC4AxknoCiu7Xi7OMfbh0/UkUUtMkR//Z",
+  "fonti": {
+   "avif": [
+    [
+     "persona-francesco-390.avif",
+     390
+    ]
+   ],
+   "webp": [
+    [
+     "persona-francesco-390.webp",
+     390
+    ]
+   ],
+   "jpg": [
+    [
+     "persona-francesco-390.jpg",
+     390
+    ]
+   ]
+  }
+ },
  "ribaltabile": {
   "w": 1500,
   "h": 2000,

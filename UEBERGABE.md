@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 26: Satz der Zeitleiste)
+# Cavaleri Srl — Übergabe (Stand 27: Porträt Francesco)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,26 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Porträts der Ansprechpartner
+Francescos Foto ist eingesetzt — auf `/azienda/` und `/contatti/`, jeweils neben
+der Überschrift „Wer antwortet", mit Namen als Bildunterschrift.
+
+**Warum nicht in der Karte:** Vorgesehen ist, dass jede der drei Karten oben ihr
+Porträt trägt. Mit nur einem Foto standen daneben zwei leere Felder von 478 px
+Höhe — das sah unfertig aus. Deshalb entscheidet der Bau selbst: Liegen Porträts
+von allen dreien vor, wandern sie in die Karten; fehlt eines, steht das
+vorhandene neben der Überschrift und die Karten bleiben wie bisher.
+
+**Zum Umschalten genügen zwei Dateien.** `persona-tonino.jpg` und
+`persona-giusy.jpg` nach `assets/foto/originali/` legen, dann
+`python3 immagini.py && python3 build.py` — die Seite stellt sich von selbst um,
+ohne dass eine Zeile geändert wird.
+
+**Zur Bildqualität:** Die Vorlage ist ein Bildschirmfoto mit 490 × 488 Pixeln,
+zugeschnitten auf 390 × 488 im Hochformat. Das reicht für die jetzige Größe von
+210 px, auf hochauflösenden Bildschirmen bleibt es aber weich. Ein Original aus
+der Kamera wäre deutlich besser — mindestens 1200 px in der Höhe.
 
 ## Satz der Zeitleiste
 - **Die Jahre stehen jetzt bündig.** Jede Etappe war zuvor ein eigenes Raster,

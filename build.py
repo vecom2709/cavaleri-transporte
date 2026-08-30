@@ -115,31 +115,60 @@ CONTATTI_BLOCCO = '''  <section class="sfondo-carta riga-sopra">
     </div>
   </section>'''
 
-PERSONE = '''  <section class="riga-sopra">
+def persone():
+    """Die drei Ansprechpartner.
+
+    Liegen Porträts von allen dreien vor, steht je eines oben in der Karte.
+    Fehlt eines, wären dort leere Felder — dann steht das vorhandene Porträt
+    stattdessen neben der Überschrift, und die Karten bleiben wie bisher.
+    Sobald die fehlenden Fotos in assets/foto/originali/ liegen
+    (persona-tonino.jpg, persona-giusy.jpg), schaltet die Seite von selbst um."""
+    gente = [("francesco", "Francesco Cavaleri", "p1.ruolo", "+39 348 806 3771",
+              "3488063771", "francesco@cavaleri.it"),
+             ("tonino", "Antonino Cavaleri", "p2.ruolo", "+39 348 806 3773",
+              "3488063773", "tonino@cavaleri.it"),
+             ("giusy", "Giusy Cavaleri", "p3.ruolo", "+39 366 356 7922",
+              "3663567922", "giusy@cavaleri.it")]
+    presenti = [g for g in gente if f"persona-{g[0]}" in IMMAGINI]
+    tutte = len(presenti) == len(gente)
+
+    carte = []
+    for slug, nome, ruolo, tel, num, mail in gente:
+        ritratto = ""
+        if tutte:
+            ritratto = figura(f"persona-{slug}", alt=nome,
+                              sizes="(min-width:820px) 33vw, 100vw", classe="ritratto") + "\n          "
+        carte.append(f'''        <article class="persona{ " con-foto" if tutte else "" }">
+          {ritratto}<div class="dati">
+            <p class="ruolo" data-t="{ruolo}"></p><h3>{nome}</h3>
+            <a href="tel:+39{num}">{tel}</a><a href="mailto:{mail}">{mail}</a>
+          </div>
+        </article>''')
+
+    guida = '<p class="guida" data-t="persone.guida"></p>'
+    if not tutte and presenti:
+        slug, nome = presenti[0][0], presenti[0][1]
+        interno = figura("persona-" + slug, alt=nome, sizes="(min-width:900px) 30vw, 100vw")
+        interno = re.sub(r"^<figure[^>]*>|</figure>$", "", interno)   # nur das Bild
+        guida = (f'<figure class="ritratto-guida con-anteprima">{interno}'
+                 f'<figcaption>{nome}</figcaption></figure>'
+                 f'<p class="guida" data-t="persone.guida"></p>')
+
+    return '''  <section class="riga-sopra">
     <div class="wrap">
-      <div class="intestazione">
+      <div class="intestazione intestazione--ritratto">
         <div>
           <p class="occhiello" data-t="persone.occhiello"></p>
           <h2 data-t="persone.titolo"></h2>
         </div>
-        <p class="guida" data-t="persone.guida"></p>
+        <div class="accanto">''' + guida + '''</div>
       </div>
       <div class="persone">
-        <article class="persona">
-          <p class="ruolo" data-t="p1.ruolo"></p><h3>Francesco Cavaleri</h3>
-          <a href="tel:+393488063771">+39 348 806 3771</a><a href="mailto:francesco@cavaleri.it">francesco@cavaleri.it</a>
-        </article>
-        <article class="persona">
-          <p class="ruolo" data-t="p2.ruolo"></p><h3>Antonino Cavaleri</h3>
-          <a href="tel:+393488063773">+39 348 806 3773</a><a href="mailto:tonino@cavaleri.it">tonino@cavaleri.it</a>
-        </article>
-        <article class="persona">
-          <p class="ruolo" data-t="p3.ruolo"></p><h3>Giusy Cavaleri</h3>
-          <a href="tel:+393663567922">+39 366 356 7922</a><a href="mailto:giusy@cavaleri.it">giusy@cavaleri.it</a>
-        </article>
+''' + "\n".join(carte) + '''
       </div>
     </div>
   </section>'''
+
 
 INVITO = '''  <section class="invito sfondo-blu riga-sopra">
     <div class="wrap">
@@ -511,12 +540,12 @@ NOTE = '''  <section>
 
 
 PAGINE = {
- "azienda":    ("az.title", "az.lead", intro("storia.occhiello", "az.h1", "az.lead") + "\n" + fatti() + "\n" + flotta() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + PERSONE + "\n" + FIDUCIA + "\n" + INVITO, ""),
+ "azienda":    ("az.title", "az.lead", intro("storia.occhiello", "az.h1", "az.lead") + "\n" + fatti() + "\n" + flotta() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + persone() + "\n" + FIDUCIA + "\n" + INVITO, ""),
  "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead") + "\n" + servizi([1, 2, 3]) + "\n" + dichiarazione("porto-schema", "dc.2", True) + "\n" + mezzi() + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
  "edilizia":   ("ed.title", "ed.lead", intro("servizi.occhiello", "ed.h1", "ed.lead") + "\n" + servizi([4]) + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.lead", intro("rotta.occhiello", "ro.h1", "ro.lead") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.lead", intro("nav.gallery", "ga.h1", "ga.lead") + "\n" + gallery() + "\n" + INVITO, ""),
- "contatti":   ("co.title", "co.lead", intro("nav.contatti", "co.h1", "co.lead") + "\n" + CONTATTI_BLOCCO + "\n" + PERSONE + "\n" + INVITO, ""),
+ "contatti":   ("co.title", "co.lead", intro("nav.contatti", "co.h1", "co.lead") + "\n" + CONTATTI_BLOCCO + "\n" + persone() + "\n" + INVITO, ""),
  "preventivo": ("pr.title", "pr.lead", intro("invito.occhiello", "pr.h1", "pr.lead") + "\n" + MODULO + "\n" + CONTATTI_BLOCCO, "modulo"),
  "note-legali":("nl.title", "nl.lead", intro("piede.note", "nl.h1", "nl.lead") + "\n" + NOTE, ""),
 }
