@@ -1841,29 +1841,42 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 .candidatura h2{ margin-bottom:var(--s6); }
 
 /* =========================================================================
-   Seitenkopf mit durchschimmerndem Bild
-   Das Foto liegt unter den Verläufen, nicht darüber: erst das Bild, dann
-   die Abdunklung, dann das Korn, dann der Text.
+   Seitenkopf mit Bild — nach demselben Prinzip wie der Kopfbereich:
+   das Bild trägt die Fläche, der Verlauf hält nur den Text lesbar, und es
+   bewegt sich langsam. Der Kopf wird höher, damit von einer hochformatigen
+   Aufnahme mehr zu sehen ist als ein Streifen.
    ========================================================================= */
+.intro--foto{
+  min-height:min(64svh, 620px);
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding-block:clamp(150px,20vw,220px) clamp(48px,6vw,84px);
+}
 .intro-foto{ position:absolute; inset:0; z-index:0; overflow:clip; }
 .intro-foto figure{ margin:0; height:100%; }
 .intro-foto picture{ display:block; height:100%; }
 .intro-foto img{
-  width:100%; height:100%; object-fit:cover; object-position:50% 58%;
-  opacity:.26; filter:grayscale(.3) contrast(1.02) brightness(.92);
+  width:100%; height:100%; object-fit:cover; object-position:50% 50%;
+  opacity:.42; filter:grayscale(.2) contrast(1.02) brightness(.82);
+  animation:kenburns 30s var(--ease) infinite alternate;
 }
 .intro--foto::after{
   background:
-    linear-gradient(100deg, rgba(6,15,42,.92) 0%, rgba(6,15,42,.74) 40%,
-                    rgba(6,15,42,.42) 74%, rgba(6,15,42,.26) 100%),
-    radial-gradient(90% 80% at 88% 10%, rgba(59,123,224,.24), transparent 60%);
+    /* dort am dichtesten, wo der Text steht: unten links */
+    radial-gradient(125% 105% at 4% 96%, rgba(6,15,42,.96) 0%,
+                    rgba(6,15,42,.82) 44%, rgba(6,15,42,.26) 80%, transparent 100%),
+    linear-gradient(180deg, rgba(6,15,42,.34) 0%, rgba(6,15,42,.06) 28%,
+                    rgba(6,15,42,.52) 76%, rgba(6,15,42,.74) 100%);
 }
 @media(max-width:900px){
-  .intro-foto img{ opacity:.22; object-position:50% 56%; }
+  .intro--foto{ min-height:min(58svh, 480px); padding-block:120px clamp(36px,8vw,56px); }
+  .intro-foto img{ opacity:.34; object-position:50% 46%; }
   .intro--foto::after{
-    background:linear-gradient(180deg, rgba(6,15,42,.72) 0%, rgba(6,15,42,.86) 60%,
-                               rgba(6,15,42,.92) 100%);
+    background:linear-gradient(180deg, rgba(6,15,42,.62) 0%, rgba(6,15,42,.34) 24%,
+                               rgba(6,15,42,.86) 62%, rgba(6,15,42,.94) 100%);
   }
 }
+@media(prefers-reduced-motion:reduce){ .intro-foto img{ animation:none; } }
+
 /* Die Vorzeile steht auf dem Telefon über einer helleren Bildstelle. */
-@media(max-width:900px){ .intro--foto .occhiello{ color:#cfe1ff; } }
+/* Auf einem Foto trägt das kräftige Akzentblau nicht — wie im Kopfbereich weiß. */
+.intro--foto .occhiello{ color:#fff; }

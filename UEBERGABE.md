@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 40: Bild im Kopf der Stellenseite)
+# Cavaleri Srl — Übergabe (Stand 41: Kopfbild größer und bewegt)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -45,16 +45,26 @@ Es stammt aus **dem Film** — auf keinem der elf Fotos sind Menschen zu sehen.
 Ein Einzelbild bei Sekunde 22, ohne Gesicht, was auf einer Stellenseite ohnehin
 richtiger ist.
 
-Der Aufbau von unten nach oben: Bild bei 26 % Deckung, darüber ein
-Verlauf von links, darüber das Korn, darüber der Text. So bleibt es eine blaue
-Fläche mit einer Ahnung von Bild — nicht ein Foto mit Text darauf.
+Es folgt demselben Prinzip wie der Kopfbereich der Startseite: **das Bild trägt
+die Fläche**, der Verlauf hält nur den Text lesbar, und es bewegt sich — dieselbe
+langsame Vergrößerung wie dort, 30 Sekunden hin und zurück.
 
-Das Bild ist nur 464 Pixel breit (Filmauflösung). Bei 26 % Deckung und weicher
+Der Kopf ist dafür höher (bis 64 % der Bildschirmhöhe). Bei einem
+hochformatigen Bild in einem flachen Band sieht man sonst nur einen Streifen.
+Das Bild steht bei 42 % Deckung, der Text sitzt unten links, und genau dort ist
+der Verlauf am dichtesten — ein weicher Kern in der unteren linken Ecke statt
+einer gleichmäßigen Abdunklung, die das ganze Bild grau machen würde.
+
+Das Bild ist nur 464 Pixel breit (Filmauflösung). Bei dieser Deckung und der
 Abdunklung fällt das nicht auf; als scharfes Kopfbild wäre es zu wenig.
 
-Nachgemessen: Überschrift 7,2:1, Fließtext 6,0:1, Vorzeile 7,9:1 auf dem Desktop.
-Auf dem Telefon lag die Vorzeile bei 3,8:1 über einer helleren Bildstelle — sie
-steht dort jetzt im helleren Blau und kommt auf 5,8:1.
+**Gemessen wurde nach jeder Änderung.** Der erste Versuch mit sichtbarerem Bild
+kam an der Vorzeile auf 1,47:1 — die stand über der weißen Fahrertür. Behoben
+durch den Eckverlauf, ein etwas dunkleres Bild und eine weiße statt blaue
+Vorzeile: Auf einem Foto trägt das kräftige Akzentblau nicht.
+
+Endstand: Desktop 5,1 / 13,0 / 5,1 — Telefon 6,0 / 5,3 / 6,0. `kopf.py` misst das
+nach.
 
 Ein Bild im Seitenkopf setzen: `intro("schlüssel", "h1", "lead", foto="dateiname")`.
 
