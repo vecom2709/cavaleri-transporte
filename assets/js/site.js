@@ -147,12 +147,18 @@
   /* ---------- 5. Zähler ------------------------------------------------- */
   function conta(el) {
     const meta = parseFloat(el.dataset.cifra);
-    if (ridotto) { el.firstChild.textContent = String(meta); return; }
+    // Tausender werden gruppiert — 30000 liest sich sonst wie eine Kennnummer.
+    const scrivi = (n) => {
+      el.firstChild.textContent = meta >= 10000
+        ? n.toLocaleString(document.documentElement.lang || "it")
+        : String(n);
+    };
+    if (ridotto) { scrivi(meta); return; }
     const durata = 1400, avvio = performance.now();
     const passo = (ora) => {
       const t = Math.min(1, (ora - avvio) / durata);
       const e = 1 - Math.pow(1 - t, 3);            // ease-out cubic
-      el.firstChild.textContent = String(Math.round(meta * e));
+      scrivi(Math.round(meta * e));
       if (t < 1) requestAnimationFrame(passo);
     };
     requestAnimationFrame(passo);

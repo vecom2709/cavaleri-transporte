@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 36: soziale Netze verlinkt)
+# Cavaleri Srl — Übergabe (Stand 37: Anlage, Ablauf, Häfen, zweiter Sitz)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,40 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Neue Inhalte
+Alle Angaben stammen von cavaleri.it und aus der ASTRE-Reportage — nichts ist
+hinzuerfunden.
+
+**Die Anlage** (`/azienda/`): 2.000 m² überdachte Halle, 30.000 m² Hof,
+Fahrzeuge rund um die Uhr videoüberwacht, Ware versichert unterwegs. Vier Karten
+mit mitzählenden Zahlen. Das ist die überzeugendste Zahlenreihe, die das
+Unternehmen hat, und sie fehlte bisher vollständig.
+
+**Wie es abläuft** (`/trasporti/`): sechs Schritte von der Anfrage bis zur
+Zustellung. Beantwortet die Frage, die jeder stellt, der noch nie speditiert hat.
+
+**Die fünf Häfen** in der Karte: Genua, Ravenna, Livorno, Civitavecchia und
+Neapel, an ihren echten Koordinaten. Palermo fehlt bewusst — dort steht schon die
+Station „Sizilien". Dazu ein Satz im Text der Routen-Abschnitte.
+
+**Der Ursprungssitz** in Serradifalco steht jetzt im Kontaktblock, mit dem
+Hinweis, dass das Unternehmen dort 1974 gegründet wurde.
+
+## Noch offen (brauche Angaben)
+- **Eintragung im Albo Gestori Ambientali** für den Abfalltransport — die Nummer
+  gehört sichtbar auf die Seite, ich kenne sie nicht.
+- **Versicherungssumme** und etwaige Zertifikate (ISO, Qualitätsmanagement).
+- **Referenzen und Branchen** über Monier hinaus.
+- **Stellenseite** — nur sinnvoll, wenn tatsächlich gesucht wird.
+- **Widerspruch bei den E-Mail-Adressen**: `info@cavaleri.it` (neue Seite),
+  `info@cavaleritrasporti.it` (alte Kontaktseite), `logistica@cavaleri.it`
+  (Aufschrift der Auflieger). Welche gilt?
+
+Ein Abschnitt „Aktuelles" mit Beiträgen aus Facebook und Instagram wäre möglich,
+würde aber fremde Skripte laden und die Content-Security-Policy sowie die
+Cookie-Freiheit der Seite aufgeben. Sinnvoller wäre ein von Hand gepflegter
+Block.
 
 ## Soziale Netze
 Im Fuß jeder Seite stehen zwei Symbole, im Kontaktblock zusätzlich als Textlink:

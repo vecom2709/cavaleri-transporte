@@ -1701,3 +1701,63 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
   .social a:hover{ color:#fff; border-color:rgba(255,255,255,.4);
                    background:rgba(255,255,255,.08); transform:translateY(-2px); }
 }
+
+/* =========================================================================
+   Anlage in Zahlen
+   ========================================================================= */
+.misure{ display:grid; gap:clamp(16px,1.8vw,28px); }
+@media(min-width:700px){ .misure{ grid-template-columns:repeat(2,1fr); } }
+@media(min-width:1000px){ .misure{ grid-template-columns:repeat(4,1fr); } }
+.misura{
+  background:var(--bianco); border-radius:4px; padding:clamp(24px,2.4vw,var(--s5));
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease);
+}
+@media(hover:hover){
+  .misura:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+.misura .cifra{ font-size:clamp(2.4rem,4.4vw,3.4rem); }
+.misura .cifra--parola{
+  font-family:var(--display); font-weight:800; color:var(--blu);
+  font-size:clamp(1.7rem,2.8vw,2.3rem); line-height:1.1; letter-spacing:-.02em;
+}
+.misura .unita-lunga{
+  font-family:var(--testo); font-weight:600; font-size:.8rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--segnale-testo);
+  margin-top:6px;
+}
+.misura > p:last-child{ color:var(--grigio); font-size:.94rem; margin-top:var(--s2); }
+
+/* =========================================================================
+   Ablauf: sechs Schritte
+   ========================================================================= */
+.lavoro{ list-style:none; margin:0; padding:0; display:grid; gap:1px; background:var(--linea);
+         border:1px solid var(--linea); border-radius:4px; overflow:clip; }
+@media(min-width:760px){ .lavoro{ grid-template-columns:repeat(2,1fr); } }
+@media(min-width:1100px){ .lavoro{ grid-template-columns:repeat(3,1fr); } }
+.passo-lavoro{
+  background:var(--bianco); padding:clamp(26px,2.6vw,var(--s5));
+  position:relative; transition:background .35s ease;
+}
+.passo-lavoro:hover{ background:var(--carta); }
+.passo-lavoro .num{
+  display:block; font-family:var(--display); font-weight:800;
+  font-size:.78rem; letter-spacing:.22em; color:var(--segnale-testo);
+  margin-bottom:var(--s3);
+}
+.passo-lavoro h3{ margin-bottom:var(--s2); }
+.passo-lavoro p{ color:var(--grigio); font-size:.95rem; }
+
+/* Ursprungssitz im Kontaktblock */
+.sede-storica{ margin-top:var(--s4); display:block !important; min-height:0 !important; }
+.sede-storica b{ color:var(--blu); font-weight:600; }
+.nota-sede{ margin-top:10px; font-size:.86rem; display:block !important; min-height:0 !important; }
+
+/* Häfen auf der Karte */
+.porti-rotta .porto circle{ fill:#8fb6ff; opacity:.55; }
+.porti-rotta .porto text{
+  font-family:var(--testo); font-size:19px; fill:#c9d8f5; letter-spacing:.03em;
+  paint-order:stroke; stroke:rgba(9,21,58,.75); stroke-width:5px; stroke-linejoin:round;
+}
+.visibile .porti-rotta{ opacity:0; animation:entra 1s var(--ease) 1.6s forwards; }
+@media(prefers-reduced-motion:reduce){ .visibile .porti-rotta{ opacity:1; animation:none; } }

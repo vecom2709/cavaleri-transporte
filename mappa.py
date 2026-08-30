@@ -29,6 +29,14 @@ STAZIONI = [
     ("Europa",        47.270,  9.600, "",    "rotta.n4", "start"),
 ]
 
+# Häfen, über die die Fahrzeuge nach Sizilien und zurück fahren.
+# Quelle: Angaben des Unternehmens auf cavaleri.it.
+# Palermo fehlt bewusst: dort steht schon die Station "Sicilia".
+# Letzter Wert verschiebt die Beschriftung, wo sie sonst anstoßen würde.
+PORTI = [("Genova", 44.405, 8.926, 0), ("Ravenna", 44.417, 12.198, 26),
+         ("Livorno", 43.548, 10.310, 0), ("Civitavecchia", 42.094, 11.796, 0),
+         ("Napoli", 40.840, 14.252, 0)]
+
 # Verlauf der Strecke über echte Zwischenpunkte
 PERCORSO = [(37.490, 14.062), (37.85, 13.60), (38.115, 13.361),
             (39.60, 12.60), (41.50, 11.60), (43.548, 10.310),
@@ -127,6 +135,15 @@ def main():
     svg.append('</g>')
     svg.append(f'<path class="scia-rotta" d="{strada}"/>')
     svg.append(f'<path class="tratto-rotta" d="{strada}"/>')
+    svg.append('<g class="porti-rotta">')
+    for nome, la, lo, dy in PORTI:
+        x, y = punto(lo, la)
+        verso = "end" if lo < 11.5 else "start"
+        dx = -11 if verso == "end" else 11
+        svg.append(f'<g class="porto"><circle cx="{x:.1f}" cy="{y:.1f}" r="4.5"/>'
+                   f'<text x="{x + dx:.1f}" y="{y + 5 + dy:.1f}" text-anchor="{verso}">{nome}</text></g>')
+    svg.append('</g>')
+
     svg.append('<g class="nodi-rotta">')
     for nome, x, y, tipo, chiave, verso in nodi:
         cl = "nodo-rotta hub" if tipo == "hub" else "nodo-rotta"
