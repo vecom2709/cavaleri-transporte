@@ -3,6 +3,7 @@
 const A = {
 
 it:{
+  "rotta.mappa":"Dalla Sicilia alla penisola e all’Europa",
   "nav.lavora":"Lavora con noi",
   "lv.title":"Lavora con noi — Cavaleri Srl",
   "lv.h1":"Lavora con noi",
@@ -149,6 +150,7 @@ it:{
 },
 
 de:{
+  "rotta.mappa":"Von Sizilien auf die Halbinsel und nach Europa",
   "nav.lavora":"Stellen",
   "lv.title":"Stellenangebote — Cavaleri Srl",
   "lv.h1":"Arbeiten bei Cavaleri",
@@ -295,6 +297,7 @@ de:{
 },
 
 en:{
+  "rotta.mappa":"From Sicily to the mainland and Europe",
   "nav.lavora":"Careers",
   "lv.title":"Careers — Cavaleri Srl",
   "lv.h1":"Working at Cavaleri",

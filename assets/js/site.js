@@ -43,7 +43,9 @@
       const v = d[el.dataset.p];
       if (v !== undefined) el.placeholder = v;
     });
-    const tit = document.querySelector("title[data-t]");
+    // Nur der Titel im Kopf der Seite. Ohne "head >" trifft der Ausdruck
+    // auch das <title> in den SVG-Karten — dann verliert die Seite ihren Titel.
+    const tit = document.querySelector("head > title[data-t]");
     document.title = tit ? tit.textContent : d["meta.title"];
     const md = document.querySelector('meta[name="description"]');
     if (md) md.content = d[md.dataset.meta] || d["meta.desc"];
