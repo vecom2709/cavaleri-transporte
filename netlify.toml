@@ -96,23 +96,10 @@
   to = "/"
   status = 301
 
-# ---------- Sprachweiche für Erstbesucher --------------------------------
-# Nur von der Wurzel aus, als 302 — die italienische Startseite bleibt die
-# maßgebliche Adresse für Suchmaschinen. "force" ist nötig, weil sonst die
-# vorhandene index.html gewinnt und die Weiche nie greift.
-[[redirects]]
-  from = "/"
-  to = "/de/"
-  status = 302
-  force = true
-  conditions = {Language = ["de"]}
-
-[[redirects]]
-  from = "/"
-  to = "/en/"
-  status = 302
-  force = true
-  conditions = {Language = ["en"]}
+# ---------- Keine Sprachweiche -------------------------------------------
+# Der erste Aufruf zeigt immer Italienisch. Das ist die Sprache des
+# Unternehmens und der maßgebliche Auftritt; Deutsch und Englisch erreicht man
+# über die Umschaltung oben rechts oder direkt über /de/ und /en/.
 
 # Quelldateien und Werkzeuge gehören nicht ins Netz.
 [[redirects]]
