@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 29: alle drei Porträts)
+# Cavaleri Srl — Übergabe (Stand 30: Ansprechpartner als eigene Karten)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,25 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Ansprechpartner als eigene Karten
+Die drei standen zuvor in einem zusammenhängenden Raster mit Haarlinien
+dazwischen — das las sich wie eine Tabelle. Jetzt sind es drei getrennte Felder
+mit eigenem Rand und eigener Höhe, nach der Zuordnungstabelle des
+Schattensystems:
+
+- Ruhe: **Ebene 2** — Kante plus Kontakt- und Streuschatten
+- Zeigen: **Ebene 3** und drei Pixel angehoben, 240 ms
+- Der Verbund selbst hat **keine Höhe** mehr; die Höhe liegt bei den Karten
+- Das Bild in der Karte bekommt **keine zweite Höhe**, nur eine Trennlinie zum
+  Text — verschachtelte Höhen ergeben Matsch
+
+Abstand zwischen den Karten: 16 bis 28 px je nach Breite. Bei den bisherigen
+2 px hätten sich die Schatten gegenseitig gefressen.
+
+Die Leistungs- und Blockraster (`/trasporti/`, `/edilizia/`) sind bewusst weiter
+als Verbund gesetzt: dort stehen Zeilen, keine Karten. Sollen sie ebenfalls
+getrennt werden, sind es dieselben vier Zeilen.
 
 ## Porträts der Ansprechpartner
 Alle drei Porträts liegen vor, deshalb steht jetzt in jeder Karte oben das Bild —

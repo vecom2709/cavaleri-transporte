@@ -1588,3 +1588,30 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 /* Mehrere Porträts nebeneinander, solange nicht alle drei vorliegen. */
 .ritratti{ display:flex; gap:var(--s2); flex-wrap:wrap; }
 .ritratti .ritratto-guida{ width:clamp(126px,12vw,168px); }
+
+/* =========================================================================
+   Ansprechpartner: drei eigenständige Karten
+   Vorher ein zusammenhängendes Raster mit Haarlinien dazwischen — das las sich
+   wie eine Tabelle. Jetzt drei getrennte Felder auf Ebene 2, beim Zeigen eine
+   Ebene höher und drei Pixel angehoben, wie es das Schattensystem für Karten
+   vorsieht. Der Verbund selbst bekommt keine Höhe mehr.
+   ========================================================================= */
+.persone{
+  gap:clamp(16px,1.8vw,28px);
+  background:none; border:0; box-shadow:none;
+}
+.persona{
+  background:var(--bianco); border-radius:4px; overflow:clip;
+  box-shadow:var(--kante), var(--e2);
+  transition:box-shadow .24s var(--ease), transform .24s var(--ease);
+}
+@media(hover:hover){
+  .persona:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+/* Das Bild liegt in der Karte: keine zweite Höhe, nur eine Trennlinie zum Text. */
+.persona .ritratto{
+  box-shadow:none;
+  border-bottom:1px solid rgb(var(--sh) / var(--sh-kante));
+}
+.persona .ritratto.vuoto{ border-bottom:0; }
+@media(prefers-reduced-motion:reduce){ .persona:hover{ transform:none; } }
