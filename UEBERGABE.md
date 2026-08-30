@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 37: Anlage, Ablauf, Häfen, zweiter Sitz)
+# Cavaleri Srl — Übergabe (Stand 38: Fußzeile mittig)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -72,6 +72,22 @@ Ein Abschnitt „Aktuelles" mit Beiträgen aus Facebook und Instagram wäre mög
 würde aber fremde Skripte laden und die Content-Security-Policy sowie die
 Cookie-Freiheit der Seite aufgeben. Sinnvoller wäre ein von Hand gepflegter
 Block.
+
+## Fußzeile
+Alles steht mittig auf einer Achse: Logo, Satz, die beiden Symbole, darunter eine
+kurze Trennlinie und die Rechtslinks. Vorher lagen Marke und Symbole links, die
+Links am rechten Rand — zwei Blöcke ohne Bezug zueinander.
+
+Nach dem Schattensystem: Auf dunkler Fläche trägt kein Schatten, deshalb kommt
+die Tiefe aus einer **Lichtkante an der Oberkante** des Fußes
+(`inset 0 1px 0` in Weiß bei 9 %). Die beiden Symbole sind Schaltflächen und
+liegen auf **Ebene 2**, beim Zeigen eine höher und drei Pixel angehoben, beim
+Drücken eine tiefer.
+
+Die Trennlinie läuft nicht über die ganze Breite, sondern über höchstens 560 px —
+sie soll gliedern, nicht durchschneiden. Auf Telefonen stehen die drei Links
+untereinander, mit 12 px Abstand nach oben und unten, damit sie sich mit dem
+Daumen treffen lassen.
 
 ## Soziale Netze
 Im Fuß jeder Seite stehen zwei Symbole, im Kontaktblock zusätzlich als Textlink:

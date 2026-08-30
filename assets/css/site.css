@@ -1761,3 +1761,55 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 }
 .visibile .porti-rotta{ opacity:0; animation:entra 1s var(--ease) 1.6s forwards; }
 @media(prefers-reduced-motion:reduce){ .visibile .porti-rotta{ opacity:1; animation:none; } }
+
+/* =========================================================================
+   Fußzeile: mittig, mit Lichtkante statt Schatten
+   Auf dunklen Flächen trägt kein Schatten — die Tiefe kommt aus einer hellen
+   Kante an der Oberkante und einer leicht aufgehellten Fläche.
+   ========================================================================= */
+.piede{
+  padding-block:clamp(56px,7vw,var(--s8));
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .09);
+  text-align:center;
+}
+.piede-centro{
+  display:flex; flex-direction:column; align-items:center; gap:var(--s4);
+}
+.logo-piede{ margin:0 auto; background-position:center; }
+.piede-claim{ margin:0; max-width:44ch; color:var(--grigio-blu); }
+
+.social{ justify-content:center; margin-top:0; }
+.social a{
+  border-color:rgb(255 255 255 / .16);
+  box-shadow:var(--kante), var(--e2);
+}
+@media(hover:hover){
+  .social a:hover{ box-shadow:var(--kante), var(--e3); transform:translateY(-3px); }
+}
+.social a:active{ box-shadow:var(--kante), var(--e1); transform:scale(.96); }
+
+.piede-legale{
+  margin:0; padding-top:var(--s4); width:100%;
+  border-top:1px solid rgb(255 255 255 / .10);
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+  gap:6px 14px; font-size:.84rem; color:var(--grigio-blu);
+}
+.piede-legale a{ padding-block:8px; }
+.piede-legale .punto{ opacity:.4; }
+.piede-legale .credito{ opacity:.72; }
+@media(hover:hover){ .piede-legale a:hover{ color:#fff; } }
+@media(max-width:520px){
+  .piede-legale{ flex-direction:column; gap:2px; }
+  .piede-legale .punto{ display:none; }
+}
+/* Die Trennlinie soll den Fuß gliedern, nicht ihn durchschneiden. */
+.piede-legale{
+  max-width:min(100%, 560px); margin-inline:auto;
+  padding-top:var(--s5); margin-top:var(--s2);
+}
+@media(max-width:520px){
+  .piede{ padding-block:clamp(48px,12vw,72px); }
+  .piede-centro{ gap:var(--s3); }
+  .piede-legale{ gap:0; padding-top:var(--s4); }
+  .piede-legale a{ padding-block:12px; }
+}
