@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 39: Stellenseite)
+# Cavaleri Srl — Übergabe (Stand 40: Bild im Kopf der Stellenseite)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -40,6 +40,24 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
 
 ## Stellenseite `/lavora/`
+Im Kopf schimmert ein Bild durch die blaue Fläche: jemand steigt in die Kabine.
+Es stammt aus **dem Film** — auf keinem der elf Fotos sind Menschen zu sehen.
+Ein Einzelbild bei Sekunde 22, ohne Gesicht, was auf einer Stellenseite ohnehin
+richtiger ist.
+
+Der Aufbau von unten nach oben: Bild bei 26 % Deckung, darüber ein
+Verlauf von links, darüber das Korn, darüber der Text. So bleibt es eine blaue
+Fläche mit einer Ahnung von Bild — nicht ein Foto mit Text darauf.
+
+Das Bild ist nur 464 Pixel breit (Filmauflösung). Bei 26 % Deckung und weicher
+Abdunklung fällt das nicht auf; als scharfes Kopfbild wäre es zu wenig.
+
+Nachgemessen: Überschrift 7,2:1, Fließtext 6,0:1, Vorzeile 7,9:1 auf dem Desktop.
+Auf dem Telefon lag die Vorzeile bei 3,8:1 über einer helleren Bildstelle — sie
+steht dort jetzt im helleren Blau und kommt auf 5,8:1.
+
+Ein Bild im Seitenkopf setzen: `intro("schlüssel", "h1", "lead", foto="dateiname")`.
+
 Im Menü als achter Punkt und zusätzlich im Fuß verlinkt, dreisprachig.
 
 **Es werden keine konkreten Stellen behauptet.** Genannt sind die drei Bereiche,

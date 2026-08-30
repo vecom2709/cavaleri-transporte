@@ -232,6 +232,31 @@
    ]
   }
  },
+ "lavoro-cabina": {
+  "w": 464,
+  "h": 832,
+  "anteprima": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAQTGF2YzYwLjMxLjEwMgD/2wBDABMNDhEODBMRDxEVFBMXHTAfHRoaHToqLCMwRT1JR0Q9Q0FMVm1dTFFoUkFDX4JgaHF1e3x7SlyGkIV3j214e3b/2wBDARQVFR0ZHTgfHzh2T0NPdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnb/wAARCAArABgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAUGAgQH/8QAKxAAAgEDAwMCBQUAAAAAAAAAAQIDAAQRBRIxBiFBE1EUIjJhgXGRwdHx/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAECA//EABoRAQEAAwEBAAAAAAAAAAAAAAABAhESIVH/2gAMAwEAAhEDEQA/ALWsu4QUql1KfTZfTvCLmNVLtLGu1kUeWXg8jj9qlte6pnmkkhsFaGHJBc/U39D7UBUS38Et8LYuvqNkADv39iff7UVO9MQveamszAmOAbyfG7wP5/FFZ1Yk6otbzfLJAYJ/RZCR8wc5UgD24PNJY721lcpdwDDuSZlzuUY4AGAfzWZtNeIjeNi57kAnFYOml2QJPHhvLZFXsSaj0iwjih06AWyLHGyBgAOcjmiuayZoLCCFssY41UkDnAxRWVVImtRZvh5GC5KqT2FcLX0VnIkgiWUj6c+Dn/KaJ87BHAZW7EEdjU9qsSQ3xSNdqAZAq8fhZeG69WS5AMQC/rRU5RT5ieq//9k=",
+  "fonti": {
+   "avif": [
+    [
+     "lavoro-cabina-464.avif",
+     464
+    ]
+   ],
+   "webp": [
+    [
+     "lavoro-cabina-464.webp",
+     464
+    ]
+   ],
+   "jpg": [
+    [
+     "lavoro-cabina-464.jpg",
+     464
+    ]
+   ]
+  }
+ },
  "nave-grimaldi": {
   "w": 1500,
   "h": 842,

@@ -95,9 +95,13 @@ PIEDE = '''<footer class="piede">
 </footer>'''
 
 
-def intro(chiave_occhiello, h1, lead):
-    return f'''  <section class="intro">
-    <span class="grana-scura" aria-hidden="true"></span>
+def intro(chiave_occhiello, h1, lead, foto=None):
+    """Seitenkopf. Mit foto=... schimmert ein Bild durch die blaue Fläche."""
+    strato = ""
+    if foto:
+        strato = f'    <div class="intro-foto" aria-hidden="true">{figura(foto, sizes="100vw", eager=True)}</div>\n'
+    return f'''  <section class="intro{ " intro--foto" if foto else "" }">
+{strato}    <span class="grana-scura" aria-hidden="true"></span>
     <div class="wrap">
       <p class="occhiello" data-t="{chiave_occhiello}"></p>
       <h1 data-t="{h1}"></h1>
@@ -696,7 +700,7 @@ PAGINE = {
  "edilizia":   ("ed.title", "ed.lead", intro("servizi.occhiello", "ed.h1", "ed.lead") + "\n" + servizi([4]) + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.lead", intro("rotta.occhiello", "ro.h1", "ro.lead") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.lead", intro("nav.gallery", "ga.h1", "ga.lead") + "\n" + gallery() + "\n" + INVITO, ""),
- "lavora":     ("lv.title", "lv.lead", intro("nav.lavora", "lv.h1", "lv.lead") + "\n" + lavora() + "\n" + fascia("flotta-schierata", "fa.1"), "candidatura"),
+ "lavora":     ("lv.title", "lv.lead", intro("nav.lavora", "lv.h1", "lv.lead", foto="lavoro-cabina") + "\n" + lavora() + "\n" + fascia("flotta-schierata", "fa.1"), "candidatura"),
  "contatti":   ("co.title", "co.lead", intro("nav.contatti", "co.h1", "co.lead") + "\n" + CONTATTI_BLOCCO + "\n" + persone() + "\n" + INVITO, ""),
  "preventivo": ("pr.title", "pr.lead", intro("invito.occhiello", "pr.h1", "pr.lead") + "\n" + MODULO + "\n" + CONTATTI_BLOCCO, "modulo"),
  "note-legali":("nl.title", "nl.lead", intro("piede.note", "nl.h1", "nl.lead") + "\n" + NOTE, ""),

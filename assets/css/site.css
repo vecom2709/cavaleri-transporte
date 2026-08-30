@@ -1839,3 +1839,31 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 }
 .nota-aperte{ margin-top:clamp(32px,4vw,var(--s6)); max-width:62ch; }
 .candidatura h2{ margin-bottom:var(--s6); }
+
+/* =========================================================================
+   Seitenkopf mit durchschimmerndem Bild
+   Das Foto liegt unter den Verläufen, nicht darüber: erst das Bild, dann
+   die Abdunklung, dann das Korn, dann der Text.
+   ========================================================================= */
+.intro-foto{ position:absolute; inset:0; z-index:0; overflow:clip; }
+.intro-foto figure{ margin:0; height:100%; }
+.intro-foto picture{ display:block; height:100%; }
+.intro-foto img{
+  width:100%; height:100%; object-fit:cover; object-position:50% 58%;
+  opacity:.26; filter:grayscale(.3) contrast(1.02) brightness(.92);
+}
+.intro--foto::after{
+  background:
+    linear-gradient(100deg, rgba(6,15,42,.92) 0%, rgba(6,15,42,.74) 40%,
+                    rgba(6,15,42,.42) 74%, rgba(6,15,42,.26) 100%),
+    radial-gradient(90% 80% at 88% 10%, rgba(59,123,224,.24), transparent 60%);
+}
+@media(max-width:900px){
+  .intro-foto img{ opacity:.22; object-position:50% 56%; }
+  .intro--foto::after{
+    background:linear-gradient(180deg, rgba(6,15,42,.72) 0%, rgba(6,15,42,.86) 60%,
+                               rgba(6,15,42,.92) 100%);
+  }
+}
+/* Die Vorzeile steht auf dem Telefon über einer helleren Bildstelle. */
+@media(max-width:900px){ .intro--foto .occhiello{ color:#cfe1ff; } }
