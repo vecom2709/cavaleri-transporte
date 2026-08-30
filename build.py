@@ -155,7 +155,7 @@ INVITO = '''  <section class="invito sfondo-blu riga-sopra">
 
 
 def storia():
-    tappe = [("1974", "storia.t1"), ("1979", "storia.t2"), ("1980—99", "storia.t3"),
+    tappe = [("1974", "storia.t1"), ("1979", "storia.t2"), ("1980–99", "storia.t3"),
              ("2007", "storia.t4"), ("2018", "storia.t5"), ("2019", "storia.t6")]
     righe = "\n".join(
         f'        <article class="tappa"><p class="anno">{a}</p><p data-t="{k}"></p></article>'

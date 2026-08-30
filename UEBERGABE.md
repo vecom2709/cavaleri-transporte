@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 25: Ton am Sichtbereich)
+# Cavaleri Srl — Übergabe (Stand 26: Satz der Zeitleiste)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,26 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Satz der Zeitleiste
+- **Die Jahre stehen jetzt bündig.** Jede Etappe war zuvor ein eigenes Raster,
+  deshalb richtete sich jede für sich aus und „1980–99" ragte gegenüber den
+  anderen heraus. Die Zeitleiste ist jetzt ein gemeinsames Raster, die Etappen
+  übernehmen dessen Spalten per `subgrid`. Die Jahre sind rechtsbündig und bilden
+  eine saubere Kante zum Text.
+- **Jahr und erste Textzeile stehen auf derselben Schriftlinie** (`align-items:
+  baseline`), vorher saß das Jahr optisch zu tief.
+- **Kürzere Zeile:** 58 Zeichen statt 64. Auf breiten Bildschirmen wächst die
+  Grundschrift auf 19 px, dadurch wurden die Zeilen zuvor deutlich zu lang.
+- **Etwas mehr Präsenz im Fließtext**: `#4d586a` statt `#5b6675`, 7:1 auf Weiß.
+- **Bis-Strich statt Gedankenstrich** in der Jahresspanne: „1980–99".
+- **Silbentrennung** für Absätze eingeschaltet. Im Deutschen zerreißt sonst der
+  rechte Rand an Wörtern wie „Baustoffgroßhandel". Überschriften und Zahlen sind
+  ausgenommen. Die Trennmuster kommen vom Browser über das `lang`-Attribut, das
+  je Sprachverzeichnis richtig gesetzt ist.
+
+Auf Telefonen stehen Jahr und Text weiter untereinander, linksbündig und über die
+volle Breite.
 
 ## Ton des Films
 Kommt der Abschnitt ins Bild, läuft der Film und der Ton geht an. Verlässt er das

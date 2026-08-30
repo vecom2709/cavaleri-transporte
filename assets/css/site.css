@@ -1484,3 +1484,54 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 @media(min-width:900px){
   .telaio video{ position:absolute; inset:0; width:100%; height:100%; }
 }
+
+/* =========================================================================
+   Zeitleiste: Satz überarbeitet
+   Die Jahre bilden jetzt eine rechte Kante zum Text, der Zeilenfall ist
+   auf eine lesbare Länge begrenzt, und lange deutsche Wörter dürfen trennen.
+   ========================================================================= */
+@media(min-width:760px){
+  .tappa{
+    grid-template-columns:minmax(120px, max-content) 1fr;
+    gap:clamp(28px,3vw,var(--s5));
+    align-items:start;
+  }
+  .tappa .anno{ text-align:right; }
+}
+.tappa .anno{
+  letter-spacing:-.035em; line-height:1;
+  /* Versalhöhe auf die erste Textzeile legen */
+  padding-top:.12em;
+}
+.tappa p:not(.anno){
+  max-width:58ch;                 /* kürzere Zeile, ruhigeres Lesen */
+  color:#4d586a;                  /* etwas mehr Präsenz, 7:1 auf Weiß */
+  line-height:1.62;
+}
+
+/* Lange Wörter dürfen trennen — im Deutschen sonst ein zerrissener Rand.
+   Die Sprache steht im html-Element, die Trennmuster kommen vom Browser. */
+p, li, figcaption, .guida{ hyphens:auto; overflow-wrap:break-word; }
+h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
+
+/* Alle Etappen teilen sich eine Spalte, sonst richtet sich jede für sich aus
+   und die Jahre stehen ungleich weit rechts. Subgrid gibt die Spalten der
+   Zeitleiste an jede Etappe weiter. */
+@media(min-width:760px){
+  @supports (grid-template-columns: subgrid){
+    .storia{ display:grid; grid-template-columns:minmax(120px, max-content) 1fr; }
+    .tappa{ grid-column:1 / -1; grid-template-columns:subgrid; }
+  }
+}
+/* Jahr und erste Textzeile auf dieselbe Schriftlinie stellen. */
+@media(min-width:760px){
+  .tappa{ align-items:baseline; }
+  .tappa .anno{ padding-top:0; }
+}
+/* Auf dem Telefon stehen Jahr und Text untereinander — dort braucht das Jahr
+   etwas Abstand nach unten und der Text darf die volle Breite nutzen. */
+@media(max-width:759px){
+  .tappa{ gap:10px; }
+  .tappa .anno{ text-align:left; }
+  .tappa p:not(.anno){ max-width:none; }
+}
