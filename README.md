@@ -20,6 +20,7 @@ Seiten auf wurzelbezogene Pfade — und bricht bei Fehlern ab.
 python3 -m http.server 8099   # in einem zweiten Fenster
 python3 prova.py              # Darstellung in sieben Breiten, mit Bildschirmfotos
 python3 misura.py             # Ladeverhalten gegen ein festes Budget
+python3 contrasto.py          # Kontrast heller Schrift auf Bildern
 ```
 
 ## Aufbau

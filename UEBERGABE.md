@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 30: Ansprechpartner als eigene Karten)
+# Cavaleri Srl — Übergabe (Stand 31: Kontrast auf Bildern gemessen)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -317,6 +317,36 @@ dass kein Motiv eine historische Fotografie ist.
    wo Bilder sein sollten. Die Anfangszustände hängen jetzt an einer Klasse `js`,
    die **das Skript selbst** als erste Anweisung setzt. Vorher gilt: alles sichtbar.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
+
+## Helle Schrift auf Bildern
+Weiße Schrift auf hellen Fahrzeugen war schwer zu lesen. `contrasto.py` misst das
+jetzt: Es blendet die Schrift aus, macht ein Bild und liest die Helligkeit genau
+dort, wo die Schrift steht — die hellste Stelle unter jedem Textblock entscheidet.
+
+Gemessen vorher:
+
+| Stelle | vorher | jetzt |
+|---|---|---|
+| Kopfzeile, Überschrift | 3,76:1 | 4,97:1 |
+| Kopfzeile, Vorzeile | 3,90:1 | 5,41:1 |
+| Bildband, Satz | 4,26:1 | 10,32:1 |
+| Aussage | **2,81:1** | 5,35:1 |
+| Akzentwort „Sizilien" | **2,69:1** | 4,14:1 |
+| Routenseite, Stationskennung | **2,70:1** | 6,63:1 |
+
+Behoben wurde es **am Bild, nicht an der Schrift**: dichtere Verläufe dort, wo
+der Text steht (im Kopfbereich von links unten, auf den Bändern als weicher Kern
+in der Mitte, auf der Routenseite von links), und ein etwas zurückgenommenes
+Hintergrundbild. Textschatten auf unruhigem Bild frisst Kontrast, statt ihn zu
+schaffen — deshalb kommt keiner zum Einsatz.
+
+Zwei Farben wurden zusätzlich aufgehellt, weil sie auf Fotos nicht trugen: das
+Akzentwort im Kopfbereich und die Stationskennung auf der Routenseite stehen jetzt
+in `#cfe1ff` statt `#8fb6ff`. Auf einfarbigen Flächen bleibt das kräftige
+Akzentblau.
+
+Nebenbei: Auf dem Telefon lief der Text der Routenseite hinter die mitlaufende
+Karte. Er sitzt jetzt darüber.
 
 ## Ansprechpartner als eigene Karten
 Die drei standen zuvor in einem zusammenhängenden Raster mit Haarlinien
