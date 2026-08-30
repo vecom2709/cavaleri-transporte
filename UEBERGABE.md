@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 42: Durchgang über alle dreißig Seiten)
+# Cavaleri Srl — Übergabe (Stand 43: Eingangsanimation)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -605,6 +605,29 @@ Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
 Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
 Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
 dahinter nicht überall greift.
+
+## Eingangsanimation
+`assets/js/entrata.js` und der Abschnitt „Eingangsanimation" in `site.css`.
+Rund vier Sekunden: Die Raute zeichnet sich, das C zeichnet sich hinein, die
+Raute dreht sich um die Hochachse weg, die vollständige Marke kommt daraus
+hervor, ein Lichtstreif läuft darüber, der Vorhang wird durchsichtig.
+
+**Kein Video, sondern SVG und CSS** — rund 3 KB statt ein bis zwei Megabyte,
+scharf in jeder Größe, und es verzögert nichts: die Seite darunter ist fertig
+geladen, der Vorhang liegt nur davor.
+
+Drei Vorkehrungen:
+- **Nur beim ersten Aufruf je Sitzung** (`sessionStorage`). Wer sich durch die
+  Seiten klickt, sieht sie einmal.
+- **Bei „reduzierter Bewegung" gar nicht** — das Skript erzeugt dann nichts.
+- **Überspringbar**: ein Klick oder die Esc-Taste blendet sie in 350 ms aus.
+  Zusätzlich räumt ein Zeitgeber nach 5 Sekunden auf, falls eine Animation
+  ausfällt.
+
+**Eine Namenskollision war die Ursache eines stillen Fehlers:** Der innere
+Baustein hieß zuerst `.scena` — diesen Namen benutzt schon die Routenseite, wo
+er mit `opacity: 0` beginnt. Der Vorhang erschien dadurch leer. Die Bausteine
+heißen jetzt `.scena-entrata` und `.rombo-entrata`.
 
 ## Durchgang über alle Seiten
 Alle zehn Seiten in drei Sprachen wurden gemessen. Behoben:

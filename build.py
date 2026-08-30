@@ -834,7 +834,8 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/parallasse.js" defer></script>
 <script src="/assets/js/racconto.js" defer></script>
-<script src="/assets/js/atmosfera.js" defer></script>{js}
+<script src="/assets/js/atmosfera.js" defer></script>
+<script src="/assets/js/entrata.js" defer></script>{js}
 </body>
 </html>
 '''

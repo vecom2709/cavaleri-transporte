@@ -1995,3 +1995,75 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 .nota-obbl{
   margin:0 0 var(--s5); font-size:.86rem; color:var(--grigio);
 }
+
+/* =========================================================================
+   Eingangsanimation
+   Die Raute zeichnet sich, dreht sich, die Marke kommt mit einem Lichtstreif,
+   dann hebt sich der Vorhang. Nur beim ersten Aufruf je Sitzung; bei
+   „reduzierter Bewegung" wird sie gar nicht erst erzeugt.
+   ========================================================================= */
+.entrata{
+  position:fixed; inset:0; z-index:90; display:grid; place-items:center;
+  perspective:1200px; overflow:clip;
+  background:radial-gradient(120% 100% at 50% 40%, #12275c 0%, #060f2a 62%, #03060f 100%);
+  animation:sipario 750ms var(--ease) 3250ms forwards;
+}
+.entrata::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  opacity:.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.entrata .scena-entrata{
+  position:relative; display:grid; place-items:center; transform-style:preserve-3d;
+  animation:gira 1200ms var(--ease) 1250ms forwards;
+}
+.entrata .rombo-entrata{
+  width:clamp(96px,14vw,150px); height:auto; overflow:visible;
+  animation:svanisci-entrata 500ms var(--ease) 1500ms forwards;
+}
+.entrata .rombo-entrata path{
+  fill:none; stroke:#fff; stroke-width:5; stroke-linejoin:round;
+  stroke-dasharray:400; stroke-dashoffset:400;
+  filter:drop-shadow(0 0 14px rgba(143,182,255,.55));
+  animation:traccia-entrata 1100ms var(--ease) 150ms forwards;
+}
+.entrata .rombo-entrata .lettera{
+  stroke-width:7; stroke-dasharray:260; stroke-dashoffset:260;
+  animation:traccia-entrata 900ms var(--ease) 600ms forwards;
+}
+.marchio-entrata{
+  --img:image-set(url("../marke/logo-bianco-2x.avif") type("image/avif") 1x,
+                  url("../marke/logo-bianco-3x.avif") type("image/avif") 2x);
+  position:absolute; left:50%; top:50%;
+  width:clamp(210px,32vw,380px); aspect-ratio:3.445;
+  background-image:var(--img);
+  background-size:contain; background-repeat:no-repeat; background-position:center;
+  opacity:0; transform:translate(-50%,-50%) rotateY(-180deg) scale(.94);
+  animation:mostra-entrata 900ms var(--ease) 1650ms forwards;
+}
+@supports not (background-image:image-set(url("x.avif") type("image/avif") 1x)){
+  .marchio-entrata{ --img:url("../marke/logo-bianco-3x.png"); }
+}
+.marchio-entrata::after{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:0;
+  background:linear-gradient(108deg, transparent 40%, rgb(255 255 255 / .55) 50%, transparent 60%);
+  -webkit-mask-image:var(--img);     mask-image:var(--img);
+  -webkit-mask-size:contain;         mask-size:contain;
+  -webkit-mask-repeat:no-repeat;     mask-repeat:no-repeat;
+  -webkit-mask-position:center;      mask-position:center;
+  animation:lucido-entrata 1100ms var(--ease) 2150ms forwards;
+}
+
+@keyframes traccia-entrata{ to{ stroke-dashoffset:0; } }
+@keyframes svanisci-entrata{ to{ opacity:0; } }
+@keyframes gira{ from{ transform:rotateY(0); } to{ transform:rotateY(180deg); } }
+@keyframes mostra-entrata{
+  to{ opacity:1; transform:translate(-50%,-50%) rotateY(-180deg) scale(1); }
+}
+@keyframes lucido-entrata{
+  0%{ opacity:0; transform:translateX(-42%); }
+  15%{ opacity:1; } 85%{ opacity:1; }
+  100%{ opacity:0; transform:translateX(42%); }
+}
+@keyframes sipario{ to{ opacity:0; visibility:hidden; transform:scale(1.04); } }
+@media(prefers-reduced-motion:reduce){ .entrata{ display:none; } }
