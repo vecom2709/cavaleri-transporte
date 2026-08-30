@@ -331,6 +331,31 @@
    ]
   }
  },
+ "persona-giusy": {
+  "w": 397,
+  "h": 496,
+  "anteprima": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABMNDhEODBMRDxEVFBMXHTAfHRoaHToqLCMwRT1JR0Q9Q0FMVm1dTFFoUkFDX4JgaHF1e3x7SlyGkIV3j214e3b/2wBDARQVFR0ZHTgfHzh2T0NPdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnb/wAARCAAeABgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAIDBAUG/8QAJxAAAQMDAgQHAAAAAAAAAAAAAQACAwQREiExBRMiQSNRUmGBkaH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAQP/xAAYEQADAQEAAAAAAAAAAAAAAAAAASECEf/aAAwDAQACEQMRAD8A9KQs1XUciEuYA95NmtvuVSWUOaQ3Ud/dc/iEcksUThGCI3Elva1t/hLWpCZVoUldUGYx1TGXB0wNihLDA6StgkbF4buovF7FCzy+qj0uOG9hbcgancqcjsg4N6jfHGy1igIvjLv5tSwU3IqyJMXFwyuPpUKLh2ZG4aBax0QllOFUxvqBP6hQR//Z",
+  "fonti": {
+   "avif": [
+    [
+     "persona-giusy-397.avif",
+     397
+    ]
+   ],
+   "webp": [
+    [
+     "persona-giusy-397.webp",
+     397
+    ]
+   ],
+   "jpg": [
+    [
+     "persona-giusy-397.jpg",
+     397
+    ]
+   ]
+  }
+ },
  "ribaltabile": {
   "w": 1500,
   "h": 2000,

@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 27: Porträt Francesco)
+# Cavaleri Srl — Übergabe (Stand 28: Porträts Francesco und Giusy)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -319,8 +319,12 @@ dass kein Motiv eine historische Fotografie ist.
    Damit ist die Seite auch ganz ohne JavaScript vollständig lesbar.
 
 ## Porträts der Ansprechpartner
-Francescos Foto ist eingesetzt — auf `/azienda/` und `/contatti/`, jeweils neben
-der Überschrift „Wer antwortet", mit Namen als Bildunterschrift.
+Francesco und Giusy sind eingesetzt — auf `/azienda/` und `/contatti/`, neben der
+Überschrift „Wer antwortet", mit Vornamen als Bildunterschrift.
+
+Der Bildausschnitt steht je Person in `build.py` (`object-position`). Giusy steht
+im Original rechts im Bild, deshalb `62% 14%` statt der Mitte — sonst säße sie am
+Rand des Ausschnitts.
 
 **Warum nicht in der Karte:** Vorgesehen ist, dass jede der drei Karten oben ihr
 Porträt trägt. Mit nur einem Foto standen daneben zwei leere Felder von 478 px
@@ -328,15 +332,16 @@ Höhe — das sah unfertig aus. Deshalb entscheidet der Bau selbst: Liegen Portr
 von allen dreien vor, wandern sie in die Karten; fehlt eines, steht das
 vorhandene neben der Überschrift und die Karten bleiben wie bisher.
 
-**Zum Umschalten genügen zwei Dateien.** `persona-tonino.jpg` und
-`persona-giusy.jpg` nach `assets/foto/originali/` legen, dann
+**Zum Umschalten fehlt noch eine Datei:** `persona-tonino.jpg` nach
+`assets/foto/originali/` legen, dann
 `python3 immagini.py && python3 build.py` — die Seite stellt sich von selbst um,
 ohne dass eine Zeile geändert wird.
 
-**Zur Bildqualität:** Die Vorlage ist ein Bildschirmfoto mit 490 × 488 Pixeln,
-zugeschnitten auf 390 × 488 im Hochformat. Das reicht für die jetzige Größe von
-210 px, auf hochauflösenden Bildschirmen bleibt es aber weich. Ein Original aus
-der Kamera wäre deutlich besser — mindestens 1200 px in der Höhe.
+**Zur Bildqualität:** Beide Vorlagen sind Bildschirmfotos um 490 × 490 Pixel,
+zugeschnitten auf knapp 400 × 490 im Hochformat. Das reicht für die jetzige Größe
+von rund 170 px, auf hochauflösenden Bildschirmen bleibt es weich. Originale aus
+der Kamera mit mindestens 1200 px Höhe wären deutlich besser — dann könnten die
+Bilder auch größer stehen.
 
 ## Satz der Zeitleiste
 - **Die Jahre stehen jetzt bündig.** Jede Etappe war zuvor ein eigenes Raster,

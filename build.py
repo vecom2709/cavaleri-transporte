@@ -123,21 +123,23 @@ def persone():
     stattdessen neben der Überschrift, und die Karten bleiben wie bisher.
     Sobald die fehlenden Fotos in assets/foto/originali/ liegen
     (persona-tonino.jpg, persona-giusy.jpg), schaltet die Seite von selbst um."""
+    # letzter Wert: Bildausschnitt, damit das Gesicht sitzt
     gente = [("francesco", "Francesco Cavaleri", "p1.ruolo", "+39 348 806 3771",
-              "3488063771", "francesco@cavaleri.it"),
+              "3488063771", "francesco@cavaleri.it", "50% 20%"),
              ("tonino", "Antonino Cavaleri", "p2.ruolo", "+39 348 806 3773",
-              "3488063773", "tonino@cavaleri.it"),
+              "3488063773", "tonino@cavaleri.it", "50% 20%"),
              ("giusy", "Giusy Cavaleri", "p3.ruolo", "+39 366 356 7922",
-              "3663567922", "giusy@cavaleri.it")]
+              "3663567922", "giusy@cavaleri.it", "62% 14%")]
     presenti = [g for g in gente if f"persona-{g[0]}" in IMMAGINI]
     tutte = len(presenti) == len(gente)
 
     carte = []
-    for slug, nome, ruolo, tel, num, mail in gente:
+    for slug, nome, ruolo, tel, num, mail, fuoco in gente:
         ritratto = ""
         if tutte:
             ritratto = figura(f"persona-{slug}", alt=nome,
-                              sizes="(min-width:820px) 33vw, 100vw", classe="ritratto") + "\n          "
+                              sizes="(min-width:820px) 33vw, 100vw", classe="ritratto")
+            ritratto = ritratto.replace("<img ", f'<img style="object-position:{fuoco}" ') + "\n          "
         carte.append(f'''        <article class="persona{ " con-foto" if tutte else "" }">
           {ritratto}<div class="dati">
             <p class="ruolo" data-t="{ruolo}"></p><h3>{nome}</h3>
@@ -147,12 +149,16 @@ def persone():
 
     guida = '<p class="guida" data-t="persone.guida"></p>'
     if not tutte and presenti:
-        slug, nome = presenti[0][0], presenti[0][1]
-        interno = figura("persona-" + slug, alt=nome, sizes="(min-width:900px) 30vw, 100vw")
-        interno = re.sub(r"^<figure[^>]*>|</figure>$", "", interno)   # nur das Bild
-        guida = (f'<figure class="ritratto-guida con-anteprima">{interno}'
-                 f'<figcaption>{nome}</figcaption></figure>'
-                 f'<p class="guida" data-t="persone.guida"></p>')
+        blocchi = []
+        for slug, nome, *_resto in presenti:
+            fuoco = _resto[-1]
+            interno = figura("persona-" + slug, alt=nome, sizes="(min-width:900px) 22vw, 45vw")
+            interno = re.sub(r"^<figure[^>]*>|</figure>$", "", interno)   # nur das Bild
+            interno = interno.replace("<img ", f'<img style="object-position:{fuoco}" ')
+            blocchi.append(f'<figure class="ritratto-guida con-anteprima">{interno}'
+                           f'<figcaption>{nome.split()[0]}</figcaption></figure>')
+        guida = ('<div class="ritratti">' + "".join(blocchi) + '</div>'
+                 '<p class="guida" data-t="persone.guida"></p>')
 
     return '''  <section class="riga-sopra">
     <div class="wrap">
