@@ -106,6 +106,7 @@ def morbido(pt, chiudi=False):
 
 
 def main():
+    global LON0, LON1, LAT0, LAT1, ALTEZZA
     dati = json.loads(FONTE.read_text())
     coste = []
     for f in dati["features"]:
@@ -172,6 +173,54 @@ def main():
             '<circle class="viaggiatore" r="16"/></svg>']
     (W / "assets/grafica/mappa-mini.svg").write_text("\n".join(mini), encoding="utf-8")
     print("geschrieben: mappa-mini.svg | viewBox", round(vw), round(vh))
+
+    # ---- Standortkarte: Sizilien mit dem Sitz -----------------------------
+    # Eigener Ausschnitt, eigene Projektion — keine fremden Kartenkacheln,
+    # also keine Cookies und keine Verbindung zu Dritten.
+    LON0_s, LON1_s, LAT0_s, LAT1_s = LON0, LON1, LAT0, LAT1
+    LON0, LON1, LAT0, LAT1 = 12.15, 15.85, 36.55, 38.45
+    ALTEZZA = round(LARGO * ((math.log(math.tan(math.pi/4+math.radians(LAT1)/2))
+                            - math.log(math.tan(math.pi/4+math.radians(LAT0)/2)))
+                           / math.radians(LON1 - LON0)))
+    coste_s = []
+    for f in dati["features"]:
+        if f["properties"].get("NAME") not in ("Italy", "Malta", "Tunisia"):
+            continue
+        for anello in anelli(f["geometry"]):
+            if not any(dentro(lo, la) for lo, la in anello):
+                continue
+            pt = semplifica([punto(lo, la) for lo, la in anello], tol=2.0)
+            if pt:
+                coste_s.append(morbido(pt, chiudi=True))
+    # Name, Breite, Länge, Art, Ausrichtung, dx, dy — von Hand gesetzt,
+    # weil die Orte in Sizilien dicht beieinanderliegen.
+    luoghi = [("Caltanissetta", 37.490, 14.062, "sede", "middle", 0, -30),
+              ("Serradifalco", 37.456, 13.881, "", "end", -14, 26),
+              ("Palermo", 38.115, 13.361, "", "start", 15, 8),
+              ("Catania", 37.507, 15.083, "", "end", -15, 8),
+              ("Agrigento", 37.311, 13.577, "", "start", 15, 8)]
+    sede = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LARGO} {ALTEZZA}" '
+            'class="carta-sede" role="img" aria-labelledby="cs-tit">',
+            '<title id="cs-tit" data-t="co.mappa"></title>', '<g class="coste">']
+    for c in coste_s:
+        sede.append(f'<path d="{c}"/>')
+    sede.append('</g><g class="luoghi">')
+    for nome, la, lo, tipo, verso, dx, dy in luoghi:
+        x, y = punto(lo, la)
+        cl = "luogo sede" if tipo else "luogo"
+        r = 11 if tipo else 6
+        sede.append(f'<g class="{cl}">')
+        if tipo:
+            sede.append(f'<circle class="alone" cx="{x:.1f}" cy="{y:.1f}" r="26"/>')
+        sede.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}"/>'
+                    f'<text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{verso}">{nome}</text></g>')
+    sede.append('</g></svg>')
+    (W / "assets/grafica/mappa-sede.svg").write_text("\n".join(sede), encoding="utf-8")
+    print("geschrieben: mappa-sede.svg | viewBox", LARGO, ALTEZZA)
+    LON0, LON1, LAT0, LAT1 = LON0_s, LON1_s, LAT0_s, LAT1_s
+    ALTEZZA = round(LARGO * ((math.log(math.tan(math.pi/4+math.radians(LAT1)/2))
+                            - math.log(math.tan(math.pi/4+math.radians(LAT0)/2)))
+                           / math.radians(LON1 - LON0)))
 
     out = W / "assets/grafica/mappa-rotta.svg"
     out.write_text("\n".join(svg), encoding="utf-8")

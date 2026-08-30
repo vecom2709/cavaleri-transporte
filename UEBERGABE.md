@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 41: Kopfbild größer und bewegt)
+# Cavaleri Srl — Übergabe (Stand 42: Durchgang über alle dreißig Seiten)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -605,6 +605,34 @@ Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
 Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
 Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
 dahinter nicht überall greift.
+
+## Durchgang über alle Seiten
+Alle zehn Seiten in drei Sprachen wurden gemessen. Behoben:
+
+**Die Startseite hatte keinen Titel.** Das `<title>` in der SVG-Karte trägt eine
+Übersetzungskennung; mein Ausdruck `title[data-t]` griff diese statt der im
+Seitenkopf, und da ihre Kennung fehlte, blieb der Titel leer. In Google und im
+Browsertab stand nichts. Der Ausdruck lautet jetzt `head > title[data-t]`, die
+fehlende Kennung ist ergänzt.
+
+**Die Alternativtexte standen im Markup, wurden aber nie eingesetzt.** `figura()`
+schreibt `data-alt="..."`, die Texte liegen dreisprachig in den Sprachdateien —
+nur fehlte im Skript die Zeile, die daraus `img.alt` macht. Fünfundzwanzig Bilder
+waren dadurch für Vorlesesoftware und Suchmaschinen stumm.
+
+**Seitenbeschreibungen**: `/azienda/` und `/edilizia/` haben eigene
+Beschreibungen bekommen — sie benutzten den sichtbaren Einleitungstext, der mit
+über 200 Zeichen für ein Suchergebnis zu lang ist. Alle dreißig Seiten liegen
+jetzt zwischen 115 und 175 Zeichen.
+
+**Pflichtfelder** tragen einen Stern an der Beschriftung, über dem Formular steht
+eine Zeile dazu. `aria-required` war schon gesetzt, sichtbar war es nicht.
+
+**Die einzelne Leistungskarte auf `/edilizia/`** läuft nicht mehr über die halbe
+Breite mit leerer rechter Hälfte, sondern ist dreispaltig: Nummer, Text, Merkmale.
+
+**Die Bilderseite** hat einen zweiten Absatz bekommen; mit 133 Wörtern war sie
+die dünnste Seite.
 
 ## Zwischenspeicher: Prüfsummen an den Dateien
 GitHub Pages lässt CSS und JavaScript zehn Minuten im Browser liegen — nach einer

@@ -1856,14 +1856,18 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 .intro-foto picture{ display:block; height:100%; }
 .intro-foto img{
   width:100%; height:100%; object-fit:cover; object-position:50% 50%;
-  opacity:.42; filter:grayscale(.2) contrast(1.02) brightness(.82);
+  opacity:.40; filter:grayscale(.22) contrast(1.02) brightness(.80);
   animation:kenburns 30s var(--ease) infinite alternate;
 }
 .intro--foto::after{
   background:
     /* dort am dichtesten, wo der Text steht: unten links */
-    radial-gradient(125% 105% at 4% 96%, rgba(6,15,42,.96) 0%,
-                    rgba(6,15,42,.82) 44%, rgba(6,15,42,.26) 80%, transparent 100%),
+    /* Die Textspalte endet bei etwa der halben Breite — bis dahin trägt der
+       Verlauf voll, danach gibt er das Bild frei. */
+    linear-gradient(90deg, rgba(6,15,42,.93) 0%, rgba(6,15,42,.90) 44%,
+                    rgba(6,15,42,.62) 60%, rgba(6,15,42,.18) 84%, transparent 100%),
+    radial-gradient(120% 110% at 4% 96%, rgba(6,15,42,.55) 0%,
+                    rgba(6,15,42,.24) 55%, transparent 85%),
     linear-gradient(180deg, rgba(6,15,42,.34) 0%, rgba(6,15,42,.06) 28%,
                     rgba(6,15,42,.52) 76%, rgba(6,15,42,.74) 100%);
 }
@@ -1880,3 +1884,114 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 /* Die Vorzeile steht auf dem Telefon über einer helleren Bildstelle. */
 /* Auf einem Foto trägt das kräftige Akzentblau nicht — wie im Kopfbereich weiß. */
 .intro--foto .occhiello{ color:#fff; }
+
+/* Eine einzelne Leistungskarte darf kein zweispaltiges Raster aufspannen —
+   sonst steht daneben ein leerer Kasten. */
+.servizi--uno{ grid-template-columns:1fr !important; }
+.nota-gallery{ margin:0 0 var(--s5); max-width:62ch; }
+
+/* =========================================================================
+   Bildbetrachter
+   ========================================================================= */
+.lente{
+  border:0; padding:0; max-width:100vw; max-height:100vh; width:100%; height:100%;
+  background:rgba(6,15,42,.94); color:#fff;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+  gap:clamp(8px,2vw,24px);
+}
+.lente::backdrop{ background:rgba(6,15,42,.9); }
+.lente[open]{ animation:apparire .3s var(--ease); }
+.lente figure{ margin:0; display:grid; place-items:center; gap:var(--s3); padding:clamp(48px,6vh,80px) 0; }
+.lente img{
+  max-width:min(92vw, 1400px); max-height:78vh; width:auto; height:auto;
+  border-radius:4px; box-shadow:0 24px 60px rgb(0 0 0 / .55);
+}
+.lente figcaption{ font-size:.94rem; color:#cfdcf5; text-align:center; }
+.lente button{
+  background:rgba(255,255,255,.08); border:1px solid rgb(255 255 255 / .18);
+  color:#fff; border-radius:4px; min-width:52px; min-height:52px;
+  font-size:1.6rem; line-height:1; cursor:pointer;
+  transition:background .25s ease, transform .25s var(--ease);
+}
+@media(hover:hover){ .lente button:hover{ background:rgba(255,255,255,.18); transform:translateY(-2px); } }
+.lente-chiudi{ position:absolute; top:16px; right:16px; font-size:1.4rem; }
+.lente-conta{
+  position:absolute; bottom:18px; left:0; right:0; text-align:center;
+  font-size:.82rem; letter-spacing:.14em; color:#9fb4d8;
+}
+@media(max-width:700px){
+  .lente{ grid-template-columns:1fr; }
+  .lente-prec, .lente-succ{ position:absolute; bottom:56px; }
+  .lente-prec{ left:16px; } .lente-succ{ right:16px; }
+  .lente img{ max-height:62vh; }
+}
+/* Die Kacheln sind jetzt bedienbar */
+.griglia-foto figure{ cursor:zoom-in; }
+.griglia-foto figure:focus-visible{ outline:3px solid var(--segnale); outline-offset:3px; }
+
+/* =========================================================================
+   Standortkarte im Kontaktblock — selbst gezeichnet, keine fremden Kacheln,
+   also keine Cookies und keine Verbindung zu Dritten.
+   ========================================================================= */
+.sede-mappa{
+  margin:var(--s5) 0 0; grid-column:1 / -1;
+  background:var(--blu-scuro); border-radius:4px; overflow:clip;
+  box-shadow:var(--kante), var(--e2);
+}
+.sede-mappa svg{ width:100%; height:auto; display:block; }
+.carta-sede .coste path{
+  fill:rgba(24,52,120,.55); stroke:#8fb6ff; stroke-width:1.4;
+  stroke-linejoin:round; opacity:.5;
+}
+.carta-sede .luogo circle{ fill:var(--blu-scuro); stroke:#8fb6ff; stroke-width:3; }
+.carta-sede .luogo.sede circle{ fill:#8fb6ff; stroke:#fff; stroke-width:4; }
+.carta-sede .luogo.sede .alone{
+  fill:#8fb6ff; stroke:none; opacity:.25;
+  animation:pulsa-carta 3s ease-in-out infinite; transform-origin:center;
+}
+.carta-sede text{
+  font-family:var(--testo); font-size:26px; fill:#cfdcf5;
+  paint-order:stroke; stroke:rgba(9,21,58,.75); stroke-width:5px; stroke-linejoin:round;
+}
+.carta-sede .sede text{ font-weight:700; font-size:30px; fill:#fff; }
+.sede-mappa figcaption{ padding:var(--s3) var(--s4) var(--s4); }
+@media(prefers-reduced-motion:reduce){ .carta-sede .luogo.sede .alone{ animation:none; } }
+
+/* Pflichtfelder: sichtbares Zeichen und eine Erklärung darunter. */
+.obbligo{ color:var(--segnale-testo); margin-left:4px; font-weight:600; }
+.nota-obbligo{
+  margin-top:var(--s4); font-size:.84rem; color:var(--grigio);
+}
+.nota-obbligo span:first-child{ color:var(--segnale-testo); font-weight:600; }
+
+/* Überschriften, die nur für Vorlesesoftware da sind: sie halten die
+   Gliederung geschlossen, ohne die Gestaltung zu verändern. */
+.solo-lettura{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+}
+/* Auf einem Foto steht der Vorspann in Weiß und bleibt im dunklen Teil
+   des Verlaufs — gedämpftes Blaugrau trägt dort nicht. */
+.intro--foto .guida{ color:#fff; max-width:48ch; }
+
+/* Einzelne Leistungskarte: der Text soll nicht über die halbe Karte laufen
+   und rechts eine leere Fläche stehen lassen. */
+@media(min-width:900px){
+  .servizi--uno .servizio{
+    display:grid; grid-template-columns:auto 1fr auto;
+    gap:clamp(24px,3vw,var(--s5)); align-items:center;
+  }
+  .servizi--uno .servizio{ align-items:start; row-gap:var(--s2); }
+  .servizi--uno .servizio .num{ grid-column:1; grid-row:1; margin:0; padding-top:.35em; }
+  .servizi--uno .servizio h3{ grid-column:2; grid-row:1; margin:0; }
+  .servizi--uno .servizio p{ grid-column:2; grid-row:2; margin:0; max-width:56ch; }
+  .servizi--uno .servizio ul{
+    grid-column:3; grid-row:1 / span 2; margin:0;
+    justify-content:flex-end; align-content:center; max-width:24ch;
+  }
+}
+/* Pflichtfelder */
+.obbl{ color:var(--segnale-testo); margin-left:.25em; font-weight:600; }
+.nota-obbl{
+  margin:0 0 var(--s5); font-size:.86rem; color:var(--grigio);
+}

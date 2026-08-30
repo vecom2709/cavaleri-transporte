@@ -24,6 +24,11 @@
     const d = window.TESTI[lingua];
     if (!d) return;
     document.documentElement.lang = lingua;
+    // Alternativtexte der Bilder — sprachabhängig wie alles andere
+    document.querySelectorAll("[data-alt]").forEach(el => {
+      const v = d[el.dataset.alt];
+      if (v) el.alt = v;
+    });
     document.querySelectorAll("[data-t]").forEach(el => {
       const v = d[el.dataset.t];
       if (v === undefined) return;
@@ -42,6 +47,11 @@
     document.querySelectorAll("[data-p]").forEach(el => {
       const v = d[el.dataset.p];
       if (v !== undefined) el.placeholder = v;
+    });
+    // Alternativtexte der Bilder — sie gehören zur Sprache wie jeder andere Text.
+    document.querySelectorAll("[data-alt]").forEach(el => {
+      const v = d[el.dataset.alt];
+      if (v !== undefined) el.alt = v;
     });
     // Nur der Titel im Kopf der Seite. Ohne "head >" trifft der Ausdruck
     // auch das <title> in den SVG-Karten — dann verliert die Seite ihren Titel.
@@ -98,6 +108,18 @@
     stretto.addEventListener("change", colloca);
     colloca();
   }
+
+  /* ---------- 2c. Pflichtfelder sichtbar machen --------------------------
+     Ein Stern am Beschriftungstext und eine Zeile über dem Formular. Bisher
+     merkte man es erst, wenn der Rahmen rot wurde. */
+  document.querySelectorAll("[required]").forEach(campo => {
+    const eti = campo.id && document.querySelector(`label[for="${campo.id}"]`);
+    if (!eti || eti.querySelector(".obbl")) return;
+    const stella = document.createElement("span");
+    stella.className = "obbl";
+    stella.textContent = "*";
+    eti.appendChild(stella);
+  });
 
   /* ---------- 3. Leitmotiv: Fortschrittslinie + Zeitleiste -------------- */
   const filo = document.querySelector(".filo");
