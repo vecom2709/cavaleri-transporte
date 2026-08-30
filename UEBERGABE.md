@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 35: Sprachverhalten wie zuvor)
+# Cavaleri Srl — Übergabe (Stand 36: soziale Netze verlinkt)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,17 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Soziale Netze
+Im Fuß jeder Seite stehen zwei Symbole, im Kontaktblock zusätzlich als Textlink:
+
+- Facebook: https://www.facebook.com/cavaleritrasporti (rund 1.340 Likes)
+- Instagram: https://www.instagram.com/cavaleritrasporti (rund 820 Follower, 86 Beiträge)
+
+Beide auch in den strukturierten Daten unter `sameAs` — so verknüpfen
+Suchmaschinen Website und Profile miteinander. Die Symbole sind selbst gezeichnet
+und liegen im Markup; es wird nichts von Facebook oder Instagram geladen, die
+Content-Security-Policy bleibt unangetastet.
 
 ## Sprachen
 **Sprachweiche für Erstbesucher ist wieder aktiv**: Ein deutscher Browser landet

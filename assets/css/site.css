@@ -1688,3 +1688,16 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 @media(max-width:900px){
   .stazione{ padding-bottom:clamp(140px,20vh,180px); }
 }
+
+/* ---------- Soziale Netze im Fuß ---------------------------------------- */
+.social{ display:flex; gap:10px; margin-top:var(--s3); }
+.social a{
+  display:grid; place-items:center; width:44px; height:44px; border-radius:4px;
+  color:var(--grigio-blu); border:1px solid var(--linea-scura);
+  transition:color .25s ease, border-color .25s ease, background .25s ease, transform .25s var(--ease);
+}
+.social svg{ width:20px; height:20px; fill:currentColor; }
+@media(hover:hover){
+  .social a:hover{ color:#fff; border-color:rgba(255,255,255,.4);
+                   background:rgba(255,255,255,.08); transform:translateY(-2px); }
+}
