@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 43: Eingangsanimation)
+# Cavaleri Srl — Übergabe (Stand 44: Angebotsformular überarbeitet)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -605,6 +605,26 @@ Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
 Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
 Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
 dahinter nicht überall greift.
+
+## Angebotsformular
+Die Auswahlkacheln sind jetzt gleich hoch, füllen die Zeile aus und zeigen die
+Auswahl an einem gefüllten Ring — dieselbe Sprache wie die Punkte an der
+Zeitleiste. Auch das Bewerbungsformular auf `/lavora/` erbt das.
+
+Was vorher nicht stimmte:
+- **Ungleiche Höhen.** „Sammelgut — wenige Paletten" ist zweizeilig und machte
+  die Kachel höher als die anderen. Jetzt gilt eine Mindesthöhe für alle.
+- **Eine Kachel allein in der zweiten Zeile.** Im Raster stand „Anderes" neben
+  drei leeren Feldern. Mit Flexbox dehnen sich die Kacheln der letzten Zeile auf
+  die volle Breite — drei oben, zwei unten, kein Loch.
+- **`min-width: 0` war nötig**, sonst hält der längste Begriff die Kachel breit
+  und der Umbruch gerät durcheinander. Dazu `overflow-wrap` und Silbentrennung,
+  damit „Komplettladung" nicht über den Rand läuft.
+- **Die Schrittanzeige** stand als graue Kleinschrift über einem dünnen Strich.
+  Jetzt in der Display-Schrift mit hervorgehobener Ziffer, der Balken in
+  Markenblau.
+- **Der Hinweis auf die Pflichtfelder** stand über der Schrittanzeige und damit
+  vor dem Formular. Er steht jetzt darunter, wo er gelesen wird.
 
 ## Eingangsanimation
 `assets/js/entrata.js` und der Abschnitt „Eingangsanimation" in `site.css`.

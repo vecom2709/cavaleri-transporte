@@ -2067,3 +2067,68 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 }
 @keyframes sipario{ to{ opacity:0; visibility:hidden; transform:scale(1.04); } }
 @media(prefers-reduced-motion:reduce){ .entrata{ display:none; } }
+
+/* =========================================================================
+   Angebotsformular: Auswahlkacheln und Schrittanzeige
+   Vorher: unterschiedlich hohe Kacheln, eine allein in der zweiten Zeile,
+   kein sichtbarer Bezug zur übrigen Seite. Jetzt gleiche Höhe, eine
+   nummerierte Schrittanzeige wie in der Zeitleiste und ein Auswahlzustand,
+   den man auf einen Blick sieht.
+   ========================================================================= */
+
+/* --- Schrittanzeige ---------------------------------------------------- */
+.modulo .barra{
+  height:2px; background:var(--linea); margin-bottom:var(--s4);
+  border-radius:2px; overflow:hidden;
+}
+.modulo .barra i{ background:var(--blu); }
+.modulo .stato{
+  display:flex; align-items:baseline; gap:.5em;
+  font-family:var(--display); font-weight:800; font-size:.78rem;
+  letter-spacing:.2em; color:var(--segnale-testo); margin-bottom:var(--s3);
+}
+.modulo .stato .conta{ font-size:1.1rem; letter-spacing:0; color:var(--blu); }
+.passo h2{ margin-bottom:var(--s6); }
+
+/* --- Kacheln ----------------------------------------------------------- */
+/* Flexbox statt Raster: so füllt die letzte Zeile die Breite aus. Im Raster
+   blieb "Anderes" als einzelne Kachel neben drei leeren Feldern stehen. */
+.scelte{
+  display:flex; flex-wrap:wrap; align-items:stretch;
+  gap:clamp(10px,1.1vw,14px);
+}
+/* min-width:0 ist nötig: sonst hält der längste Begriff die Kachel breit
+   und die fünfte rutscht in die nächste Zeile. */
+.scelte button{ flex:1 1 200px; min-width:0; overflow-wrap:anywhere; hyphens:auto; }
+.scelte button{
+  display:flex; align-items:center; gap:12px;
+  min-height:76px; padding:16px 18px; border-radius:4px;
+  font-weight:500; line-height:1.3; text-wrap:balance;
+  font-size:.96rem;
+}
+/* Ein Ring links, der bei Auswahl gefüllt wird — dieselbe Sprache wie die
+   Punkte an der Zeitleiste. */
+.scelte button::before{
+  content:""; flex:0 0 auto; width:16px; height:16px; border-radius:50%;
+  border:2px solid var(--linea-scura); background:transparent;
+  transition:border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+@media(hover:hover){
+  .scelte button:hover::before{ border-color:var(--segnale); }
+}
+.scelte button[aria-pressed="true"]::before{
+  border-color:#fff; background:#fff; box-shadow:inset 0 0 0 3px var(--blu);
+}
+.scelte button[aria-pressed="true"]{ font-weight:600; }
+
+/* Die letzte Kachel soll nicht allein in einer Zeile stehen bleiben:
+   ab fünf Einträgen zwei feste Reihen statt automatischem Umbruch. */
+@media(max-width:520px){
+  .scelte button{ flex:1 1 100%; min-height:60px; }
+}
+
+/* --- Felder ------------------------------------------------------------ */
+.campo input, .campo textarea{ border-radius:4px; padding:14px 16px; }
+.campo > label, .campo > .etichetta{ margin-bottom:10px; }
+.coppia{ gap:clamp(16px,2vw,var(--s4)); }
+.azioni-modulo{ margin-top:var(--s7); }

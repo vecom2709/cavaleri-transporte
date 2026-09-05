@@ -437,9 +437,9 @@ def gallery():
 MODULO = '''  <section>
     <div class="wrap">
       <form class="modulo" novalidate>
-        <p class="nota-obbl" data-t="mod.obbl"></p>
         <div class="barra"><i></i></div>
         <p class="stato"><span data-t="pr.passo"></span> <span class="conta">1</span> <span data-t="pr.di"></span> 3</p>
+        <p class="nota-obbl" data-t="mod.obbl"></p>
 
         <fieldset class="passo" style="border:0;margin:0;padding:0">
           <h2 data-t="pr.p1"></h2>
