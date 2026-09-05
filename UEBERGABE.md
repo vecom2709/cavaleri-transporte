@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 47: Umwelt und offene Stelle)
+# Cavaleri Srl — Übergabe (Stand 48: zwei Leistungsseiten)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,26 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Zwei eigene Leistungsseiten
+`/groupage/` und `/deposito/`, dreisprachig — die Sitemap führt jetzt 36 Adressen
+statt 30.
+
+**Warum eigene Seiten:** Wer „groupage Sicilia" oder „deposito conto terzi
+Caltanissetta" sucht, findet eher eine Seite, die genau davon handelt, als eine
+Karte auf einer Sammelseite. Die Wettbewerber machen es so, und in diesem Punkt
+hatten sie recht.
+
+Beide folgen demselben Aufbau (`pagina_servizio()`): Kopfbild, Erklärung, drei
+Blöcke, dann **„Was wir für ein Angebot brauchen"** als Liste. Der letzte Teil
+ist der eigentliche Nutzen — er nimmt dem Anrufer die Unsicherheit, was er
+überhaupt sagen soll, und uns die Rückfragen.
+
+**Nicht ins Menü aufgenommen.** Mit acht Punkten ist es voll; ein neunter und
+zehnter hätten es zum Umbrechen gebracht. Stattdessen führt von den
+Leistungskarten auf `/trasporti/` ein Verweis „Wie es abläuft →" auf die
+jeweilige Seite. Die Tippfläche dieses Verweises war zunächst 24 px hoch — auf
+44 px gebracht.
 
 ## Umwelt (`/azienda/`, Abschnitt „Weniger Straße, weniger Fahrten")
 Drei Punkte, alle aus dem Betrieb belegbar, keiner erfunden:

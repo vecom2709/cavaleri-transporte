@@ -2191,3 +2191,24 @@ html{ font-optical-sizing:auto; font-synthesis:none; }
   box-shadow:var(--kante);
 }
 .come-candidarsi{ margin-top:var(--s4); font-weight:600; color:var(--blu); }
+
+/* Liste „Was wir für ein Angebot brauchen" */
+.serve{
+  list-style:none; margin:var(--s5) 0 0; padding:0;
+  display:grid; gap:12px; max-width:44em;
+}
+.serve li{
+  position:relative; padding-left:30px; color:var(--grigio);
+}
+.serve li::before{
+  content:""; position:absolute; left:0; top:.55em;
+  width:10px; height:10px; border-radius:50%;
+  border:2px solid var(--segnale); background:transparent;
+}
+/* Verweis von der Leistungskarte auf die ausführliche Seite */
+.servizio .piu{
+  display:inline-flex; align-items:center; margin-top:var(--s4);
+  min-height:44px; padding-block:10px;   /* Tippfläche */
+  font-weight:600; font-size:.92rem; color:var(--segnale-testo);
+}
+@media(hover:hover){ .servizio .piu:hover{ color:var(--blu); } }

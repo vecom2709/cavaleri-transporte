@@ -7,6 +7,8 @@
   <url><loc>https://www.cavaleri.it/rotta/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/gallery/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/lavora/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/groupage/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/deposito/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/contatti/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/preventivo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/note-legali/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -17,6 +19,8 @@
   <url><loc>https://www.cavaleri.it/de/rotta/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/de/gallery/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/de/lavora/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/de/groupage/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/de/deposito/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/de/contatti/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/de/preventivo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/de/note-legali/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -27,6 +31,8 @@
   <url><loc>https://www.cavaleri.it/en/rotta/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/en/gallery/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/en/lavora/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/en/groupage/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.cavaleri.it/en/deposito/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/en/contatti/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/en/preventivo/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.cavaleri.it/en/note-legali/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>

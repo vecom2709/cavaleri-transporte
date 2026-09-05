@@ -285,11 +285,14 @@ def fatti():
 def servizi(indici):
     art = []
     for i in indici:
+        approfondisci = {2: "/groupage/", 3: "/deposito/"}.get(i)
+        piu = (f'\n          <a class="piu" href="{approfondisci}" data-t="sv.piu"></a>'
+               if approfondisci else "")
         art.append(f'''        <article class="servizio">
           <span class="num">0{i}</span>
           <h3 data-t="s{i}.tit"></h3>
           <p data-t="s{i}.txt"></p>
-          <ul data-t="s{i}.tag" data-tag="lista"></ul>
+          <ul data-t="s{i}.tag" data-tag="lista"></ul>{piu}
         </article>''')
     return '''  <section class="riga-sopra">
     <div class="wrap">
@@ -642,6 +645,42 @@ def lavora():
   </section>'''
 
 
+def pagina_servizio(pre):
+    """Aufbau einer Leistungsseite: Erklärung, drei Blöcke, Liste dessen, was
+    wir für ein Angebot brauchen. Der Präfix bestimmt die Textschlüssel."""
+    blocchi = "\n".join(
+        f'        <article><h3 data-t="{pre}.b{n}t"></h3><p data-t="{pre}.b{n}s"></p></article>'
+        for n in (1, 2, 3))
+    voci = "\n".join(f'          <li data-t="{pre}.s{n}"></li>' for n in (1, 2, 3, 4))
+    return f'''  <section class="riga-sopra">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="{pre}.occhiello"></p>
+          <h2 data-t="{pre}.titolo"></h2>
+        </div>
+        <p class="guida" data-t="{pre}.txt"></p>
+      </div>
+      <div class="blocchi">
+{blocchi}
+      </div>
+    </div>
+  </section>
+
+  <section class="riga-sopra sfondo-carta">
+    <div class="wrap">
+      <h2 data-t="{pre}.serve"></h2>
+      <ul class="serve">
+{voci}
+      </ul>
+      <div class="azioni-modulo">
+        <a class="bottone" href="/preventivo/"><span data-t="nav.preventivo"></span><span class="freccia">→</span></a>
+        <a class="bottone bottone--linea" href="tel:+390934931551" data-t="invito.cta2"></a>
+      </div>
+    </div>
+  </section>'''
+
+
 def sostenibilita():
     """Umwelt — ohne Zahlen, die niemand gemessen hat. Genannt wird nur, was
     aus dem Betrieb folgt: Seeweg statt Straße, Sammelgut, Rückladungen über
@@ -798,6 +837,8 @@ PAGINE = {
  "rotta":      ("ro.title", "ro.desc", intro("rotta.occhiello", "ro.h1", "ro.lead", foto="nave-grimaldi") + "\n" + mondo() + "\n" + INVITO, "mondo"),
  "gallery":    ("ga.title", "ga.desc", intro("nav.gallery", "ga.h1", "ga.lead", foto="daf-piazzale") + "\n" + gallery() + "\n" + INVITO, "lente"),
  "lavora":     ("lv.title", "lv.lead", intro("nav.lavora", "lv.h1", "lv.lead", foto="lavoro-cabina") + "\n" + lavora() + "\n" + fascia("flotta-schierata", "fa.1"), "candidatura"),
+ "groupage":   ("gr.title", "gr.desc", intro("nav.groupage", "gr.h1", "gr.lead", foto="rimorchio-krone") + "\n" + pagina_servizio("gr") + "\n" + fascia("imbarco", "fa.1") + "\n" + INVITO, ""),
+ "deposito":   ("dp.title", "dp.desc", intro("nav.deposito", "dp.h1", "dp.lead", foto="daf-piazzale") + "\n" + pagina_servizio("dp") + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + INVITO, ""),
  "contatti":   ("co.title", "co.desc", intro("nav.contatti", "co.h1", "co.lead", foto="aeroporto") + "\n" + CONTATTI_BLOCCO + "\n" + persone() + "\n" + INVITO, ""),
  "preventivo": ("pr.title", "pr.lead", intro("invito.occhiello", "pr.h1", "pr.lead") + "\n" + MODULO + "\n" + CONTATTI_BLOCCO, "modulo"),
  "note-legali":("nl.title", "nl.desc", intro("piede.note", "nl.h1", "nl.lead") + "\n" + NOTE, ""),
