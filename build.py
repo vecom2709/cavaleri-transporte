@@ -796,7 +796,7 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
             {"@type": "ListItem", "position": 2, "name": slug, "item": SITO + via}]},
         ensure_ascii=False)
     return f'''<!DOCTYPE html>
-<html lang="{lingua}">
+<html lang="{lingua}" data-lingua="{lingua}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -828,7 +828,6 @@ def pagina(slug, titolo_key, desc_key, corpo, extra_js, lingua="it"):
 {corpo}
 </main>
 {PIEDE}
-<script>window.LINGUA="{lingua}";</script>
 <script src="/assets/js/i18n.js"></script>
 <script src="/assets/js/i18n-pagine.js"></script>
 <script src="/assets/js/site.js" defer></script>
@@ -982,9 +981,10 @@ def main():
 
         # Startseite
         home = per_lingua(sorgente_home, lingua)
-        home = home.replace('<script src="/assets/js/i18n.js">',
-                            '<script>window.LINGUA="%s";</script>\n<script src="/assets/js/i18n.js">' % lingua)
-        home = home.replace('<html lang="it">', f'<html lang="{lingua}">')
+        # Die Sprache steht als Attribut, nicht als Inline-Skript — die
+        # Content-Security-Policy lässt nur Skriptdateien aus eigener Quelle zu.
+        home = home.replace('<html lang="it" data-lingua="it">',
+                            f'<html lang="{lingua}" data-lingua="{lingua}">')
         alt = "\n".join(f'<link rel="alternate" hreflang="{l}" href="{SITO}{radice(l)}">' for l in LINGUE)
         home = home.replace(f'<link rel="canonical" href="{SITO}/">',
                             f'<link rel="canonical" href="{SITO}{radice(lingua)}">\n{alt}')

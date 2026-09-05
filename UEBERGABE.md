@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 45: Typografie und Renderaufwand)
+# Cavaleri Srl — Übergabe (Stand 46: Sprachfehler auf Netlify behoben)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -287,6 +287,21 @@ nicht verdeckt.
 ## Auffindbarkeit
 Je Seite eigener Titel, eigene Beschreibung, `canonical`, OG- und Twitter-Angaben
 mit Bildmaßen. Strukturierte Daten: `MovingCompany` und `BreadcrumbList` je Seite.
+
+## Behoben: Auf Netlify erschienen alle Seiten auf Englisch
+Die Sprache wurde über ein Inline-Skript gesetzt (`window.LINGUA="de"`). Die
+Content-Security-Policy in `netlify.toml` erlaubt aber nur `script-src 'self'` —
+**Inline-Code wird blockiert.** Damit war `window.LINGUA` nie gesetzt, und das
+Skript fiel auf die zuletzt gespeicherte oder die Browsersprache zurück: Ein
+englischer Browser sah unter `/de/` eine englische Seite.
+
+Auf GitHub Pages trat der Fehler nicht auf, weil dort keine CSP gesetzt wird —
+die Regeln stehen in `netlify.toml`. Erst der Umzug hat ihn ausgelöst.
+
+Die Sprache steht jetzt als **Attribut am `html`-Element** (`data-lingua="de"`),
+`i18n.js` liest es in der ersten Zeile. Es gibt damit **kein einziges
+Inline-Skript** mehr auf der ganzen Seite — die strenge CSP kann bleiben, was
+die richtige Reihenfolge ist: nicht die Regel lockern, sondern den Code anpassen.
 
 ## Renderaufwand
 Gemessen mit `fluss.py`: Anteil zäher Frames beim Scrollen der Startseite, CPU
@@ -643,6 +658,21 @@ Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
 Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
 Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
 dahinter nicht überall greift.
+
+## Behoben: Auf Netlify erschienen alle Seiten auf Englisch
+Die Sprache wurde über ein Inline-Skript gesetzt (`window.LINGUA="de"`). Die
+Content-Security-Policy in `netlify.toml` erlaubt aber nur `script-src 'self'` —
+**Inline-Code wird blockiert.** Damit war `window.LINGUA` nie gesetzt, und das
+Skript fiel auf die zuletzt gespeicherte oder die Browsersprache zurück: Ein
+englischer Browser sah unter `/de/` eine englische Seite.
+
+Auf GitHub Pages trat der Fehler nicht auf, weil dort keine CSP gesetzt wird —
+die Regeln stehen in `netlify.toml`. Erst der Umzug hat ihn ausgelöst.
+
+Die Sprache steht jetzt als **Attribut am `html`-Element** (`data-lingua="de"`),
+`i18n.js` liest es in der ersten Zeile. Es gibt damit **kein einziges
+Inline-Skript** mehr auf der ganzen Seite — die strenge CSP kann bleiben, was
+die richtige Reihenfolge ist: nicht die Regel lockern, sondern den Code anpassen.
 
 ## Renderaufwand
 Gemessen mit `fluss.py`: Anteil zäher Frames beim Scrollen der Startseite, CPU

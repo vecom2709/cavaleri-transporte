@@ -1,3 +1,8 @@
+/* Die Sprache steht als Attribut am html-Element, nicht in einem
+   Inline-Skript: die Content-Security-Policy erlaubt nur Skriptdateien
+   aus eigener Quelle, Inline-Code wird blockiert. */
+window.LINGUA = document.documentElement.dataset.lingua || "it";
+
 /* Cavaleri Srl — Textbausteine. Italienisch ist die Leitsprache,
    Deutsch und Englisch sind vollwertige Übersetzungen, keine Kurzfassungen. */
 window.TESTI = {
