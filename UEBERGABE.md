@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 46: Sprachfehler auf Netlify behoben)
+# Cavaleri Srl — Übergabe (Stand 47: Umwelt und offene Stelle)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -38,6 +38,35 @@ Schrift: **Archivo** (Display, 800, Versal) + **Inter** (Text), beide selbst geh
 - Angebotsanfrage läuft aktuell über `mailto:`. Ein mehrstufiges Formular ist als nächster Schritt vorgesehen.
 - Inhalte stammen aus dem bestehenden Auftritt (cavaleri.it), der ASTRE-Reportage und den Kontaktangaben. Zahlen stehen mit „circa" in der Quelle, deshalb im Zahlenband als `80+`, `50+`, `40+`.
 - `--blu` = `#1a3a8f` ist aus der Aufliegerbeschriftung gemessen (zwei Aufnahmen, Kernwerte `#183890` und `#2e44ab`).
+
+## Umwelt (`/azienda/`, Abschnitt „Weniger Straße, weniger Fahrten")
+Drei Punkte, alle aus dem Betrieb belegbar, keiner erfunden:
+
+- **Der Seeweg**: Von Caltanissetta nach Mailand sind es 1.200 km, davon fährt
+  der Auflieger nur einen Teil auf der Straße. Ein Schiff, das ohnehin fährt,
+  nimmt ihn mit.
+- **Sammelgut vermeidet Leerfahrten** — ein halb beladener Sattelzug verbraucht
+  so viel wie ein voller.
+- **Das ASTRE-Netz füllt die Rückfahrt** — der praktische Nutzen der
+  Mitgliedschaft seit 2018.
+- **Eigene Fahrzeuge, eigene Wartung.**
+
+Darunter steht ausdrücklich: *„Wir veröffentlichen keine Emissionszahlen: Wir
+würden sie nur nennen, wenn wir sie gemessen hätten."* Wettbewerber führen an
+dieser Stelle gern Zahlen, die niemand nachrechnen kann. Der Satz ist stärker
+als eine erfundene Tonnenangabe.
+
+## Offene Stelle auf `/lavora/`
+Auf der Facebook-Seite des Unternehmens steht eine echte Stellenanzeige:
+**Fahrer mit Führerschein CE und CQC, nationale Strecken, Planenauflieger und
+Kipper, Erfahrung vorausgesetzt**, Bewerbung telefonisch bei Francesco unter
+348 806 3771. Sie steht jetzt hervorgehoben über den drei Bereichen.
+
+**Zu bestätigen:** Ich kenne das Datum der Anzeige nicht. Ist die Stelle besetzt,
+nehme ich den Block heraus — es sind zwei Zeilen.
+
+Der Satz darunter wurde angepasst: Er lautete „Wir führen hier keine Liste
+offener Stellen" und widersprach damit der Anzeige.
 
 ## Stellenseite `/lavora/`
 Im Kopf schimmert ein Bild durch die blaue Fläche: jemand steigt in die Kabine.

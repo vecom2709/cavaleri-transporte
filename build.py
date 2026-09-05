@@ -597,6 +597,13 @@ def lavora():
       <div class="aree">
 ''' + aree + '''
       </div>
+      <div class="posizione">
+        <p class="occhiello" data-t="lv.aperta"></p>
+        <h3 data-t="lv.at"></h3>
+        <p data-t="lv.ax"></p>
+        <ul data-t="lv.a1" data-tag="lista"></ul>
+        <p class="come-candidarsi" data-t="lv.acome"></p>
+      </div>
       <p class="guida nota-aperte" data-t="lv.aperte"></p>
     </div>
   </section>
@@ -631,6 +638,32 @@ def lavora():
         <p class="nota-obbligo"><span aria-hidden="true">*</span> <span data-t="mod.obbligo"></span></p>
         <p class="nota-modulo" data-t="lv.nota"></p>
       </form>
+    </div>
+  </section>'''
+
+
+def sostenibilita():
+    """Umwelt — ohne Zahlen, die niemand gemessen hat. Genannt wird nur, was
+    aus dem Betrieb folgt: Seeweg statt Straße, Sammelgut, Rückladungen über
+    ASTRE, eigener Fuhrpark."""
+    punti = "\n".join(
+        '''        <article class="verde">
+          <h3 data-t="so.%dt"></h3>
+          <p data-t="so.%dx"></p>
+        </article>''' % (n, n) for n in (1, 2, 3))
+    return '''  <section class="riga-sopra sfondo-carta" id="sostenibilita">
+    <div class="wrap">
+      <div class="intestazione">
+        <div>
+          <p class="occhiello" data-t="so.occhiello"></p>
+          <h2 data-t="so.titolo"></h2>
+        </div>
+        <p class="guida" data-t="so.txt"></p>
+      </div>
+      <div class="verdi">
+''' + punti + '''
+      </div>
+      <p class="guida nota-verde" data-t="so.nota"></p>
     </div>
   </section>'''
 
@@ -759,7 +792,7 @@ NOTE = '''  <section>
 
 
 PAGINE = {
- "azienda":    ("az.title", "az.desc", intro("storia.occhiello", "az.h1", "az.lead", foto="flotta-schierata") + "\n" + fatti() + "\n" + struttura() + "\n" + flotta() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + persone() + "\n" + FIDUCIA + "\n" + INVITO, ""),
+ "azienda":    ("az.title", "az.desc", intro("storia.occhiello", "az.h1", "az.lead", foto="flotta-schierata") + "\n" + fatti() + "\n" + struttura() + "\n" + flotta() + "\n" + fascia("flotta-schierata", "fa.2") + "\n" + storia() + "\n" + sostenibilita() + "\n" + persone() + "\n" + FIDUCIA + "\n" + INVITO, ""),
  "trasporti":  ("tr.title", "tr.lead", intro("servizi.occhiello", "tr.h1", "tr.lead", foto="rimorchio-krone") + "\n" + servizi([1, 2, 3]) + "\n" + dichiarazione("porto-schema", "dc.2", True) + "\n" + mezzi() + "\n" + procedura() + "\n" + fascia("imbarco", "fa.1") + "\n" + ROTTA + "\n" + INVITO, ""),
  "edilizia":   ("ed.title", "ed.desc", intro("servizi.occhiello", "ed.h1", "ed.lead", foto="ribaltabile") + "\n" + servizi([4]) + "\n" + magazzino() + "\n" + fascia("ribaltabile", "fa.3") + "\n" + EDILIZIA_BLOCCHI + "\n" + INVITO, ""),
  "rotta":      ("ro.title", "ro.desc", intro("rotta.occhiello", "ro.h1", "ro.lead", foto="nave-grimaldi") + "\n" + mondo() + "\n" + INVITO, "mondo"),

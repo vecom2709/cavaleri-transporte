@@ -2159,3 +2159,35 @@ html{ font-optical-sizing:auto; font-synthesis:none; }
 .tappa p:not(.anno){ max-width:32em; }
 .intestazione .guida{ max-width:33em; }
 .servizio p, .area p, .passo-lavoro p{ max-width:34em; }
+
+/* --- Umwelt: drei knappe Punkte ---------------------------------------- */
+.verdi{ display:grid; gap:clamp(16px,1.8vw,26px); }
+@media(min-width:820px){ .verdi{ grid-template-columns:repeat(3,1fr); } }
+.verde{
+  background:var(--bianco); border-radius:4px; padding:clamp(24px,2.4vw,var(--s5));
+  box-shadow:var(--kante), var(--e2);
+}
+.verde h3{ margin-bottom:var(--s2); font-size:1.05rem; }
+.verde p{ color:var(--grigio); font-size:.95rem; max-width:34em; }
+.nota-verde{ margin-top:clamp(28px,3vw,var(--s5)); font-size:.9rem; }
+
+/* --- Offene Stelle ------------------------------------------------------ */
+.posizione{
+  margin-bottom:clamp(28px,3vw,var(--s6));
+  background:var(--blu-chiaro); border-radius:4px;
+  padding:clamp(26px,2.8vw,var(--s5));
+  box-shadow:var(--kante), var(--e1);
+  border-left:3px solid var(--blu);
+}
+.posizione h3{ margin:var(--s2) 0; }
+.posizione > p{ color:var(--inchiostro); max-width:56em; }
+.posizione ul{
+  list-style:none; margin:var(--s4) 0 0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.posizione li{
+  font-size:.78rem; letter-spacing:.06em; color:var(--blu);
+  background:var(--bianco); border-radius:999px; padding:6px 14px;
+  box-shadow:var(--kante);
+}
+.come-candidarsi{ margin-top:var(--s4); font-weight:600; color:var(--blu); }
