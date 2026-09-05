@@ -1,4 +1,4 @@
-# Cavaleri Srl — Übergabe (Stand 44: Angebotsformular überarbeitet)
+# Cavaleri Srl — Übergabe (Stand 45: Typografie und Renderaufwand)
 
 ## Design-DNA
 - **Haltung:** souverän, präzise, sizilianisch-warm.
@@ -287,6 +287,44 @@ nicht verdeckt.
 ## Auffindbarkeit
 Je Seite eigener Titel, eigene Beschreibung, `canonical`, OG- und Twitter-Angaben
 mit Bildmaßen. Strukturierte Daten: `MovingCompany` und `BreadcrumbList` je Seite.
+
+## Renderaufwand
+Gemessen mit `fluss.py`: Anteil zäher Frames beim Scrollen der Startseite, CPU
+vierfach gedrosselt, sieben Durchläufe, Median.
+
+**Von 15 % auf 7 %** durch zwei Eingriffe:
+
+1. **Dauerhaftes `will-change` entfernt.** Es stand fest auf drei Regeln
+   (Kopfbild, Kopftext, Filmrahmen). Der Browser hält dafür jeweils eine eigene
+   Ebene im Speicher, auch wenn sich nichts bewegt. `parallasse.js` setzt es
+   ohnehin selbst, solange ein Element im Bild ist, und nimmt es danach weg.
+2. **Weichzeichner in den Aussagen ersetzt.** Zehn Wörter blendeten mit
+   `blur(2px)` ein — die teuerste animierbare Eigenschaft überhaupt. Jetzt
+   Deckung plus ein Versatz von 0,22 em und `scale(.985)`. Für das Auge fast
+   derselbe Eindruck, für die Grafikkarte ein Bruchteil.
+
+**`content-visibility: auto` wurde geprüft und wieder verworfen.** Es gilt als
+Standardrat für lange Seiten, war hier aber messbar schlechter: Median 17 %
+gegen 7 %. Der Browser holt das gesparte Rendern genau dann nach, wenn gescrollt
+wird. Bei einer Seite mit vielen bewegten Abschnitten lohnt es sich nicht.
+
+## Typografie
+- **Zeilenlänge in `em` statt `ch`.** `ch` misst die Null, und die ist in Inter
+  deutlich breiter als der Durchschnittsbuchstabe: 58 `ch` ergaben gemessene
+  70 Zeichen je Zeile. Jetzt 32 em für Fließtext, gemessen 55–57 Zeichen in der
+  längsten Zeile, 65 in den Einleitungen.
+- **`text-wrap: balance` auf allen Überschriften** — vorher lag nur `pretty` auf
+  Absätzen, weshalb Überschriften mit einem einzelnen Wort in der letzten Zeile
+  endeten.
+- **`font-optical-sizing: auto`** — beide Schriften haben eine opsz-Achse. Bei
+  einer Skala von 13 bis 83 px lohnt sich das.
+- **`font-synthesis: none`** — kein vom Browser gerechnetes Kunstfett, wo ein
+  Schnitt fehlt.
+
+## Messskripte gegen die Eingangsanimation abgesichert
+`contrasto.py` und `kopf.py` maßen zeitweise den Vorhang statt der Seite — der
+Kopfbereich kam dadurch auf 16:1 statt der echten 4,97:1. Beide setzen jetzt vor
+dem Laden den Sitzungsmerker, sodass die Animation ausbleibt.
 
 ## Angebotsformular
 Drei Schritte, Auswahl per Kachel, Pflichtfelder werden geprüft. Der Absendeknopf
@@ -605,6 +643,44 @@ Schrift statt eines Kastens — sag Bescheid, das ist eine Zeile.
 Das offene Menü auf Telefonen ist jetzt deckend weiß. Vorher schlug der
 Kopfbereich durch, weil die Fläche nur zu 98 % gedeckt war und der Weichzeichner
 dahinter nicht überall greift.
+
+## Renderaufwand
+Gemessen mit `fluss.py`: Anteil zäher Frames beim Scrollen der Startseite, CPU
+vierfach gedrosselt, sieben Durchläufe, Median.
+
+**Von 15 % auf 7 %** durch zwei Eingriffe:
+
+1. **Dauerhaftes `will-change` entfernt.** Es stand fest auf drei Regeln
+   (Kopfbild, Kopftext, Filmrahmen). Der Browser hält dafür jeweils eine eigene
+   Ebene im Speicher, auch wenn sich nichts bewegt. `parallasse.js` setzt es
+   ohnehin selbst, solange ein Element im Bild ist, und nimmt es danach weg.
+2. **Weichzeichner in den Aussagen ersetzt.** Zehn Wörter blendeten mit
+   `blur(2px)` ein — die teuerste animierbare Eigenschaft überhaupt. Jetzt
+   Deckung plus ein Versatz von 0,22 em und `scale(.985)`. Für das Auge fast
+   derselbe Eindruck, für die Grafikkarte ein Bruchteil.
+
+**`content-visibility: auto` wurde geprüft und wieder verworfen.** Es gilt als
+Standardrat für lange Seiten, war hier aber messbar schlechter: Median 17 %
+gegen 7 %. Der Browser holt das gesparte Rendern genau dann nach, wenn gescrollt
+wird. Bei einer Seite mit vielen bewegten Abschnitten lohnt es sich nicht.
+
+## Typografie
+- **Zeilenlänge in `em` statt `ch`.** `ch` misst die Null, und die ist in Inter
+  deutlich breiter als der Durchschnittsbuchstabe: 58 `ch` ergaben gemessene
+  70 Zeichen je Zeile. Jetzt 32 em für Fließtext, gemessen 55–57 Zeichen in der
+  längsten Zeile, 65 in den Einleitungen.
+- **`text-wrap: balance` auf allen Überschriften** — vorher lag nur `pretty` auf
+  Absätzen, weshalb Überschriften mit einem einzelnen Wort in der letzten Zeile
+  endeten.
+- **`font-optical-sizing: auto`** — beide Schriften haben eine opsz-Achse. Bei
+  einer Skala von 13 bis 83 px lohnt sich das.
+- **`font-synthesis: none`** — kein vom Browser gerechnetes Kunstfett, wo ein
+  Schnitt fehlt.
+
+## Messskripte gegen die Eingangsanimation abgesichert
+`contrasto.py` und `kopf.py` maßen zeitweise den Vorhang statt der Seite — der
+Kopfbereich kam dadurch auf 16:1 statt der echten 4,97:1. Beide setzen jetzt vor
+dem Laden den Sitzungsmerker, sodass die Animation ausbleibt.
 
 ## Angebotsformular
 Die Auswahlkacheln sind jetzt gleich hoch, füllen die Zeile aus und zeigen die

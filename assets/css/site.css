@@ -554,16 +554,16 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 }
 .fascia .frase span{ color:#8fb6ff; }
 
-/* Hero: Bild wandert langsamer als der Text darüber */
-.hero-foto{ will-change:transform; }
-.hero-testo{ will-change:transform, opacity; }
+/* Hero: Bild wandert langsamer als der Text darüber.
+   Kein dauerhaftes will-change — parallasse.js setzt es, solange das Element
+   im Bild ist, und nimmt es danach wieder weg. Dauerhaft gesetzt hält der
+   Browser für jedes Element eine eigene Ebene im Speicher, auch im Stillstand. */
 
 /* Bildkacheln: das Bild ist etwas größer als die Kachel und verschiebt sich */
 .griglia-foto figure{ overflow:clip; }
 .griglia-foto picture{ position:relative; top:-6%; height:112%; }
 
 /* Der Film bekommt einen Lichthof */
-.telaio{ will-change:transform; }
 #filmato::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:radial-gradient(60% 60% at 78% 50%, rgba(59,123,224,.22), transparent 70%);
@@ -937,12 +937,15 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
   font-family:var(--display); font-weight:800; text-transform:uppercase;
   font-size:clamp(1.7rem,5vw,4rem); line-height:1.06; letter-spacing:-.022em;
 }
+/* Kein blur(): Weichzeichner ist die teuerste Eigenschaft, die man animieren
+   kann, und lief hier auf zehn Wörtern gleichzeitig. Deckung plus ein kleiner
+   Versatz sieht fast gleich aus und läuft im Compositor. */
 .parola{
-  display:inline-block; opacity:.14; filter:blur(2px);
-  transform:translateY(.18em);
-  transition:opacity .5s var(--ease), filter .5s var(--ease), transform .5s var(--ease);
+  display:inline-block; opacity:.12;
+  transform:translateY(.22em) scale(.985);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
 }
-.parola.vista{ opacity:1; filter:none; transform:none; }
+.parola.vista{ opacity:1; transform:none; }
 
 /* ---------- Fuhrparkraster ---------------------------------------------- */
 .conta-flotta{
@@ -967,7 +970,7 @@ section{ position:relative; padding-block:clamp(72px,10vw,var(--s9)); }
 .nota-flotta{ margin-top:var(--s5); }
 
 @media(prefers-reduced-motion:reduce){
-  .parola{ opacity:1; filter:none; transform:none; }
+  .parola{ opacity:1; transform:none; }
 }
 
 /* Die Jahreszahl bleibt stehen, solange ihre Etappe läuft. */
@@ -1140,9 +1143,9 @@ h1, h2, .frase, .frase-lunga, .bottone, .occhiello{ font-kerning:normal; }
 .js .scena:first-child{ opacity:0; }
 .js .scena.viva{ opacity:1; }
 
-.parola{ opacity:1; filter:none; transform:none; }
-.js .parola{ opacity:.14; filter:blur(2px); transform:translateY(.18em); }
-.js .parola.vista{ opacity:1; filter:none; transform:none; }
+.parola{ opacity:1; transform:none; }
+.js .parola{ opacity:.12; transform:translateY(.22em) scale(.985); }
+.js .parola.vista{ opacity:1; transform:none; }
 /* Im Menü hat auch die Angebots-Schaltfläche volle Höhe. */
 @media(max-width:1180px){
   
@@ -2132,3 +2135,27 @@ h1, h2, h3, .frase, .frase-lunga, .cifra, .anno, .bottone{ hyphens:none; }
 .campo > label, .campo > .etichetta{ margin-bottom:10px; }
 .coppia{ gap:clamp(16px,2vw,var(--s4)); }
 .azioni-modulo{ margin-top:var(--s7); }
+
+/* =========================================================================
+   Renderarbeit sparen und Satz feiner stellen
+   ========================================================================= */
+
+/* Kein content-visibility: gemessen wurde es damit schlechter, nicht besser
+   (Median 17 % zähe Frames gegen 7 % ohne). Der Browser holt das gesparte
+   Rendern genau dann nach, wenn gescrollt wird — also im ungünstigsten Moment.
+   Bei einer Seite mit vielen bewegten Abschnitten lohnt es sich nicht. */
+
+/* Überschriften brechen ausgewogen statt mit einem Wort in der letzten Zeile. */
+h1, h2, h3, .frase, .frase-lunga{ text-wrap:balance; }
+
+/* Optische Größe nutzen: Inter und Archivo haben eine opsz-Achse. Große Grade
+   laufen dadurch offener, kleine robuster. Kein Kunstfett, keine Kunstkursive. */
+html{ font-optical-sizing:auto; font-synthesis:none; }
+
+/* Zeilenlänge in em statt ch: ch misst die Null, die in Inter deutlich breiter
+   ist als der Durchschnittsbuchstabe — 58ch ergaben gemessene 70 Zeichen je
+   Zeile statt der angepeilten 58. Ein Zeichen misst im Mittel 0,5 em, also
+   ergibt 32 em rund 64 Zeichen. */
+.tappa p:not(.anno){ max-width:32em; }
+.intestazione .guida{ max-width:33em; }
+.servizio p, .area p, .passo-lavoro p{ max-width:34em; }

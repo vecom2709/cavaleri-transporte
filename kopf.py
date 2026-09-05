@@ -16,6 +16,8 @@ def hexl(h):
 async def prova(pg, sel, col, nome):
     box=await pg.evaluate("""(s)=>{const e=document.querySelector(s); if(!e)return null;
         const r=e.getBoundingClientRect(); return {x:Math.round(r.left),y:Math.round(r.top),w:Math.round(r.width),h:Math.round(r.height)};}""", sel)
+    if not box:
+        print(f"   {nome:14} nicht gefunden"); return
     await pg.evaluate("(s)=>document.querySelectorAll(s).forEach(e=>e.style.visibility='hidden')", sel)
     await pg.wait_for_timeout(300)
     im=Image.open(io.BytesIO(await pg.screenshot())).convert('RGB')
@@ -31,7 +33,9 @@ async def m():
         br=await p.chromium.launch()
         for nome,w,h,mob,cv in [("Desktop",1440,900,False,"#ffffff"),("Telefon",380,780,True,"#ffffff")]:
             c=await br.new_context(viewport={"width":w,"height":h}, is_mobile=mob)
-            pg=await c.new_page(); await pg.goto("http://127.0.0.1:8099/de/lavora/", wait_until="networkidle")
+            pg=await c.new_page()
+            await pg.add_init_script("try{sessionStorage.setItem('cavaleri.entrata','1')}catch(e){}")
+            await pg.goto("http://127.0.0.1:8099/de/lavora/", wait_until="networkidle")
             await pg.wait_for_timeout(2500)
             print(f"— {nome}")
             await prova(pg, ".intro h1", "#ffffff", "Überschrift")

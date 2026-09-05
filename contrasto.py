@@ -52,6 +52,8 @@ async def main():
     async with async_playwright() as p:
         br=await p.chromium.launch(); c=await br.new_context(viewport={"width":1440,"height":900}, device_scale_factor=1)
         pg=await c.new_page()
+        # Die Eingangsanimation muss weg, sonst misst man den Vorhang statt der Seite.
+        await pg.add_init_script("try{sessionStorage.setItem('cavaleri.entrata','1')}catch(e){}")
         await pg.goto(BASE+"/", wait_until="networkidle"); await pg.wait_for_timeout(1200)
         await misura(pg, [".hero h1", ".hero .guida", ".hero .occhiello"], "Kopfbereich")
         await pg.evaluate("document.querySelectorAll('.fascia')[0].scrollIntoView({block:'center'})")
